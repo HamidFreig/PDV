@@ -1,29 +1,30 @@
 import "./LoginView.css";
-import {getFirestore,getDocs,collection} from 'firebase/firestore';
-import {useState, useEffect} from "react";
-
-
+import { getFirestore, getDocs, collection } from "firebase/firestore";
+import { useState, useEffect, useImperativeHandle } from "react";
 
 export const LoginView = () => {
-
     const [usersList, setUserList] = useState([]);
 
-    const getUsuarios = () =>{
+    const getUsuarios = () => {
         const db = getFirestore();
         const querySnapshot = collection(db, "Usuarios");
         getDocs(querySnapshot)
-        .then((response)=>{
-            const listUsers = response.docs.map((doc)=>{return doc.data()})
-            console.log(listUsers)
-        })
-        .catch((error)=>console.log(error))
-        
+            .then((response) => {
+                const listUsers = response.docs.map((doc) => {
+                    return { id: doc.id, ...doc.data() };
+                });
+                setUserList(listUsers);
+            })
+            .catch((error) => console.log(error));
     };
 
-    useEffect(() =>{
-        console.log("sdfg");
-        getUsuarios();
-    })
+    useEffect(() => {
+        setTimeout(() => {
+            getUsuarios();
+            console.log("SDAf");
+            console.log(usersList);
+        }, "2000");
+    }, []);
 
     return (
         <div
