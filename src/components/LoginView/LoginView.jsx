@@ -1,18 +1,19 @@
 import "./LoginView.css";
+import { AdminView } from "../AdminView/AdminView";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
 import { useState, useEffect } from "react";
 
 export const LoginView = () => {
   const [usersList, setUserList] = useState([]);
-  const [datos, setDatos] = useState({
+  const [datosInput, setDatosInput] = useState({
     rut: "",
     passw: "",
   });
 
   const HandleInputChange = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
-    setDatos({
-      ...datos,
+    setDatosInput({
+      ...datosInput,
       [event.target.name]: event.target.value,
     });
   };
@@ -40,8 +41,19 @@ export const LoginView = () => {
   const authUser = (event) => {
     //AUTNETIFICACIÓN DE LOS USUARIOS
     event.preventDefault();
-    console.log(datos.passw);
-    console.log(datos.rut);
+
+    const map = usersList.map((userBd) => {
+      if (userBd.Rut == datosInput.rut) {
+        redirect(userBd.TipoUsuario);
+      }
+    });
+  };
+
+  const redirect = (TipoUser) => {
+    if (TipoUser == "Admin") {
+      console.log("sdaf"); //aca quede
+      <AdminView />;
+    }
   };
 
   return (
