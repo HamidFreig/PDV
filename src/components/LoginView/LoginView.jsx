@@ -6,7 +6,6 @@ import { redirect, useNavigate } from "react-router-dom";
 export const LoginView = () => {
   const navigate = useNavigate();
   const [usersList, setUserList] = useState([]);
-  const [access, setAccess] = useState(false);
   const [datosInput, setDatosInput] = useState({
     rut: "",
     passw: "",
@@ -43,17 +42,23 @@ export const LoginView = () => {
   const authUser = (event) => {
     //AUTENTIFICACIÓN DE LOS USUARIOS
     event.preventDefault();
-    const mapLogin = usersList.map((datos) => {
-      if (datos.Rut == datosInput.rut) {
-        if (datos.Contraseña == datosInput.passw) {
-          redirectPage(datos.TipoUsuario);
-        }
-      } //ACA QUEDE
+    const findUser = usersList.find((datos) => {
+      // VEO SI EL USUARIO SE ENCUENTRA REGISTRADO EN LA BD
+      if (datos.Rut == datosInput.rut && datos.Contraseña == datosInput.passw) {
+        return true;
+      }
     });
+
+    if (findUser == null) {
+      alert("DATOS NO REGISTRADOS EN LA BASE DE DATOS");
+      window.location.reload();
+    } else {
+      redirectPage(findUser);
+    }
   };
 
-  const redirectPage = (TipoUser) => {
-    if (TipoUser == "Admin") {
+  const redirectPage = (userLogin) => {
+    if (userLogin.TipoUsuario == "Admin") {
       navigate("/admin");
     }
   };
@@ -69,7 +74,13 @@ export const LoginView = () => {
           <h1>Iniciar sesión</h1>
           <div className="form-group">
             <label name="rut">Rut</label>
-            <input id="rut" name="rut" onChange={HandleInputChange} required />
+            <input
+              id="rut"
+              name="rut"
+              pattern="[0-9]*"
+              onChange={HandleInputChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label name="password">Password</label>
@@ -81,7 +92,9 @@ export const LoginView = () => {
               required
             />
           </div>
-          <button onClick={authUser}>Ingresar</button>
+          <button type="submit" onClick={authUser}>
+            Ingresar
+          </button>
         </form>
       </div>
     </div>
