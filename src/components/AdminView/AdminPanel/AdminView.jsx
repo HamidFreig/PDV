@@ -1,5 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
-
+import "./AdminView.css";
 export const AdminView = () => {
   const navigate = useNavigate();
 
