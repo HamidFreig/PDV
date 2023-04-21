@@ -22,7 +22,10 @@ export const AdminView = () => {
           <Link to={"/createUser"}>
             <button className="Button">CREAR USUARIO</button>
           </Link>
-          <button className="Button">ELIMINAR USUARIO</button>
+          <Link to={"/deleteUser"}>
+            <button className="Button">ELIMINAR USUARIO</button>
+          </Link>
+
           <button className="Button">MODIFICAR STOCK</button>
           <button className="Button">VENTAS</button>
         </div>
