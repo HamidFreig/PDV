@@ -1,7 +1,7 @@
 import "./LoginView.css";
 import { getFirestore, getDocs, collection } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const LoginView = () => {
   const navigate = useNavigate();
@@ -42,23 +42,32 @@ export const LoginView = () => {
   const authUser = (event) => {
     //AUTENTIFICACIÓN DE LOS USUARIOS
     event.preventDefault();
-    const findUser = usersList.find((datos) => {
-      // VEO SI EL USUARIO SE ENCUENTRA REGISTRADO EN LA BD
-      if (datos.Rut == datosInput.rut && datos.Contraseña == datosInput.passw) {
-        return true;
-      }
-    });
 
-    if (findUser == null) {
-      alert("DATOS NO REGISTRADOS EN LA BASE DE DATOS");
-      window.location.reload();
+    if (datosInput.rut === "" || datosInput.passw === "") {
+      //SI LOS CAMPOS DEL LOGIN NO ESTAN COMPLETOS NO ACCEDE A LA AUNTETIFICACIÓN
+      alert("COMPLETE TODOS LOS CAMPOS");
     } else {
-      redirectPage(findUser);
+      const findUser = usersList.find((datos) => {
+        // VEO SI EL USUARIO SE ENCUENTRA REGISTRADO EN LA BD
+        if (
+          datos.Rut == datosInput.rut &&
+          datos.Contraseña == datosInput.passw
+        ) {
+          return true;
+        }
+      });
+
+      if (findUser == null) {
+        alert("DATOS NO REGISTRADOS EN LA BASE DE DATOS");
+        window.location.reload();
+      } else {
+        redirectPage(findUser);
+      }
     }
   };
 
   const redirectPage = (userLogin) => {
-    if (userLogin.TipoUsuario == "Admin") {
+    if (userLogin.TipoUsuario === "Admin") {
       navigate("/admin");
     }
   };
@@ -66,30 +75,30 @@ export const LoginView = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("https://images7.alphacoders.com/374/374296.jpg")`,
+        backgroundImage: `url("https://media.istockphoto.com/id/1204639651/es/vector/patr%C3%B3n-y-fondo-sin-costuras-de-marketplace-en-l%C3%ADnea-con-iconos-de-l%C3%ADnea.jpg?s=170667a&w=0&k=20&c=yH5lylWWBVEkmUvuuMJRsIHN1-FKF0_puwi-Sfp1FBw=")`,
       }}
     >
       <div className="login-container">
         <form>
-          <h1>Iniciar sesión</h1>
+          <h1>INICIAR SESIÓN</h1>
           <div className="form-group">
-            <label name="rut">Rut</label>
+            <label className="Tittle">RUT</label>
             <input
               id="rut"
               name="rut"
-              pattern="[0-9]*"
+              type="number"
+              placeholder="EJEMPLO: 123456789"
               onChange={HandleInputChange}
-              required
             />
           </div>
           <div className="form-group">
-            <label name="password">Password</label>
+            <label className="Tittle">CONTRASEÑA</label>
             <input
               type="password"
               id="passw"
               name="passw"
+              placeholder="CONTRASEÑA"
               onChange={HandleInputChange}
-              required
             />
           </div>
           <button type="submit" onClick={authUser}>
