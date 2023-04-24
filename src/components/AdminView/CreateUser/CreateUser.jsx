@@ -37,7 +37,7 @@ export const CreateUser = () => {
         Contraseña: datosInput.passw,
         TipoUsuario: "Vendedor",
       });
-      alert("USUARIO CREADO CON EXITO");
+      alert("VENDEDOR CREADO CON EXITO");
       navigate("/admin");
     }
   };
@@ -74,7 +74,7 @@ export const CreateUser = () => {
             />
           </div>
           <button className="Button-Submit" type="submit" onClick={SendUser}>
-            Crear Usuario
+            Crear Vendedor
           </button>
         </form>
       </div>

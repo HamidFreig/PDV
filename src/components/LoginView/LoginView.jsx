@@ -1,11 +1,12 @@
 import "./LoginView.css";
-import { getFirestore, getDocs, collection } from "firebase/firestore";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { BDContext } from "../../context/BDContext";
 
 export const LoginView = () => {
   const navigate = useNavigate();
-  const [usersList, setUserList] = useState([]);
+  const { usersList } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
+
   const [datosInput, setDatosInput] = useState({
     rut: "",
     passw: "",
@@ -18,26 +19,6 @@ export const LoginView = () => {
       [event.target.name]: event.target.value,
     });
   };
-
-  const getUsuarios = () => {
-    //ACCEDER A LOS USER DE LA DB DE FIRESTORE
-    const db = getFirestore();
-    const querySnapshot = collection(db, "Usuarios");
-    getDocs(querySnapshot)
-      .then((response) => {
-        const listUsers = response.docs.map((doc) => {
-          return { id: doc.id, ...doc.data() };
-        });
-        setUserList(listUsers);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-      getUsuarios(); //HAGO UN TIMER PARA ALMACENAR LOS DATOS EN EL ARRAY LOCAL
-    }, "2000");
-  }, []);
 
   const authUser = (event) => {
     //AUTENTIFICACIÓN DE LOS USUARIOS
@@ -97,7 +78,6 @@ export const LoginView = () => {
               type="password"
               id="passw"
               name="passw"
-              placeholder="CONTRASEÑA"
               onChange={HandleInputChange}
             />
           </div>

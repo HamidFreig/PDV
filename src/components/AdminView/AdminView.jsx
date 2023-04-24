@@ -20,14 +20,14 @@ export const AdminView = () => {
       <div className="Container">
         <div className="Grid-Buttons">
           <Link to={"/createUser"}>
-            <button className="Button">CREAR USUARIO</button>
+            <button className="Button">CREAR VENDEDOR</button>
           </Link>
           <Link to={"/deleteUser"}>
-            <button className="Button">ELIMINAR USUARIO</button>
+            <button className="Button">ELIMINAR VENDEDOR</button>
           </Link>
 
-          <button className="Button">MODIFICAR STOCK</button>
-          <button className="Button">VENTAS</button>
+          <button className="Button">STOCK</button>
+          <button className="Button">LIBRO DE VENTAS</button>
         </div>
       </div>
     </div>
