@@ -13,6 +13,8 @@ export const CreateUser = () => {
         passw: "",
     });
 
+    getUsuarios();
+
     const HandleInputChange = (event) => {
         //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
         setDatosInput({
@@ -27,30 +29,31 @@ export const CreateUser = () => {
         if (datosInput.rut === "" || datosInput.passw === "") {
             //SI LOS CAMPOS DEL CREAR USUARIO NO ESTAN COMPLETOS NO GUARDA EL USUARIO EN LA BD
             Swal.fire({
-              icon: "error",
-              title: "COMPLETE TODOS LOS CAMPOS",
-              timer: 2000,
-          });
+                icon: "error",
+                title: "COMPLETE TODOS LOS CAMPOS",
+                timer: 2000,
+            });
         } else if (datosInput.rut.length < 8 || datosInput.rut.length > 9) {
             //VALIDACION QUE EL RUT TENGA 8 O 9 CARÁCTERES
             Swal.fire({
-              icon: "error",
-              title: "RUT INVÁLIDO",
-              timer: 2000,
-          });
-        } else if(usersList.some((dato)=>{
-          //VALIDACION SI EXISTE EL RUT YA REGISTRADO EN LA BD
-          if(dato.Rut == datosInput.rut){
-            return true;
-          }
-        })){
-          Swal.fire({
-            icon: "error",
-            title: "RUT EXISTENTE",
-            timer: 2000,
-        });
-        } 
-        else {
+                icon: "error",
+                title: "RUT INVÁLIDO",
+                timer: 2000,
+            });
+        } else if (
+            usersList.some((dato) => {
+                //VALIDACION SI EXISTE EL RUT YA REGISTRADO EN LA BD
+                if (dato.Rut == datosInput.rut) {
+                    return true;
+                }
+            })
+        ) {
+            Swal.fire({
+                icon: "error",
+                title: "RUT EXISTENTE",
+                timer: 2000,
+            });
+        } else {
             //INSTANCIO LA DB E INGRESO LOS DATOS DE LOS INPUTS TRAS LA EXITOSA VALIDACIÓN
 
             const db = getFirestore();

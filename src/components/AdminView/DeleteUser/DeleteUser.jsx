@@ -14,9 +14,10 @@ import { Button } from "@mui/material";
 
 export const DeleteUser = () => {
     const navigate = useNavigate();
-    const { usersList, deleteUser } = useContext(BDContext);
+    const { usersList, deleteUser, getUsuarios } = useContext(BDContext);
     const [datosInput, setDatosInput] = useState(0);
 
+    getUsuarios();
     const HandleInputChange = (event) => {
         //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
         setDatosInput({
@@ -58,7 +59,13 @@ export const DeleteUser = () => {
                             {row.Contraseña}
                         </StyledTableCell>
                         <StyledTableCell align="right">
-                            <Button variant="outlined" color="error" onClick={() => deleteUser(row.id)}>ELIMINAR</Button>
+                            <Button
+                                variant="outlined"
+                                color="error"
+                                onClick={() => deleteUser(row.id)}
+                            >
+                                ELIMINAR
+                            </Button>
                         </StyledTableCell>
                     </StyledTableRow>
                 );
@@ -79,9 +86,9 @@ export const DeleteUser = () => {
             </Link>
             <label style={{ marginBottom: "70px" }}> ELIMINAR VENDEDOR</label>
 
-            <div className="table" style={{width:'50%',margin:'0 auto'}}>
+            <div className="table" style={{ width: "50%", margin: "0 auto" }}>
                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 700}} aria-label="customized table">
+                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell>RUT VENDEDOR</StyledTableCell>
@@ -97,7 +104,6 @@ export const DeleteUser = () => {
                     </Table>
                 </TableContainer>
             </div>
-            
         </div>
     );
 };
