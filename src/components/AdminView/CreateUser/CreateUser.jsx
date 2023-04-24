@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useContext} from "react";
 import "./CreateUser.css";
 import { Link, useNavigate } from "react-router-dom";
+import { BDContext } from "../../../context/BDContext";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 export const CreateUser = () => {
   const navigate = useNavigate();
+  const { getUsuarios } = useContext(BDContext);
   const [datosInput, setDatosInput] = useState({
     rut: "",
     passw: "",
@@ -38,6 +40,7 @@ export const CreateUser = () => {
         TipoUsuario: "Vendedor",
       });
       alert("VENDEDOR CREADO CON EXITO");
+      getUsuarios()  //HAGO UN REFRESH A LA BD
       navigate("/admin");
     }
   };
