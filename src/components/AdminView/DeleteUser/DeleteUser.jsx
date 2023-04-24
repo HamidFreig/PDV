@@ -10,6 +10,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "./DeleteUser.css";
+import { Button } from "@mui/material";
 
 export const DeleteUser = () => {
     const navigate = useNavigate();
@@ -56,19 +57,14 @@ export const DeleteUser = () => {
                         <StyledTableCell align="right">
                             {row.Contraseña}
                         </StyledTableCell>
+                        <StyledTableCell align="right">
+                            <Button variant="outlined" color="error" onClick={() => deleteUser(row.id)}>ELIMINAR</Button>
+                        </StyledTableCell>
                     </StyledTableRow>
                 );
             }
         });
         return show;
-    };
-
-    const authDeleteUser = (rut) => {
-        const doc = usersList.map((dato) => {
-            if (dato.Rut == rut.RutDelete && dato.TipoUsuario == "Vendedor") {
-                deleteUser(dato.id);
-            }
-        });
     };
 
     return (
@@ -83,14 +79,17 @@ export const DeleteUser = () => {
             </Link>
             <label style={{ marginBottom: "70px" }}> ELIMINAR VENDEDOR</label>
 
-            <div className="table">
+            <div className="table" style={{width:'50%',margin:'0 auto'}}>
                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                    <Table sx={{ minWidth: 700}} aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell>RUT VENDEDOR</StyledTableCell>
                                 <StyledTableCell align="right">
                                     CONTRASEÑA
+                                </StyledTableCell>
+                                <StyledTableCell align="right">
+                                    OPCIONES
                                 </StyledTableCell>
                             </TableRow>
                         </TableHead>
@@ -98,39 +97,7 @@ export const DeleteUser = () => {
                     </Table>
                 </TableContainer>
             </div>
-            <label style={{ fontSize: "30px", marginTop: "40px" }}>
-                RUT DEL USUARIO A ELIMINAR
-            </label>
-            <input
-                style={{
-                    width: "200px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "20px auto",
-                }}
-                name="RutDelete"
-                id="RutDelete"
-                type="number"
-                placeholder="EJEMPLO: 123456789"
-                onChange={HandleInputChange}
-            ></input>
-            <button
-                style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    backgroundColor: "red",
-                    color: "white",
-                    borderRadius: "20px",
-                    height: "30px",
-                    width: "100px",
-                    margin: "0 auto",
-                }}
-                onClick={() => authDeleteUser(datosInput)} //LE ENVIÓ EL RUT DEL VENDEDOR AL AUTH
-            >
-                ELIMINAR
-            </button>
+            
         </div>
     );
 };

@@ -1,14 +1,18 @@
 import { BDContext } from "./BDContext";
-import { getFirestore, getDocs, collection } from "firebase/firestore";
+import { getFirestore, getDocs, collection,deleteDoc,doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const AllContext = ({ children }) => {
     const [usersList, setUserList] = useState([]);
+    const navigate= useNavigate()
+    const db = getFirestore();
+    const querySnapshot = collection(db, "Usuarios");
+    
 
     const getUsuarios = () => {
         //ACCEDER A LOS USER DE LA DB DE FIRESTORE
-        const db = getFirestore();
-        const querySnapshot = collection(db, "Usuarios");
         getDocs(querySnapshot)
             .then((response) => {
                 const listUsers = response.docs.map((doc) => {
@@ -26,10 +30,17 @@ export const AllContext = ({ children }) => {
     }, []);
 
     const deleteUser = (docDelete) => {
-        console.log(docDelete);
-        console.log("ASDF");
-    };
+        deleteDoc(doc(db, "Usuarios", docDelete));    //ELIMINO EL USUARIO CON EL DOCUMENTO COMPLETO
+        Swal.fire({
+            icon: "success",
+            title: "VENDEDOR ELIMINADO CON EXITO",
+            timer: 2000,
+        });
+        getUsuarios();                                //REFRESCO LA BD 
+        navigate("/admin")
 
+    };
+    
     return (
         <BDContext.Provider value={{ usersList, getUsuarios, deleteUser }}>
             {children}
