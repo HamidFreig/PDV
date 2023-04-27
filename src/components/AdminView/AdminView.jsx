@@ -14,13 +14,15 @@ export const AdminView = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("https://www.suretiimf.com/wp-content/uploads/2020/06/pattern-background-png-4.png")`,
+        backgroundImage: `url("https://img.freepik.com/vector-premium/patron-isometrico-costuras-cubos-linea-delgada_659980-2.jpg")`,
       }}
     >
       <button className="Button-Out" onClick={ButtonOut}>
         SALIR
       </button>
-      <label>PANEL DEL ADMINISTRADOR</label>
+      <label style={{ backgroundColor: "white" }}>
+        PANEL DEL ADMINISTRADOR
+      </label>
       <div className="Container">
         <div className="Grid-Buttons">
           <Link to={"/createUser"}>

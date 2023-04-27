@@ -37,14 +37,16 @@ export const Stock = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("https://www.suretiimf.com/wp-content/uploads/2020/06/pattern-background-png-4.png")`,
+        backgroundImage: `url("https://img.freepik.com/vector-premium/patron-isometrico-costuras-cubos-linea-delgada_659980-2.jpg")`,
         height: "100vh",
       }}
     >
       <Link to={"/admin"}>
         <button className="Button-Back">ATRAS</button>
       </Link>
-      <label style={{ marginBottom: "70px" }}>STOCK DISPONIBLE</label>
+      <label style={{ marginBottom: "70px", backgroundColor: "white" }}>
+        STOCK DISPONIBLE
+      </label>
       <div className="table" style={{ width: "50%", margin: "0 auto" }}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
