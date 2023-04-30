@@ -6,7 +6,7 @@ import { CreateUser } from "./components/AdminView/CreateUser/CreateUser";
 import { DeleteUser } from "./components/AdminView/DeleteUser/DeleteUser";
 import { Stock } from "./components/AdminView/Stock/Stock";
 import { ModifyStock } from "./components/AdminView/Stock/ModifyStock/ModifyStock";
-import { ReceptionStock } from "./components/ReceptionStock/ReceptionStock";
+import { ReceptionStock } from "./components/AdminView/RecptionStock/ReceptionStock";
 
 function App() {
   return (

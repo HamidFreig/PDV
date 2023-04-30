@@ -1,0 +1,20 @@
+.Button-Out {
+  text-align: center;
+  margin: 15px;
+  width: 150px;
+  height: 40px;
+  border-radius: 30px;
+  font-family: "Ubuntu Condensed", sans-serif;
+  font-size: 25px;
+}
+
+.Button-Out:hover {
+  background-color: red;
+  color: white;
+}
+
+label {
+  text-align: center;
+  font-family: "Ubuntu Condensed", sans-serif;
+  font-size: 40px;
+}
