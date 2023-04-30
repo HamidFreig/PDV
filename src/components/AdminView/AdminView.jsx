@@ -55,6 +55,16 @@ export const AdminView = () => {
               STOCK
             </button>
           </Link>
+          <Link to={"/reception"}>
+            <button
+              className="Button"
+              onClick={() => {
+                getProductos();
+              }}
+            >
+              RECEPCIÓN DE MERCADERIA
+            </button>
+          </Link>
 
           <button className="Button">LIBRO DE VENTAS</button>
         </div>

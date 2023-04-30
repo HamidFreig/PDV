@@ -1,0 +1,14 @@
+.Button-Back {
+  text-align: center;
+  margin: 15px;
+  width: 150px;
+  height: 40px;
+  border-radius: 30px;
+  font-family: "Ubuntu Condensed", sans-serif;
+  font-size: 25px;
+}
+
+.Button-Back:hover {
+  background-color: red;
+  color: white;
+}

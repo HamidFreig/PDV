@@ -60,7 +60,9 @@ export const AllContext = ({ children }) => {
     navigate("/admin");
   };
 
-  const refreshStock = (idProduct) => {};
+  const refreshStock = (idProduct) => {
+    console.log(idProduct);
+  };
 
   return (
     <BDContext.Provider

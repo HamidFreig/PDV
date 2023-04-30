@@ -6,6 +6,7 @@ import { CreateUser } from "./components/AdminView/CreateUser/CreateUser";
 import { DeleteUser } from "./components/AdminView/DeleteUser/DeleteUser";
 import { Stock } from "./components/AdminView/Stock/Stock";
 import { ModifyStock } from "./components/AdminView/Stock/ModifyStock/ModifyStock";
+import { ReceptionStock } from "./components/ReceptionStock/ReceptionStock";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/deleteUser" element={<DeleteUser />}></Route>
           <Route path="/stock" element={<Stock />}></Route>
           <Route path="/modifyStock" element={<ModifyStock />}></Route>
+          <Route path="/reception" element={<ReceptionStock />}></Route>
         </Routes>
       </AllContext>
     </BrowserRouter>
