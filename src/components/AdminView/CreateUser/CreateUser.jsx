@@ -81,7 +81,6 @@ export const CreateUser = () => {
         <button className="Button-Back">ATRAS</button>
       </Link>
       <label style={{ marginBottom: "70px", backgroundColor: "white" }}>
-        {" "}
         CREAR VENDEDOR
       </label>
       <div className="container">
