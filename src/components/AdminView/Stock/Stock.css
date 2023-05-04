@@ -1,15 +1,42 @@
 .Button-Back {
-    text-align: center;
-    margin: 15px;
-    width: 150px;
-    height: 40px;
-    border-radius: 30px;
-    font-family: "Ubuntu Condensed", sans-serif;
-    font-size: 25px;
-  }
-  
-  .Button-Back:hover {
-    background-color: red;
-    color: white;
-  }
-  
+  text-align: center;
+  margin: 15px;
+  width: 150px;
+  height: 40px;
+  border-radius: 30px;
+  font-family: "Ubuntu Condensed", sans-serif;
+  font-size: 25px;
+}
+
+.Button-Back:hover {
+  background-color: red;
+  color: white;
+}
+
+.divModificateManual {
+  margin-top: 30px;
+  display: grid;
+  grid-gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.divSearch {
+  display: grid;
+  grid-gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.inputModificate {
+  background-color: white;
+  width: 310px;
+  text-align: center;
+}
+
+.inputSearch {
+  background-color: white;
+  width: 310px;
+  text-align: center;
+}

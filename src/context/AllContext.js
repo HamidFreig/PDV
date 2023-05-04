@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 export const AllContext = ({ children }) => {
   const [usersList, setUserList] = useState([]);
   const [productsList, setProductsList] = useState([]);
+  const [modificateProduct, setModificateProduct] = useState([]);
   const navigate = useNavigate();
   const db = getFirestore();
   const querySnapshotUsuarios = collection(db, "Usuarios");
@@ -74,6 +75,8 @@ export const AllContext = ({ children }) => {
         setProductsList,
         getProductos,
         refreshStock,
+        modificateProduct,
+        setModificateProduct,
       }}
     >
       {children}

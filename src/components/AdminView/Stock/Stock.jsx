@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { BDContext } from "../../../context/BDContext";
 import { styled } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Stock.css";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,9 +11,24 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
+import TextField from "@mui/material/TextField";
+import Swal from "sweetalert2";
 
 export const Stock = () => {
-  const { productsList, refreshStock } = useContext(BDContext);
+  const { productsList, setModificateProduct } = useContext(BDContext);
+  const [datoInput, setDatoInput] = useState(0);
+  const [searchInput, setSearchInput] = useState("");
+  const navigate = useNavigate();
+
+  const HandleInputChange = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setDatoInput(event.target.value);
+  };
+
+  const HandleInputChangeSearch = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setSearchInput(event.target.value);
+  };
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -34,6 +49,33 @@ export const Stock = () => {
       border: 0,
     },
   }));
+
+  const sendId = (event) => {
+    event.preventDefault();
+
+    const checkId = productsList.some((product) => {
+      //AUTH SI ES QUE EL PRODUCTO EXISTE EN LA BD Y REDIRECCIONOS
+      if (product.Codigo == datoInput) {
+        setModificateProduct(product);
+        navigate("/modifyStock");
+        return true;
+      }
+    });
+
+    if (checkId == false) {
+      Swal.fire({
+        icon: "error",
+        title: "CODIGO NO EXISTE",
+        timer: 2000,
+      });
+    }
+  };
+
+  const filtermap = productsList.filter((product) =>
+    //FILTRO DE BUSQUEDA
+    product.Nombre.toUpperCase().includes(searchInput.toUpperCase())
+  );
+
   return (
     <div
       style={{
@@ -44,10 +86,20 @@ export const Stock = () => {
       <Link to={"/admin"}>
         <button className="Button-Back">ATRAS</button>
       </Link>
-      <label style={{ marginBottom: "70px", backgroundColor: "white" }}>
+      <label style={{ marginBottom: "40px", backgroundColor: "white" }}>
         STOCK DISPONIBLE
       </label>
-      <div className="table" style={{ width: "50%", margin: "0 auto" }}>
+      <div className="divSearch">
+        <TextField
+          className="inputSearch"
+          id="Search"
+          label="BUSCAR PRODUCTO"
+          variant="filled"
+          onChange={HandleInputChangeSearch}
+        />
+      </div>
+
+      <div className="table" style={{ width: "60%", margin: "0 auto" }}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
@@ -62,7 +114,7 @@ export const Stock = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {productsList.map((row) => (
+              {filtermap.map((row) => (
                 <StyledTableRow key={row.id}>
                   <StyledTableCell component="th" scope="row">
                     {row.Codigo}
@@ -83,9 +135,9 @@ export const Stock = () => {
                       <Button
                         variant="outlined"
                         color="error"
-                        onClick={() => refreshStock(row.id)} //aca quede
+                        onClick={() => setModificateProduct(row)}
                       >
-                        MODIFICAR STOCK
+                        MODIFICAR PRODUCTO
                       </Button>
                     </Link>
                   </StyledTableCell>
@@ -94,6 +146,17 @@ export const Stock = () => {
             </TableBody>
           </Table>
         </TableContainer>
+      </div>
+      <div className="divModificateManual">
+        <TextField
+          className="inputModificate"
+          label="INGRESE CODIGO DEL PRODUCTO"
+          variant="outlined"
+          onChange={HandleInputChange}
+        />
+        <Button variant="contained" color="success" onClick={sendId}>
+          MODIFICAR MANUAL
+        </Button>
       </div>
     </div>
   );

@@ -9,6 +9,16 @@
 }
 
 .Button-Back:hover {
-  background-color: red;
+  background-color: black;
   color: white;
+}
+
+.divCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  width: 345px;
 }
