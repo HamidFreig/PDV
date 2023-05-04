@@ -62,9 +62,30 @@ export const AllContext = ({ children }) => {
     navigate("/admin");
   };
 
-  const refreshPrice = (idProduct, newPrice) => {};
-
-  const refreshStock = (idProduct, newStock) => {};
+  const refreshPrice = (idProduct, newPrice) => {
+    updateDoc(doc(db, "Productos", idProduct), {
+      Precio: newPrice,
+    });
+    Swal.fire({
+      icon: "success",
+      title: "PRECIO MODIFICADO CON EXITO",
+      timer: 2000,
+    });
+    getProductos();
+    navigate("/stock");
+  };
+  const refreshStock = (idProduct, newStock) => {
+    updateDoc(doc(db, "Productos", idProduct), {
+      Stock: newStock,
+    });
+    Swal.fire({
+      icon: "success",
+      title: "STOCK MODIFICADO CON EXITO",
+      timer: 2000,
+    });
+    getProductos();
+    navigate("/stock");
+  };
 
   return (
     <BDContext.Provider

@@ -27,7 +27,12 @@ export const ModifyStock = () => {
   };
 
   const functionmodifyPrice = (modificateProductId, modifyPrice) => {
-    if (modifyPrice == 0 || modifyPrice < 0) {
+    //SI LOS DATOS SON INVALIDOS O IGUALES A LOS QUE HAY
+    if (
+      modifyPrice == 0 ||
+      modifyPrice < 0 ||
+      modifyPrice == modificateProduct.Precio
+    ) {
       Swal.fire({
         icon: "error",
         title: "PRECIO NO VÁLIDO",
@@ -39,7 +44,8 @@ export const ModifyStock = () => {
   };
 
   const functionmodifyStock = (modificateProductId, modifyStock) => {
-    if (modifyStock < 0) {
+    //SI LOS DATOS SON INVALIDOS O IGUALES A LOS QUE HAY
+    if (modifyStock < 0 || modifyStock == modificateProduct.Stock) {
       Swal.fire({
         icon: "error",
         title: "STOCK NO VÁLIDO",
