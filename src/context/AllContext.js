@@ -4,6 +4,7 @@ import {
   getDocs,
   collection,
   deleteDoc,
+  updateDoc,
   doc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
@@ -61,9 +62,9 @@ export const AllContext = ({ children }) => {
     navigate("/admin");
   };
 
-  const refreshStock = (idProduct) => {
-    console.log(idProduct);
-  };
+  const refreshPrice = (idProduct, newPrice) => {};
+
+  const refreshStock = (idProduct, newStock) => {};
 
   return (
     <BDContext.Provider
@@ -74,6 +75,7 @@ export const AllContext = ({ children }) => {
         productsList,
         setProductsList,
         getProductos,
+        refreshPrice,
         refreshStock,
         modificateProduct,
         setModificateProduct,

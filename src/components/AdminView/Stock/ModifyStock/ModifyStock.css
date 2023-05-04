@@ -22,3 +22,10 @@
 img {
   width: 345px;
 }
+
+.gridOptions {
+  display: grid;
+  grid-gap: 10px;
+  justify-content: center;
+  align-items: center;
+}

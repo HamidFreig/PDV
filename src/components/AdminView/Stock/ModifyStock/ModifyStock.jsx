@@ -4,14 +4,51 @@ import { BDContext } from "../../../../context/BDContext";
 import "./ModifyStock.css";
 //MATERIAL MUI
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Swal from "sweetalert2";
 
 export const ModifyStock = () => {
-  const { modificateProduct } = useContext(BDContext);
+  const { modificateProduct, refreshPrice, refreshStock } =
+    useContext(BDContext);
+  const [modifyPrice, setModifyPrice] = useState(modificateProduct.Precio);
+  const [modifyStock, setModifyStock] = useState(modificateProduct.Stock);
+
+  const HandleInputChangeStock = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setModifyStock(event.target.value);
+  };
+
+  const HandleInputChangePrice = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setModifyPrice(event.target.value);
+  };
+
+  const functionmodifyPrice = (modificateProductId, modifyPrice) => {
+    if (modifyPrice == 0 || modifyPrice < 0) {
+      Swal.fire({
+        icon: "error",
+        title: "PRECIO NO VÁLIDO",
+        timer: 2000,
+      });
+    } else {
+      refreshPrice(modificateProductId, modifyPrice);
+    }
+  };
+
+  const functionmodifyStock = (modificateProductId, modifyStock) => {
+    if (modifyStock < 0) {
+      Swal.fire({
+        icon: "error",
+        title: "STOCK NO VÁLIDO",
+        timer: 2000,
+      });
+    } else {
+      refreshStock(modificateProductId, modifyStock);
+    }
+  };
 
   return (
     <div
@@ -23,37 +60,75 @@ export const ModifyStock = () => {
       <Link to={"/stock"}>
         <button className="Button-Back">ATRAS</button>
       </Link>
-      <label style={{ marginBottom: "70px", backgroundColor: "white" }}>
+      <label style={{ marginBottom: "40px", backgroundColor: "white" }}>
         MODIFICAR PRODUCTO
       </label>
       <div className="divCard">
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: 345, height: "580px" }}>
           <img src={modificateProduct.img} />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography
+              fontFamily={"Ubuntu Condensed"}
+              color="text.primary"
+              fontSize={25}
+            >
               NOMBRE PRODUCTO: {modificateProduct.Nombre.toUpperCase()}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              fontFamily={"Ubuntu Condensed"}
+              color="text.primary"
+              fontSize={25}
+            >
               SABOR: {modificateProduct.Sabor.toUpperCase()}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              FABRICANTE: {modificateProduct.Fabricante.toUpperCase()}
+
+            <Typography
+              fontFamily={"Ubuntu Condensed"}
+              color="text.primary"
+              fontSize={25}
+            >
+              PRECIO: ${modificateProduct.Precio}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              PRECIO: {modificateProduct.Precio}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              STOCK: {modificateProduct.Stock}
+            <Typography
+              fontFamily={"Ubuntu Condensed"}
+              color="text.primary"
+              fontSize={25}
+            >
+              STOCK ACTUAL: {modificateProduct.Stock}
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button variant="contained" color="success">
+          <div className="gridOptions">
+            <TextField
+              id="ModifyPrice"
+              label="Nuevo Precio"
+              type="number"
+              onChange={HandleInputChangePrice}
+            />
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() =>
+                functionmodifyPrice(modificateProduct.id, modifyPrice)
+              }
+            >
               MODIFICAR PRECIO
             </Button>
-            <Button variant="contained" color="success">
+            <TextField
+              id="ModifyStock"
+              label="Nuevo Stock"
+              type="number"
+              onChange={HandleInputChangeStock}
+            />
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() =>
+                functionmodifyStock(modificateProduct.id, modifyStock)
+              }
+            >
               MODIFICAR STOCK
             </Button>
-          </CardActions>
+          </div>
         </Card>
       </div>
     </div>
