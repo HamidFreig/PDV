@@ -17,4 +17,15 @@ label {
   text-align: center;
   font-family: "Ubuntu Condensed", sans-serif;
   font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.containerReception {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Button-Submit {
+  width: 300px;
 }

@@ -64,27 +64,31 @@ export const AllContext = ({ children }) => {
 
   const refreshPrice = (idProduct, newPrice) => {
     updateDoc(doc(db, "Productos", idProduct), {
-      Precio: newPrice,
+      Precio: parseInt(newPrice),
     });
     Swal.fire({
       icon: "success",
       title: "PRECIO MODIFICADO CON EXITO",
       timer: 2000,
     });
-    getProductos();
+    setTimeout(() => {
+      getProductos();
+    }, "1000");
     navigate("/stock");
   };
 
   const refreshStock = (idProduct, newStock) => {
     updateDoc(doc(db, "Productos", idProduct), {
-      Stock: newStock,
+      Stock: parseInt(newStock),
     });
     Swal.fire({
       icon: "success",
       title: "STOCK MODIFICADO CON EXITO",
       timer: 2000,
     });
-    getProductos();
+    setTimeout(() => {
+      getProductos();
+    }, "1000");
     navigate("/stock");
   };
 
@@ -97,7 +101,9 @@ export const AllContext = ({ children }) => {
       title: "NOMBRE MODIFICADO CON EXITO",
       timer: 2000,
     });
-    getProductos();
+    setTimeout(() => {
+      getProductos();
+    }, "1000");
     navigate("/stock");
   };
 
@@ -110,21 +116,59 @@ export const AllContext = ({ children }) => {
       title: "SABOR MODIFICADO CON EXITO",
       timer: 2000,
     });
-    getProductos();
+
+    setTimeout(() => {
+      getProductos();
+    }, "1000");
+
     navigate("/stock");
   };
 
   const refreshCode = (idProduct, newCode) => {
     updateDoc(doc(db, "Productos", idProduct), {
-      Codigo: newCode,
+      Codigo: parseInt(newCode),
     });
     Swal.fire({
       icon: "success",
       title: "CODIGO MODIFICADO CON EXITO",
       timer: 2000,
     });
-    getProductos();
+    setTimeout(() => {
+      getProductos();
+    }, "1000");
     navigate("/stock");
+  };
+
+  const refreshImg = (idProduct, newImg) => {
+    updateDoc(doc(db, "Productos", idProduct), {
+      img: newImg,
+    });
+    Swal.fire({
+      icon: "success",
+      title: "IMÁGEN MODIFICADA CON EXITO",
+      timer: 2000,
+    });
+    setTimeout(() => {
+      getProductos();
+    }, "1000");
+    navigate("/stock");
+  };
+
+  const AddStock = (idProduct, newStock, currentStock) => {
+    console.log(newStock + " " + currentStock);
+    const newStockModify = parseInt(currentStock) + parseInt(newStock);
+    updateDoc(doc(db, "Productos", idProduct), {
+      Stock: newStockModify,
+    });
+    Swal.fire({
+      icon: "success",
+      title: "STOCK MODIFICADO CON EXITO",
+      timer: 2000,
+    });
+    setTimeout(() => {
+      getProductos();
+    }, "2000");
+    navigate("/admin");
   };
 
   return (
@@ -141,8 +185,10 @@ export const AllContext = ({ children }) => {
         refreshName,
         refreshSabor,
         refreshCode,
+        refreshImg,
         modificateProduct,
         setModificateProduct,
+        AddStock,
       }}
     >
       {children}

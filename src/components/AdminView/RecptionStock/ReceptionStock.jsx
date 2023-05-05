@@ -1,12 +1,17 @@
 import "./ReceptionStock.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { BDContext } from "../../../context/BDContext";
+import Swal from "sweetalert2";
 
 export const ReceptionStock = () => {
+  const { productsList, AddStock } = useContext(BDContext);
   const [datosInput, setDatosInput] = useState({
-    codigoProducto: "",
-    cantidad: "",
+    codigoProducto: 0,
+    cantidad: 0,
   });
+
+  const [currentStock, setCurrentStock] = useState(0);
 
   const HandleInputChange = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
@@ -19,7 +24,36 @@ export const ReceptionStock = () => {
   const sendReception = (event) => {
     event.preventDefault();
 
-    console.log(datosInput);
+    const objeto = productsList.find(
+      (producto) => producto.Codigo == datosInput.codigoProducto
+    );
+    setCurrentStock(objeto.Stock);
+
+    if (datosInput.codigoProducto == "" || datosInput.cantidad == "") {
+      //SI LOS CAMPOS NO ESTAN COMPLETOS TIRA ERROR
+      Swal.fire({
+        icon: "error",
+        title: "COMPLETE TODOS LOS CAMPOS",
+        timer: 2000,
+      });
+    } else if (
+      productsList.some((dato) => {
+        //VALIDACION SI EXISTE EL CODIGO EN LA BD
+        if (dato.Codigo == datosInput.codigoProducto) {
+          setCurrentStock(dato.Stock);
+          console.log(currentStock);
+          AddStock(dato.id, datosInput.cantidad, currentStock);
+          return true;
+        } //ACA QUEDE, NO ME ESTA TOMANDO EL STOCK EXISTENTE
+      })
+    ) {
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "CODIGO INEXISTENTE",
+        timer: 2000,
+      });
+    }
   };
 
   return (
@@ -35,7 +69,7 @@ export const ReceptionStock = () => {
       <label style={{ marginBottom: "70px", backgroundColor: "white" }}>
         RECEPCIÓN DE MERCADERIA
       </label>
-      <div className="container">
+      <div className="containerReception">
         <form>
           <div className="form-row">
             <label type="number">CODIGO PRODUCTO</label>
@@ -60,7 +94,7 @@ export const ReceptionStock = () => {
             type="submit"
             onClick={sendReception}
           >
-            AÑADIR PRODUCTO
+            AÑADIR AL INVENTARIO
           </button>
         </form>
       </div>

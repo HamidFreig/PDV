@@ -59,10 +59,10 @@ export const AddProduct = () => {
       const querySnapshot = collection(db, "Productos");
       addDoc(querySnapshot, {
         Codigo: datosInputs.codigo,
-        Nombre: datosInputs.nombre,
-        Fabricante: datosInputs.fabricante,
+        Nombre: datosInputs.nombre.toLowerCase(),
+        Fabricante: datosInputs.fabricante.toLowerCase(),
         Precio: datosInputs.precio,
-        Sabor: datosInputs.sabor,
+        Sabor: datosInputs.sabor.toLowerCase(),
         Stock: datosInputs.stock,
         img: datosInputs.img,
       });

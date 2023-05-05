@@ -13,17 +13,20 @@ import Swal from "sweetalert2";
 export const ModifyStock = () => {
   const {
     modificateProduct,
+    productsList,
     refreshPrice,
     refreshStock,
     refreshName,
     refreshSabor,
     refreshCode,
+    refreshImg,
   } = useContext(BDContext);
   const [modifyPrice, setModifyPrice] = useState(modificateProduct.Precio);
   const [modifyStock, setModifyStock] = useState(modificateProduct.Stock);
   const [modifyName, setModifyName] = useState(modificateProduct.Nombre);
   const [modifySabor, setModifySabor] = useState(modificateProduct.Sabor);
   const [modifyCode, setModifyCode] = useState(modificateProduct.Codigo);
+  const [modifyImg, setModifyImg] = useState(modificateProduct.img);
 
   const HandleInputChangeStock = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
@@ -48,6 +51,11 @@ export const ModifyStock = () => {
   const HandleInputChangeCode = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
     setModifyCode(event.target.value);
+  };
+
+  const HandleInputChangeImg = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setModifyImg(event.target.value);
   };
 
   const functionmodifyPrice = (modificateProductId, modifyPrice) => {
@@ -89,7 +97,7 @@ export const ModifyStock = () => {
         timer: 2000,
       });
     } else {
-      refreshName(modificateProductId, modifyName);
+      refreshName(modificateProductId, modifyName.toLowerCase());
     }
   };
 
@@ -102,7 +110,7 @@ export const ModifyStock = () => {
         timer: 2000,
       });
     } else {
-      refreshSabor(modificateProductId, modifySabor);
+      refreshSabor(modificateProductId, modifySabor.toLowerCase());
     }
   };
 
@@ -114,8 +122,34 @@ export const ModifyStock = () => {
         title: "CODIGO NO VÁLIDO",
         timer: 2000,
       });
+    } else if (
+      productsList.some((product) => {
+        //VALIDACION SI EXISTE EL RUT YA REGISTRADO EN LA BD
+        if (product.Codigo == modifyCode) {
+          return true;
+        }
+      })
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "CODIGO EXISTENTE",
+        timer: 2000,
+      });
     } else {
       refreshCode(modificateProductId, modifyCode);
+    }
+  };
+
+  const functionmodifyImg = (modificateProductId, modifyImg) => {
+    //SI LOS DATOS SON INVALIDOS O IGUALES A LOS QUE HAY
+    if (modifyImg == null || modifyImg == modificateProduct.Codigo) {
+      Swal.fire({
+        icon: "error",
+        title: "IMÁGEN NO VÁLIDO",
+        timer: 2000,
+      });
+    } else {
+      refreshImg(modificateProductId, modifyImg);
     }
   };
 
@@ -255,7 +289,21 @@ export const ModifyStock = () => {
                 functionmodifyCode(modificateProduct.id, modifyCode)
               }
             >
-              MODIFICAR STOCK
+              MODIFICAR CODIGO
+            </Button>
+            <TextField
+              className="InputOption"
+              id="ModifyImg"
+              label="Nueva Imágen"
+              type="text"
+              onChange={HandleInputChangeImg}
+            />
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => functionmodifyImg(modificateProduct.id, modifyImg)}
+            >
+              MODIFICAR IMÁGEN
             </Button>
           </div>
         </div>

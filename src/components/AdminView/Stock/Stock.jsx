@@ -80,7 +80,7 @@ export const Stock = () => {
     <div
       style={{
         backgroundImage: `url("https://img.freepik.com/vector-premium/patron-isometrico-costuras-cubos-linea-delgada_659980-2.jpg")`,
-        height: "100vh",
+        height: "auto",
       }}
     >
       <Link to={"/admin"}>
