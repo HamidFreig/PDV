@@ -73,7 +73,7 @@ export const AllContext = ({ children }) => {
     });
     setTimeout(() => {
       getProductos();
-    }, "1000");
+    }, 2000);
     navigate("/stock");
   };
 
@@ -88,7 +88,7 @@ export const AllContext = ({ children }) => {
     });
     setTimeout(() => {
       getProductos();
-    }, "1000");
+    }, 2000);
     navigate("/stock");
   };
 
@@ -103,7 +103,7 @@ export const AllContext = ({ children }) => {
     });
     setTimeout(() => {
       getProductos();
-    }, "1000");
+    }, 2000);
     navigate("/stock");
   };
 
@@ -119,7 +119,7 @@ export const AllContext = ({ children }) => {
 
     setTimeout(() => {
       getProductos();
-    }, "1000");
+    }, 2000);
 
     navigate("/stock");
   };
@@ -135,7 +135,7 @@ export const AllContext = ({ children }) => {
     });
     setTimeout(() => {
       getProductos();
-    }, "1000");
+    }, 2000);
     navigate("/stock");
   };
 
@@ -150,12 +150,11 @@ export const AllContext = ({ children }) => {
     });
     setTimeout(() => {
       getProductos();
-    }, "1000");
+    }, 2000);
     navigate("/stock");
   };
 
   const AddStock = (idProduct, newStock, currentStock) => {
-    console.log(newStock + " " + currentStock);
     const newStockModify = parseInt(currentStock) + parseInt(newStock);
     updateDoc(doc(db, "Productos", idProduct), {
       Stock: newStockModify,
@@ -167,8 +166,21 @@ export const AllContext = ({ children }) => {
     });
     setTimeout(() => {
       getProductos();
-    }, "2000");
+    }, 2000);
     navigate("/admin");
+  };
+
+  const deleteProduct = (idProduct) => {
+    deleteDoc(doc(db, "Productos", idProduct)); //ELIMINO EL USUARIO CON EL DOCUMENTO COMPLETO
+    Swal.fire({
+      icon: "success",
+      title: "PRODUCTO ELIMINADO CON EXITO",
+      timer: 2000,
+    });
+    setTimeout(() => {
+      getProductos();
+    }, 2000);
+    navigate("/stock");
   };
 
   return (
@@ -189,6 +201,7 @@ export const AllContext = ({ children }) => {
         modificateProduct,
         setModificateProduct,
         AddStock,
+        deleteProduct,
       }}
     >
       {children}

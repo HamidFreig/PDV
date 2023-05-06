@@ -36,7 +36,7 @@ img {
   align-items: center;
 }
 
-.container {
+.containerG {
   display: grid;
   grid-template-columns: 100% 100%;
   grid-gap: 20px;

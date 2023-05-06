@@ -15,7 +15,8 @@ import TextField from "@mui/material/TextField";
 import Swal from "sweetalert2";
 
 export const Stock = () => {
-  const { productsList, setModificateProduct } = useContext(BDContext);
+  const { productsList, setModificateProduct, getProductos } =
+    useContext(BDContext);
   const [datoInput, setDatoInput] = useState(0);
   const [searchInput, setSearchInput] = useState("");
   const navigate = useNavigate();
@@ -76,6 +77,10 @@ export const Stock = () => {
     product.Nombre.toUpperCase().includes(searchInput.toUpperCase())
   );
 
+  const productNew = () => {
+    getProductos();
+    navigate("/addProduct");
+  };
   return (
     <div
       style={{
@@ -91,11 +96,7 @@ export const Stock = () => {
       </label>
 
       <div className="divSearch">
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => navigate("/addProduct")}
-        >
+        <Button variant="contained" color="success" onClick={productNew}>
           AÑADIR PRODUCTO NUEVO
         </Button>
         <TextField

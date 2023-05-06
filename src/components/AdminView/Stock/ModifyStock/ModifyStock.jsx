@@ -20,6 +20,7 @@ export const ModifyStock = () => {
     refreshSabor,
     refreshCode,
     refreshImg,
+    deleteProduct,
   } = useContext(BDContext);
   const [modifyPrice, setModifyPrice] = useState(modificateProduct.Precio);
   const [modifyStock, setModifyStock] = useState(modificateProduct.Stock);
@@ -153,6 +154,10 @@ export const ModifyStock = () => {
     }
   };
 
+  const functionEliminateProduct = (eliminateProduct) => {
+    deleteProduct(eliminateProduct);
+  };
+
   return (
     <div className="divGeneral">
       <Link to={"/stock"}>
@@ -162,7 +167,7 @@ export const ModifyStock = () => {
         MODIFICAR PRODUCTO
       </label>
 
-      <div className="container">
+      <div className="containerG">
         <div className="left">
           <div className="divCard">
             <Card
@@ -304,6 +309,13 @@ export const ModifyStock = () => {
               onClick={() => functionmodifyImg(modificateProduct.id, modifyImg)}
             >
               MODIFICAR IMÁGEN
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => functionEliminateProduct(modificateProduct.id)}
+            >
+              ELIMINAR PRODUCTO
             </Button>
           </div>
         </div>

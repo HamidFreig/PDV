@@ -58,12 +58,12 @@ export const AddProduct = () => {
       const db = getFirestore();
       const querySnapshot = collection(db, "Productos");
       addDoc(querySnapshot, {
-        Codigo: datosInputs.codigo,
+        Codigo: parseInt(datosInputs.codigo),
         Nombre: datosInputs.nombre.toLowerCase(),
         Fabricante: datosInputs.fabricante.toLowerCase(),
-        Precio: datosInputs.precio,
+        Precio: parseInt(datosInputs.precio),
         Sabor: datosInputs.sabor.toLowerCase(),
-        Stock: datosInputs.stock,
+        Stock: parseInt(datosInputs.stock),
         img: datosInputs.img,
       });
 

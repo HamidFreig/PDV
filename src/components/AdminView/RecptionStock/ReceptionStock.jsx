@@ -12,6 +12,7 @@ export const ReceptionStock = () => {
   });
 
   const [currentStock, setCurrentStock] = useState(0);
+  const [productAdd, setProductAdd] = useState({});
 
   const HandleInputChange = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
@@ -24,11 +25,6 @@ export const ReceptionStock = () => {
   const sendReception = (event) => {
     event.preventDefault();
 
-    const objeto = productsList.find(
-      (producto) => producto.Codigo == datosInput.codigoProducto
-    );
-    setCurrentStock(objeto.Stock);
-
     if (datosInput.codigoProducto == "" || datosInput.cantidad == "") {
       //SI LOS CAMPOS NO ESTAN COMPLETOS TIRA ERROR
       Swal.fire({
@@ -36,22 +32,30 @@ export const ReceptionStock = () => {
         title: "COMPLETE TODOS LOS CAMPOS",
         timer: 2000,
       });
+    } else if (datosInput.cantidad < 0) {
+      Swal.fire({
+        icon: "error",
+        title: "NO PUEDE HABER UNA CANTIDAD NEGATIVA",
+        timer: 2000,
+      });
     } else if (
-      productsList.some((dato) => {
-        //VALIDACION SI EXISTE EL CODIGO EN LA BD
+      !productsList.some((dato) => {
+        //SI ES QUE EL PRODUCTO NO ESTA EN LA BD
         if (dato.Codigo == datosInput.codigoProducto) {
-          setCurrentStock(dato.Stock);
-          console.log(currentStock);
-          AddStock(dato.id, datosInput.cantidad, currentStock);
           return true;
-        } //ACA QUEDE, NO ME ESTA TOMANDO EL STOCK EXISTENTE
+        }
       })
     ) {
-    } else {
       Swal.fire({
         icon: "error",
         title: "CODIGO INEXISTENTE",
         timer: 2000,
+      });
+    } else {
+      productsList.some((dato) => {
+        if (dato.Codigo == datosInput.codigoProducto) {
+          AddStock(dato.id, datosInput.cantidad, dato.Stock);
+        }
       });
     }
   };
@@ -69,7 +73,7 @@ export const ReceptionStock = () => {
       <label style={{ marginBottom: "70px", backgroundColor: "white" }}>
         RECEPCIÓN DE MERCADERIA
       </label>
-      <div className="containerReception">
+      <div className="container">
         <form>
           <div className="form-row">
             <label type="number">CODIGO PRODUCTO</label>
