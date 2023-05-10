@@ -1,0 +1,40 @@
+.containerUser {
+  display: grid;
+  grid-template-columns: 49% 49%;
+  grid-gap: 20px;
+}
+
+.izq {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 400px;
+  border: solid;
+  border-radius: 30px;
+  background-image: linear-gradient(
+    220deg,
+    hsl(154deg 63% 65%) 0%,
+    hsl(150deg 64% 69%) 7%,
+    hsl(145deg 65% 73%) 13%,
+    hsl(141deg 66% 76%) 20%,
+    hsl(135deg 69% 79%) 27%,
+    hsl(130deg 72% 83%) 33%,
+    hsl(123deg 78% 86%) 40%,
+    hsl(117deg 87% 88%) 47%,
+    hsl(116deg 87% 90%) 54%,
+    hsl(116deg 88% 92%) 61%,
+    hsl(115deg 88% 93%) 68%,
+    hsl(115deg 89% 95%) 75%,
+    hsl(114deg 89% 97%) 82%,
+    hsl(114deg 90% 98%) 90%,
+    hsl(0deg 0% 100%) 100%
+  );
+  margin-left: 20%;
+}
+
+@media only screen and (max-width: 1000px) {
+  .containerUser {
+    grid-template-columns: auto;
+  }
+}

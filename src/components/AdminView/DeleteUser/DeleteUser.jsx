@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { BDContext } from "../../../context/BDContext";
 import { styled } from "@mui/material/styles";
@@ -13,8 +13,7 @@ import "./DeleteUser.css";
 import { Button } from "@mui/material";
 
 export const DeleteUser = () => {
-  const navigate = useNavigate();
-  const { usersList, deleteUser } = useContext(BDContext);
+  const { usersList, deleteUser, setModificateUser } = useContext(BDContext);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -54,6 +53,15 @@ export const DeleteUser = () => {
               >
                 ELIMINAR
               </Button>
+              <Link to={"/modificateUser"}>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => setModificateUser(row)}
+                >
+                  MODIFICAR
+                </Button>
+              </Link>
             </StyledTableCell>
           </StyledTableRow>
         );
@@ -74,7 +82,7 @@ export const DeleteUser = () => {
       </Link>
       <label style={{ marginBottom: "70px", backgroundColor: "white" }}>
         {" "}
-        ELIMINAR VENDEDOR
+        EDITAR VENDEDOR
       </label>
 
       <div className="table" style={{ width: "50%", margin: "0 auto" }}>
