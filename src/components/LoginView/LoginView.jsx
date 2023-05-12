@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 export const LoginView = () => {
   const navigate = useNavigate();
-  const { usersList } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
+  const { usersList, getProductos } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
 
   const [datosInput, setDatosInput] = useState({
     rut: "",
@@ -58,6 +58,7 @@ export const LoginView = () => {
     if (userLogin.TipoUsuario === "Admin") {
       navigate("/admin");
     } else if (userLogin.TipoUsuario === "Vendedor") {
+      getProductos();
       navigate("/pos");
     }
   };
