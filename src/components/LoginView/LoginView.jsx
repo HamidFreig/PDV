@@ -57,6 +57,8 @@ export const LoginView = () => {
   const redirectPage = (userLogin) => {
     if (userLogin.TipoUsuario === "Admin") {
       navigate("/admin");
+    } else if (userLogin.TipoUsuario === "Vendedor") {
+      navigate("/pos");
     }
   };
 
