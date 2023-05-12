@@ -1,0 +1,12 @@
+.StockSearch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ButtonClose {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
