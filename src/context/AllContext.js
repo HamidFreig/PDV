@@ -6,6 +6,7 @@ import {
   deleteDoc,
   updateDoc,
   doc,
+  addDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -185,6 +186,24 @@ export const AllContext = ({ children }) => {
     navigate("/admin");
   };
 
+  const AddIncome = (MontoIncome, DateIncome) => {
+    const Separador = "/";
+    const FechaSplit = DateIncome.split(Separador);
+    const DiaSplit = parseInt(FechaSplit[0]);
+    const MesSplit = parseInt(FechaSplit[1]);
+    const AñoSplit = parseInt(FechaSplit[2]);
+    const Monto = parseInt(MontoIncome);
+
+    const db = getFirestore();
+    const querySnapshot = collection(db, "Ingresos");
+    addDoc(querySnapshot, {
+      MontoIngreso: Monto,
+      Dia: DiaSplit,
+      Mes: MesSplit,
+      Año: AñoSplit,
+    });
+  };
+
   return (
     <BDContext.Provider
       value={{
@@ -208,6 +227,7 @@ export const AllContext = ({ children }) => {
         setModificateProduct,
         AddStock,
         deleteProduct,
+        AddIncome,
       }}
     >
       {children}

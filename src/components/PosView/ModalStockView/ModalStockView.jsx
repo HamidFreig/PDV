@@ -68,7 +68,10 @@ export const ModalStockView = () => {
               onChange={HandleInputChangeSearch}
             />
           </div>
-          <div>
+          <div
+            className="TableStock"
+            style={{ width: "700px", height: "250px" }}
+          >
             <TableContainer component={Paper}>
               <Table
                 sx={{ minWidth: 600 }}
@@ -121,8 +124,8 @@ export const ModalStockView = () => {
 
           <div className="ButtonClose">
             <Button
-              color="primary"
-              variant="contained"
+              variant="outlined"
+              color="error"
               onClick={() => handleClose()}
             >
               CERRAR
