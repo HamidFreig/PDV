@@ -5,7 +5,8 @@ import "./AdminView.css";
 
 export const AdminView = () => {
   const navigate = useNavigate();
-  const { getUsuarios, getProductos } = useContext(BDContext);
+  const { getUsuarios, getProductos, getIngresos, getEgresos } =
+    useContext(BDContext);
 
   const ButtonOut = () => {
     navigate("/");
@@ -67,7 +68,17 @@ export const AdminView = () => {
             </button>
           </Link>
 
-          <button className="Button">LIBRO DE VENTAS</button>
+          <Link to={"/report"}>
+            <button
+              className="Button"
+              onClick={() => {
+                getIngresos();
+                getEgresos();
+              }}
+            >
+              REPORTES
+            </button>
+          </Link>
         </div>
       </div>
     </div>

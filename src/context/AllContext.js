@@ -15,6 +15,8 @@ import Swal from "sweetalert2";
 export const AllContext = ({ children }) => {
   const [usersList, setUserList] = useState([]);
   const [productsList, setProductsList] = useState([]);
+  const [ingresos, setIngresos] = useState([]);
+  const [egresos, setEgresos] = useState([]);
   const [modificateProduct, setModificateProduct] = useState([]);
   const [modificateUser, setModificateUser] = useState([]);
 
@@ -22,6 +24,8 @@ export const AllContext = ({ children }) => {
   const db = getFirestore();
   const querySnapshotUsuarios = collection(db, "Usuarios");
   const querySnapshotProductos = collection(db, "Productos");
+  const querySnapshotIngresos = collection(db, "Ingresos");
+  const querySnapshotEgresos = collection(db, "Egresos");
 
   const getUsuarios = () => {
     //ACCEDER A LOS USER DE LA DB DE FIRESTORE
@@ -51,6 +55,8 @@ export const AllContext = ({ children }) => {
     setTimeout(() => {
       getUsuarios(); //HAGO UN TIMER PARA ALMACENAR LOS DATOS EN EL ARRAY LOCAL
       getProductos();
+      getIngresos();
+      getEgresos();
     }, "1000");
   }, []);
 
@@ -186,7 +192,7 @@ export const AllContext = ({ children }) => {
     navigate("/admin");
   };
 
-  const AddIncome = (MontoIncome, DateIncome) => {
+  const AddIncome = (MontoIncome, DateIncome, Comment) => {
     const Separador = "/";
     const FechaSplit = DateIncome.split(Separador);
     const DiaSplit = parseInt(FechaSplit[0]);
@@ -201,10 +207,11 @@ export const AllContext = ({ children }) => {
       Dia: DiaSplit,
       Mes: MesSplit,
       Año: AñoSplit,
+      Comentario: Comment,
     });
   };
 
-  const AddDischarge = (MontoDischarge, DateIncome) => {
+  const AddDischarge = (MontoDischarge, DateIncome, Comment) => {
     const Separador = "/";
     const FechaSplit = DateIncome.split(Separador);
     const DiaSplit = parseInt(FechaSplit[0]);
@@ -219,7 +226,30 @@ export const AllContext = ({ children }) => {
       Dia: DiaSplit,
       Mes: MesSplit,
       Año: AñoSplit,
+      Comentario: Comment,
     });
+  };
+
+  const getIngresos = () => {
+    getDocs(querySnapshotIngresos)
+      .then((response) => {
+        const ingresos = response.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        setIngresos(ingresos);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const getEgresos = () => {
+    getDocs(querySnapshotEgresos)
+      .then((response) => {
+        const egresos = response.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        setEgresos(egresos);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -247,6 +277,10 @@ export const AllContext = ({ children }) => {
         deleteProduct,
         AddIncome,
         AddDischarge,
+        ingresos,
+        getIngresos,
+        egresos,
+        getEgresos,
       }}
     >
       {children}

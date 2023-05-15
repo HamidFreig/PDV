@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
+
+.PanelDiv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  font-family: "Ubuntu Condensed", sans-serif;
+  text-align: center;
+  font-size: 25px;
+  height: 100%;
+}
+
+@media (max-width: 1110px) {
+  .PanelDiv {
+    grid-template-columns: 1fr;
+  }
+}

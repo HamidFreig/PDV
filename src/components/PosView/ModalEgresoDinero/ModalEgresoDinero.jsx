@@ -17,6 +17,7 @@ export const ModalEgresoDinero = () => {
   const handleClose = () => setOpen(false);
 
   const [MontoEgreso, setMontoEgreso] = useState(0);
+  const [commentarioEgreso, setComentarioEgreso] = useState("");
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   const { AddDischarge } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
@@ -24,6 +25,11 @@ export const ModalEgresoDinero = () => {
   const HandleInputChangeMontoEgreso = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
     setMontoEgreso(event.target.value);
+  };
+
+  const HandleInputChangeComentarioEgreso = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setComentarioEgreso(event.target.value);
   };
 
   //DISEÑO MODAL
@@ -46,8 +52,18 @@ export const ModalEgresoDinero = () => {
         icon: "error",
         title: "EGRESO NO VÁLIDO",
       });
+    } else if (commentarioEgreso == "") {
+      setOpen(!open);
+      Swal.fire({
+        icon: "error",
+        title: "INGRESE UN COMENTARIO",
+      });
     } else {
-      AddDischarge(MontoEgreso, currentDateTime.toLocaleDateString());
+      AddDischarge(
+        MontoEgreso,
+        currentDateTime.toLocaleDateString(),
+        commentarioEgreso
+      );
       setOpen(!open);
       Swal.fire({
         icon: "success",
@@ -83,6 +99,24 @@ export const ModalEgresoDinero = () => {
                   <InputAdornment position="start">$</InputAdornment>
                 }
                 label="EGRESO"
+              />
+            </FormControl>
+            <FormControl fullWidth sx={{ m: 1 }}>
+              <InputLabel
+                id="ComentarioEgreso"
+                type="text"
+                htmlFor="outlined-adornment-amount"
+              >
+                COMENTARIO
+              </InputLabel>
+              <OutlinedInput
+                type="text"
+                id="ComentarioEgreso"
+                onChange={HandleInputChangeComentarioEgreso}
+                startAdornment={
+                  <InputAdornment position="start"></InputAdornment>
+                }
+                label="COMENTARIO"
               />
             </FormControl>
             <div className="BotonEnviarEgreso">
