@@ -19,7 +19,7 @@ form {
 }
 
 h1 {
-  font-size: 40px;
+  font-size: 35px;
   font-family: "Ubuntu Condensed", sans-serif;
   margin-bottom: 20px;
 }
@@ -38,7 +38,7 @@ label {
   font-weight: 1000;
 }
 
-input {
+.Input {
   width: 95%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -49,6 +49,8 @@ button[type="submit"] {
   background-color: #007bff;
   color: #fff;
   padding: 10px 20px;
+  width: 150px;
+  height: 45px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -57,9 +59,4 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   background-color: #0062cc;
-}
-
-.Tittle {
-  font-size: 25px;
-  text-align: center;
 }

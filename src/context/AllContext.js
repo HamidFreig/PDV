@@ -204,6 +204,24 @@ export const AllContext = ({ children }) => {
     });
   };
 
+  const AddDischarge = (MontoDischarge, DateIncome) => {
+    const Separador = "/";
+    const FechaSplit = DateIncome.split(Separador);
+    const DiaSplit = parseInt(FechaSplit[0]);
+    const MesSplit = parseInt(FechaSplit[1]);
+    const AñoSplit = parseInt(FechaSplit[2]);
+    const Monto = parseInt(MontoDischarge);
+
+    const db = getFirestore();
+    const querySnapshot = collection(db, "Egresos");
+    addDoc(querySnapshot, {
+      MontoEgreso: Monto,
+      Dia: DiaSplit,
+      Mes: MesSplit,
+      Año: AñoSplit,
+    });
+  };
+
   return (
     <BDContext.Provider
       value={{
@@ -228,6 +246,7 @@ export const AllContext = ({ children }) => {
         AddStock,
         deleteProduct,
         AddIncome,
+        AddDischarge,
       }}
     >
       {children}

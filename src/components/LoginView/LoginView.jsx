@@ -2,6 +2,7 @@ import "./LoginView.css";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { BDContext } from "../../context/BDContext";
+import TextField from "@mui/material/TextField";
 import Swal from "sweetalert2";
 
 export const LoginView = () => {
@@ -66,29 +67,32 @@ export const LoginView = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("https://media.istockphoto.com/id/1204639651/es/vector/patr%C3%B3n-y-fondo-sin-costuras-de-marketplace-en-l%C3%ADnea-con-iconos-de-l%C3%ADnea.jpg?s=170667a&w=0&k=20&c=yH5lylWWBVEkmUvuuMJRsIHN1-FKF0_puwi-Sfp1FBw=")`,
+        backgroundImage: `url("https://img.freepik.com/vector-premium/patron-isometrico-costuras-cubos-linea-delgada_659980-2.jpg")`,
+        height: "auto",
       }}
     >
       <div className="login-container">
         <form>
           <h1>INICIAR SESIÓN</h1>
           <div className="form-group">
-            <label className="Tittle">RUT</label>
-            <input
+            <TextField
+              className="Input"
               id="rut"
               name="rut"
               type="number"
-              placeholder="EJEMPLO: 123456789"
+              label="Ej:123456789"
               onChange={HandleInputChange}
             />
           </div>
           <div className="form-group">
-            <label className="Tittle">CONTRASEÑA</label>
-            <input
+            <TextField
+              className="Input"
+              label="Contraseña"
               type="password"
               id="passw"
               name="passw"
               onChange={HandleInputChange}
+              autoComplete="current-password"
             />
           </div>
           <button type="submit" onClick={authUser}>
