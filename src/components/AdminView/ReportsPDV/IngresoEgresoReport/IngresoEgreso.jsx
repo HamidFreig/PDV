@@ -101,6 +101,7 @@ export const IngresoEgreso = () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell>FECHA</StyledTableCell>
+                    <StyledTableCell align="right">HORA</StyledTableCell>
                     <StyledTableCell align="right">
                       MONTO INGRESO
                     </StyledTableCell>
@@ -114,10 +115,13 @@ export const IngresoEgreso = () => {
                         {row.Dia + "/" + row.Mes + "/" + row.Año}
                       </StyledTableCell>
                       <StyledTableCell align="right">
+                        {row.Hora}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
                         {row.MontoIngreso.toLocaleString("es-CL", {
                           style: "currency",
                           currency: "CLP",
-                        })}{" "}
+                        })}
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         {row.Comentario.toUpperCase()}
@@ -141,6 +145,7 @@ export const IngresoEgreso = () => {
                 <TableHead>
                   <TableRow>
                     <StyledTableCell>FECHA</StyledTableCell>
+                    <StyledTableCell align="right">HORA</StyledTableCell>
                     <StyledTableCell align="right">
                       MONTO EGRESO
                     </StyledTableCell>
@@ -152,6 +157,9 @@ export const IngresoEgreso = () => {
                     <StyledTableRow key={row.id}>
                       <StyledTableCell component="th" scope="row">
                         {row.Dia + "/" + row.Mes + "/" + row.Año}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">
+                        {row.Hora}
                       </StyledTableCell>
                       <StyledTableCell align="right">
                         {row.MontoEgreso.toLocaleString("es-CL", {

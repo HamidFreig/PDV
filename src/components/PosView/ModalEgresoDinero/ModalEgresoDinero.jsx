@@ -19,6 +19,7 @@ export const ModalEgresoDinero = () => {
   const [MontoEgreso, setMontoEgreso] = useState(0);
   const [commentarioEgreso, setComentarioEgreso] = useState("");
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  const [horaActual, setHoraActual] = useState(new Date().toLocaleTimeString());
 
   const { AddDischarge } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
 
@@ -62,6 +63,7 @@ export const ModalEgresoDinero = () => {
       AddDischarge(
         MontoEgreso,
         currentDateTime.toLocaleDateString(),
+        horaActual,
         commentarioEgreso
       );
       setOpen(!open);

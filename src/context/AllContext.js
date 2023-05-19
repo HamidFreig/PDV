@@ -192,9 +192,9 @@ export const AllContext = ({ children }) => {
     navigate("/admin");
   };
 
-  const AddIncome = (MontoIncome, DateIncome, Comment) => {
-    const Separador = "/";
-    const FechaSplit = DateIncome.split(Separador);
+  const AddIncome = (MontoIncome, DateIncome, TimeIncome, Comment) => {
+    const SeparadorDia = "/";
+    const FechaSplit = DateIncome.split(SeparadorDia);
     const DiaSplit = parseInt(FechaSplit[0]);
     const MesSplit = parseInt(FechaSplit[1]);
     const AñoSplit = parseInt(FechaSplit[2]);
@@ -207,11 +207,12 @@ export const AllContext = ({ children }) => {
       Dia: DiaSplit,
       Mes: MesSplit,
       Año: AñoSplit,
+      Hora: TimeIncome,
       Comentario: Comment,
     });
   };
 
-  const AddDischarge = (MontoDischarge, DateIncome, Comment) => {
+  const AddDischarge = (MontoDischarge, DateIncome, TimeDischarge, Comment) => {
     const Separador = "/";
     const FechaSplit = DateIncome.split(Separador);
     const DiaSplit = parseInt(FechaSplit[0]);
@@ -226,6 +227,7 @@ export const AllContext = ({ children }) => {
       Dia: DiaSplit,
       Mes: MesSplit,
       Año: AñoSplit,
+      Hora: TimeDischarge,
       Comentario: Comment,
     });
   };
