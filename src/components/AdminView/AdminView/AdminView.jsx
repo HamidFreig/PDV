@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import { BDContext } from "../../../context/BDContext";
 import { useContext, useState } from "react";
-import { ModalOpenDay } from "./ModalOpenDay/ModalOpenDay";
+import { ModalOpenDay } from "../ModalOpenDay/ModalOpenDay";
 import "./AdminView.css";
 
 export const AdminView = () => {

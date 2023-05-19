@@ -1,5 +1,6 @@
 import "./ModalOpenDay.css";
 import { useState } from "react";
+import Swal from "sweetalert2";
 //MATERIAL MUI
 
 import Button from "@mui/material/Button";
@@ -12,6 +13,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 export const ModalOpenDay = () => {
   const [montoCajaInicial, setmontoCajaInicial] = useState(0);
+  const [montoCorrecto, setMontoCorrecto] = useState(false);
 
   const styles = {
     position: "absolute",
@@ -29,6 +31,7 @@ export const ModalOpenDay = () => {
 
   const HandleInputChangeMontoCajaIncial = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+
     setmontoCajaInicial(event.target.value);
   };
 
@@ -62,6 +65,7 @@ export const ModalOpenDay = () => {
         >
           ABRIR DIA
         </Button>
+        +
         <Button
           variant="outlined"
           color="error"
