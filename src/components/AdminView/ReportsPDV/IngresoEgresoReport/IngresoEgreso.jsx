@@ -67,7 +67,7 @@ export const IngresoEgreso = () => {
 
   const styles = {
     position: "absolute",
-    top: "65%",
+    top: "60%",
     left: "50%",
     width: "90%",
     height: "400px",
@@ -80,14 +80,14 @@ export const IngresoEgreso = () => {
   };
 
   const responsiveStyle = {
-    ...styles, // Copiamos los estilos base del divStyle
-    top: "75%",
+    ...styles, // Copiamos los estilos base del styles
+    marginTop: "200px",
     height: "550px",
-    width: "80%",
+    width: "85%",
   };
 
   return (
-    <div style={windowSize.width <= 1100 ? responsiveStyle : styles}>
+    <div style={windowSize.height >= 700 ? styles : responsiveStyle}>
       <div className="PanelDiv">
         <div className="izq-panel">
           INGRESOS

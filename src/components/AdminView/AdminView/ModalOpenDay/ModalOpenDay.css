@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
+
+p {
+  font-family: "Ubuntu Condensed", sans-serif;
+  font-size: 25px;
+  text-align: center;
+}
+
+.OpcionesModal {
+  text-align: center;
+  justify-content: center;
+}

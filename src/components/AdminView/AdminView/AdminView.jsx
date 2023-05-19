@@ -1,6 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import { BDContext } from "../../../context/BDContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { ModalOpenDay } from "./ModalOpenDay/ModalOpenDay";
 import "./AdminView.css";
 
 export const AdminView = () => {
@@ -8,8 +9,14 @@ export const AdminView = () => {
   const { getUsuarios, getProductos, getIngresos, getEgresos } =
     useContext(BDContext);
 
+  const [modalOpenDay, setmodalOpenDay] = useState(false);
+
   const ButtonOut = () => {
     navigate("/");
+  };
+
+  const viewModalOpen = () => {
+    setmodalOpenDay(!modalOpenDay);
   };
 
   return (
@@ -26,6 +33,14 @@ export const AdminView = () => {
         PANEL DEL ADMINISTRADOR
       </label>
       <div className="Container">
+        <div className="Grid-OpenClose">
+          <button className="Button-Open" onClick={() => viewModalOpen()}>
+            ABRIR DÍA
+          </button>
+          {modalOpenDay ? <ModalOpenDay /> : null}
+          <button className="Button-Close">CERRAR DIA</button>
+        </div>
+
         <div className="Grid-Buttons">
           <Link to={"/createUser"}>
             <button
