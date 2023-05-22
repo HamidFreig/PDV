@@ -35,7 +35,11 @@ export const ModalOpenDay = () => {
     setmontoCajaInicial(event.target.value);
   };
 
-  const sendAbrirDia = () => {};
+  const sendAbrirDia = () => {
+    if (/^\d+$/.test(montoCajaInicial) && montoCajaInicial > 0) {
+      console.log(parseInt(montoCajaInicial.trimStart(), 10));
+    }
+  };
   return (
     <div style={styles}>
       <div className="FormAbrirDia">
@@ -65,7 +69,7 @@ export const ModalOpenDay = () => {
         >
           ABRIR DIA
         </Button>
-        +
+
         <Button
           variant="outlined"
           color="error"
