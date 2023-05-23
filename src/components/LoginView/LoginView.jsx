@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 export const LoginView = () => {
   const navigate = useNavigate();
-  const { usersList, getProductos } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
+  const { usersList, getProductos, getAperturas } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
 
   const [datosInput, setDatosInput] = useState({
     rut: "",
@@ -57,6 +57,7 @@ export const LoginView = () => {
 
   const redirectPage = (userLogin) => {
     if (userLogin.TipoUsuario === "Admin") {
+      getAperturas();
       navigate("/admin");
     } else if (userLogin.TipoUsuario === "Vendedor") {
       getProductos();
@@ -95,7 +96,7 @@ export const LoginView = () => {
               autoComplete="current-password"
             />
           </div>
-          <button type="submit" onClick={authUser}>
+          <button className="ButtonLogin" type="submit" onClick={authUser}>
             Ingresar
           </button>
         </form>

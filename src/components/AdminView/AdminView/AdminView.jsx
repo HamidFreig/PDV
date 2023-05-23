@@ -2,21 +2,35 @@ import { useNavigate, Link } from "react-router-dom";
 import { BDContext } from "../../../context/BDContext";
 import { useContext, useState } from "react";
 import { ModalOpenDay } from "../ModalOpenDay/ModalOpenDay";
+import Swal from "sweetalert2";
 import "./AdminView.css";
 
 export const AdminView = () => {
   const navigate = useNavigate();
-  const { getUsuarios, getProductos, getIngresos, getEgresos } =
+  const { getUsuarios, getProductos, getIngresos, getEgresos, flagApertura } =
     useContext(BDContext);
 
   const [modalOpenDay, setmodalOpenDay] = useState(false);
+  const [fechaActual, setfechaActual] = useState(
+    new Date().toLocaleDateString()
+  );
+  const [disableOpenDay, setdisableOpenDay] = useState(false);
 
   const ButtonOut = () => {
     navigate("/");
   };
 
   const viewModalOpen = () => {
-    setmodalOpenDay(!modalOpenDay);
+    if (flagApertura(fechaActual)[0]) {
+      //CORROBORA SI SE REALIZÓ EL APERTURA, EL [0] ES PQ SE TRAE EN UN ARRAY
+      Swal.fire({
+        icon: "error",
+        title: "APERTURA YA REALIZADA",
+        timer: 2000,
+      });
+    } else {
+      setmodalOpenDay(!modalOpenDay);
+    }
   };
 
   return (
@@ -34,7 +48,11 @@ export const AdminView = () => {
       </label>
       <div className="Container">
         <div className="Grid-OpenClose">
-          <button className="Button-Open" onClick={() => viewModalOpen()}>
+          <button
+            disabled={disableOpenDay}
+            className="Button-Open"
+            onClick={() => viewModalOpen()}
+          >
             ABRIR DÍA
           </button>
           {modalOpenDay ? <ModalOpenDay /> : null}

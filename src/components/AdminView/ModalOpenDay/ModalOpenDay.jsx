@@ -1,5 +1,7 @@
 import "./ModalOpenDay.css";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { BDContext } from "../../../context/BDContext";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 //MATERIAL MUI
 
@@ -12,9 +14,26 @@ import InputAdornment from "@mui/material/InputAdornment";
 //MATERIAL MUI
 
 export const ModalOpenDay = () => {
+  const navigate = useNavigate();
+  const { addApertura, flagApertura } = useContext(BDContext);
   const [montoCajaInicial, setmontoCajaInicial] = useState(0);
-  const [montoCorrecto, setMontoCorrecto] = useState(false);
+  const [horaActual, setHoraActual] = useState(new Date().toLocaleTimeString());
+  const [fechaActual, setfechaActual] = useState(
+    new Date().toLocaleDateString()
+  );
 
+  useEffect(() => {
+    //PARA SABER HORA ACTUAL
+    const intervalo = setInterval(() => {
+      setHoraActual(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => {
+      clearInterval(intervalo);
+    };
+  }, []);
+
+  //STYLOS DEL MODAL
   const styles = {
     position: "absolute",
     top: "35%",
@@ -37,46 +56,58 @@ export const ModalOpenDay = () => {
 
   const sendAbrirDia = () => {
     if (/^\d+$/.test(montoCajaInicial) && montoCajaInicial > 0) {
-      console.log(parseInt(montoCajaInicial.trimStart(), 10));
+      //SOLO ENVIA LOS DATOS SI SON NUMEROS ENTEROS Y QUE NO HAYAN CARACTERES EN LA CADENA
+      const MontoApertura = parseInt(montoCajaInicial.trimStart(), 10);
+      addApertura(MontoApertura, fechaActual, horaActual);
+      navigate("/");
+      Swal.fire({
+        icon: "success",
+        title: "APERTURA REALIZADA CON ÉXITO",
+        timer: 1500,
+      });
     }
   };
   return (
     <div style={styles}>
-      <div className="FormAbrirDia">
-        <p>INGRESE DINERO CAJA INICIAL</p>
-        <FormControl fullWidth sx={{ m: 1 }}>
-          <InputLabel
-            id="MontoCajaIncial"
-            type="number"
-            htmlFor="outlined-adornment-amount"
+      <div>
+        <div className="FormAbrirDia">
+          <p>INGRESE DINERO CAJA INICIAL</p>
+          <FormControl fullWidth sx={{ m: 1 }}>
+            <InputLabel
+              id="MontoCajaIncial"
+              type="number"
+              htmlFor="outlined-adornment-amount"
+            >
+              MONTO
+            </InputLabel>
+            <OutlinedInput
+              type="number"
+              id="MontoCajaIncial"
+              onChange={HandleInputChangeMontoCajaIncial}
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
+              }
+              label="MontoCajaIncial"
+            />
+          </FormControl>
+        </div>
+        <div className="OpcionesModal">
+          <Button
+            variant="contained"
+            color="success"
+            onClick={() => sendAbrirDia()}
           >
-            MONTO
-          </InputLabel>
-          <OutlinedInput
-            type="number"
-            id="MontoCajaIncial"
-            onChange={HandleInputChangeMontoCajaIncial}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            label="MontoCajaIncial"
-          />
-        </FormControl>
-      </div>
-      <div className="OpcionesModal">
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => sendAbrirDia()}
-        >
-          ABRIR DIA
-        </Button>
+            ABRIR DIA
+          </Button>
 
-        <Button
-          variant="outlined"
-          color="error"
-          onClick={() => window.location.reload()}
-        >
-          CANCELAR
-        </Button>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={() => window.location.reload()}
+          >
+            CANCELAR
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ export const AllContext = ({ children }) => {
   const [egresos, setEgresos] = useState([]);
   const [modificateProduct, setModificateProduct] = useState([]);
   const [modificateUser, setModificateUser] = useState([]);
+  const [aperturas, setAperturas] = useState([]);
 
   const navigate = useNavigate();
   const db = getFirestore();
@@ -26,6 +27,7 @@ export const AllContext = ({ children }) => {
   const querySnapshotProductos = collection(db, "Productos");
   const querySnapshotIngresos = collection(db, "Ingresos");
   const querySnapshotEgresos = collection(db, "Egresos");
+  const querySnapshotAperturas = collection(db, "Aperturas");
 
   const getUsuarios = () => {
     //ACCEDER A LOS USER DE LA DB DE FIRESTORE
@@ -57,6 +59,7 @@ export const AllContext = ({ children }) => {
       getProductos();
       getIngresos();
       getEgresos();
+      getAperturas();
     }, "1000");
   }, []);
 
@@ -254,6 +257,44 @@ export const AllContext = ({ children }) => {
       .catch((error) => console.log(error));
   };
 
+  const getAperturas = () => {
+    getDocs(querySnapshotAperturas)
+      .then((response) => {
+        const aperturas = response.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        setAperturas(aperturas);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const flagApertura = (fechaActual) => {
+    //BANDERA PARA SABER SI SE REALIZÓ EL APERTURA DE CAJA EN EL DIA DE HOY
+    const flag = aperturas.map((dato) => {
+      if (dato.Fecha == fechaActual) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return flag;
+  };
+  const addApertura = (MontoApertura, FechaApertura, HoraApertura) => {
+    const db = getFirestore();
+    const querySnapshot = collection(db, "Aperturas");
+    addDoc(querySnapshot, {
+      MontoApertura: MontoApertura,
+      Fecha: FechaApertura,
+      Hora: HoraApertura,
+    });
+    navigate("/admin");
+    Swal.fire({
+      icon: "success",
+      title: "APERTURA REALIZADA CON EXITO",
+      timer: 2000,
+    });
+  };
+
   return (
     <BDContext.Provider
       value={{
@@ -283,6 +324,9 @@ export const AllContext = ({ children }) => {
         getIngresos,
         egresos,
         getEgresos,
+        addApertura,
+        getAperturas,
+        flagApertura,
       }}
     >
       {children}

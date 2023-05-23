@@ -74,7 +74,7 @@ export const ReceptionStock = () => {
         RECEPCIÓN DE MERCADERIA
       </label>
       <div className="container">
-        <form>
+        <form className="Form">
           <div className="form-row">
             <label type="number">CODIGO PRODUCTO</label>
             <input

@@ -15,6 +15,14 @@ export const PosView = () => {
   const [modalIngreso, setModalIngreso] = useState(false);
   const [modalEgreso, setModalEgreso] = useState(false);
 
+  const viewModalIngreso = () => {
+    setModalIngreso(!modalIngreso);
+  };
+
+  const viewModalEgreso = () => {
+    setModalEgreso(!modalEgreso);
+  };
+
   return (
     <div
       className="DivGeneral"
@@ -44,7 +52,7 @@ export const PosView = () => {
           <Button
             color="primary"
             variant="contained"
-            onClick={() => setModalIngreso(!modalIngreso)}
+            onClick={() => viewModalIngreso()}
           >
             INGRESO DE DINERO
           </Button>
@@ -54,7 +62,7 @@ export const PosView = () => {
           <Button
             color="primary"
             variant="contained"
-            onClick={() => setModalEgreso(!modalEgreso)}
+            onClick={() => viewModalEgreso()}
           >
             EGRESO DE DINERO
           </Button>
