@@ -87,6 +87,7 @@ export const ModalIngresoDinero = () => {
             <label>INGRESE LA CANTIDAD DE DINERO</label>
             <FormControl fullWidth sx={{ m: 1 }}>
               <InputLabel
+                required
                 id="MontoIngreso"
                 type="number"
                 htmlFor="outlined-adornment-amount"
