@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ModalStockView } from "../ModalStockView/ModalStockView";
 import { ModalIngresoDinero } from "../ModalIngresoDinero/ModalIngresoDinero";
+import { SeccionVenta } from "../SeccionVenta/SeccionVenta";
 
 //MATERIAL MUI
 
@@ -28,7 +29,7 @@ export const PosView = () => {
       className="DivGeneral"
       style={{
         backgroundImage: `url("https://img.freepik.com/vector-premium/patron-isometrico-costuras-cubos-linea-delgada_659980-2.jpg")`,
-        height: "100vh",
+        height: "97vh",
       }}
     >
       <button className="Button-Out" onClick={() => navigate("/")}>
@@ -68,6 +69,12 @@ export const PosView = () => {
           </Button>
           <div>{modalEgreso ? <ModalEgresoDinero /> : null} </div>
         </div>
+      </div>
+      <div className="POS">
+        <div className="POS1">
+          <SeccionVenta />
+        </div>
+        <div className="POS2">POS</div>
       </div>
     </div>
   );

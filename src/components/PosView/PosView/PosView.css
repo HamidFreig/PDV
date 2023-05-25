@@ -1,11 +1,31 @@
-/*.DivGeneral {
-  background-image: url("https://static.vecteezy.com/system/resources/thumbnails/003/031/766/small/light-blue-wide-background-with-radial-blurred-gradient-abstract-free-vector.jpg");
+.DivGeneral {
   height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}*/
+}
+
 .NavBarMenu {
   display: flex;
   justify-content: space-around;
+}
+
+.POS {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  height: 69vh;
+  width: 90%;
+  background-color: aliceblue;
+}
+
+.POS1 {
+  width: 80%;
+  height: 100%;
+  background-color: white;
+}
+
+.POS2 {
+  width: 20%;
+  height: 100%;
+  background-color: blanchedalmond;
 }
