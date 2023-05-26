@@ -45,7 +45,7 @@ export const PosView = () => {
             variant="contained"
             onClick={() => setModalStock(!modalStock)}
           >
-            VER STOCK
+          VER  PRODUCTOS
           </Button>
           <div>{modalStock ? <ModalStockView /> : null}</div>
         </div>

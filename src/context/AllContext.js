@@ -279,6 +279,7 @@ export const AllContext = ({ children }) => {
     });
     return flag;
   };
+
   const addApertura = (MontoApertura, FechaApertura, HoraApertura) => {
     const db = getFirestore();
     const querySnapshot = collection(db, "Aperturas");
@@ -293,6 +294,10 @@ export const AllContext = ({ children }) => {
       title: "APERTURA REALIZADA CON EXITO",
       timer: 2000,
     });
+  };
+
+  const cart = (producto) =>{
+
   };
 
   return (
