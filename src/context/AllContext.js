@@ -20,6 +20,7 @@ export const AllContext = ({ children }) => {
   const [modificateProduct, setModificateProduct] = useState([]);
   const [modificateUser, setModificateUser] = useState([]);
   const [aperturas, setAperturas] = useState([]);
+  const [cart, setCart] = useState([]);
 
   const navigate = useNavigate();
   const db = getFirestore();
@@ -296,8 +297,43 @@ export const AllContext = ({ children }) => {
     });
   };
 
-  const cart = (producto) =>{
+  const Cart = (producto, cantidad) => {
+    if (ExistProduct(producto.Codigo)) {
+      cart.map((productoExist) => {
+        if (producto.Codigo == productoExist.CodigoProducto) {
+          productoExist.CantidadProducto =
+            productoExist.CantidadProducto + parseInt(cantidad);
+          productoExist.PrecioProducto =
+            productoExist.PrecioProducto + parseInt(producto.Precio) * cantidad;
+        }
+      });
+    } else {
+      setCart([
+        ...cart,
+        {
+          CodigoProducto: parseInt(producto.Codigo),
+          NombreProducto: producto.Nombre,
+          SaborProducto: producto.Sabor,
+          CantidadProducto: parseInt(cantidad),
+          PrecioProducto: parseInt(producto.Precio),
+        },
+      ]);
+    }
+  };
 
+  const ExistProduct = (CodigoProducto) => {
+    if (cart.some((product) => CodigoProducto == product.CodigoProducto)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const removeProduct = (productCode) => {
+    const newCart = cart.filter(
+      (product) => product.CodigoProducto != productCode
+    );
+    setCart(newCart);
   };
 
   return (
@@ -332,6 +368,9 @@ export const AllContext = ({ children }) => {
         addApertura,
         getAperturas,
         flagApertura,
+        Cart,
+        cart,
+        removeProduct,
       }}
     >
       {children}

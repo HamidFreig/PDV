@@ -1,45 +1,88 @@
 import { useState, useContext } from "react";
 import { BDContext } from "../../../context/BDContext";
+import Swal from "sweetalert2";
 import "./SeccionVenta.css";
+import { TableVenta } from "./TableVenta/TableVenta";
+
+//MATERIAL MUI
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 export const SeccionVenta = () => {
-    const [buscador, setBuscador] = useState("");
-    const { productsList } = useContext(BDContext);
+  const [buscador, setBuscador] = useState("");
+  const [cantidad, setCantidad] = useState(1);
+  const { productsList, Cart } = useContext(BDContext);
 
-    const HandleInputChangeBuscador = (event) => {
-        //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
-        setBuscador(event.target.value);
-    };
+  const handleChangeCantidad = (event) => {
+    setCantidad(event.target.value);
+  };
 
-    const addCart = (buscador) =>{
-      console.log(buscador)
-      productsList.map((dato)=>{
-        if(dato.Codigo == buscador){
-          console.log(dato)
-        }
-      })
-    }
+  const HandleInputChangeBuscador = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setBuscador(event.target.value);
+  };
 
-    return (
-        <div>
-            <p>SECCION PRODUDCTOS</p>
-            <div className="seleccionProduct">
-                
-                <TextField
-                    id="filled-search"
-                    label="CODIGO PRODUCTO"
-                    className="buscador"
-                    type="search"
-                    variant="filled"
-                    onChange={HandleInputChangeBuscador}
-                />
-                <Button variant="contained" color="success" onClick={addCart}>
-                    Agregar
-                </Button>
-            </div>
-        </div>
+  const addCart = () => {
+    //CHEQUEO SI EL PRODUCTO EXISTE
+    const existProduct = productsList.find(
+      (dato) => dato.Codigo == parseInt(buscador)
     );
+    if (existProduct != null) {
+      Cart(existProduct, cantidad);
+      setBuscador("");
+      setCantidad(1);
+      Swal.fire({
+        icon: "success",
+        title: "PRODUCTO AGREGADO",
+        timer: 1000,
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "PRODUCTO NO EXISTE",
+        timer: 2000,
+      });
+    }
+  };
+
+  return (
+    <div>
+      <p>SECCION PRODUCTOS</p>
+      <div className="seleccionProduct">
+        <TextField
+          id="outlined-search"
+          label="CODIGO PRODUCTO"
+          className="buscador"
+          value={buscador}
+          type="search"
+          variant="filled"
+          onChange={HandleInputChangeBuscador}
+        />
+
+        <div style={{ marginLeft: "15px" }}>
+          <TextField
+            id="filled-number"
+            label="Number"
+            type="number"
+            value={cantidad}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            variant="filled"
+            onChange={handleChangeCantidad}
+          />
+        </div>
+
+        <div style={{ marginLeft: "15px" }}>
+          <Button variant="contained" color="success" onClick={() => addCart()}>
+            Agregar
+          </Button>
+        </div>
+      </div>
+      <div>
+        <TableVenta />
+      </div>
+    </div>
+  );
 };

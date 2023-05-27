@@ -1,11 +1,8 @@
-
-.seleccionProduct{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-
+.seleccionProduct {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.buscador{
-    width: 80%;
+.buscador {
+  width: 60%;
 }
