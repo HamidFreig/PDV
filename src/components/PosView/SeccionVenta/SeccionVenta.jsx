@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 export const SeccionVenta = () => {
   const [buscador, setBuscador] = useState("");
   const [cantidad, setCantidad] = useState(1);
-  const { productsList, Cart } = useContext(BDContext);
+  const { productsList, Cart, verifyStock } = useContext(BDContext);
 
   const handleChangeCantidad = (event) => {
     setCantidad(event.target.value);
@@ -28,15 +28,33 @@ export const SeccionVenta = () => {
     const existProduct = productsList.find(
       (dato) => dato.Codigo == parseInt(buscador)
     );
+
     if (existProduct != null) {
-      Cart(existProduct, cantidad);
-      setBuscador("");
-      setCantidad(1);
-      Swal.fire({
-        icon: "success",
-        title: "PRODUCTO AGREGADO",
-        timer: 1000,
-      });
+      if (cantidad > 0) {
+        //SI EXISTE Y LA CANTIDAD ES MAYOR A 0 VERIFICAMOS SI HAY STOCK
+        if (verifyStock(existProduct, cantidad)) {
+          Cart(existProduct, cantidad);
+          setBuscador("");
+          setCantidad(1);
+          Swal.fire({
+            icon: "success",
+            title: "PRODUCTO AGREGADO",
+            timer: 1000,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "STOCK INSUFICIENTE",
+            timer: 2000,
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "CANTIDAD NO VÁLIDA",
+          timer: 2000,
+        });
+      }
     } else {
       Swal.fire({
         icon: "error",

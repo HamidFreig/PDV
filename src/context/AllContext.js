@@ -21,6 +21,7 @@ export const AllContext = ({ children }) => {
   const [modificateUser, setModificateUser] = useState([]);
   const [aperturas, setAperturas] = useState([]);
   const [cart, setCart] = useState([]);
+  const [stockActual, setStockActual] = useState(0);
 
   const navigate = useNavigate();
   const db = getFirestore();
@@ -299,6 +300,7 @@ export const AllContext = ({ children }) => {
 
   const Cart = (producto, cantidad) => {
     if (ExistProduct(producto.Codigo)) {
+      //SI EXISTE SOLO LE MODIFICO LA CANTIDAD
       cart.map((productoExist) => {
         if (producto.Codigo == productoExist.CodigoProducto) {
           productoExist.CantidadProducto =
@@ -308,6 +310,7 @@ export const AllContext = ({ children }) => {
         }
       });
     } else {
+      //SI NO EXISTE, LO AGREGO
       setCart([
         ...cart,
         {
@@ -321,7 +324,40 @@ export const AllContext = ({ children }) => {
     }
   };
 
+  const verifyStock = (producto, cantidad) => {
+    const StockProductoCart = cart.find(
+      // ENCUENTRO EL PRODUCTO DEL CARRITO
+      (dato) => dato.CodigoProducto == producto.Codigo
+    );
+
+    const StockProducto = productsList.find(
+      //ENCUENTRO EL PRODUCTO EN LA LISTA DE PRODUCTOS
+      (dato) => dato.Codigo == producto.Codigo
+    );
+
+    if (StockProductoCart == undefined) {
+      //SI NO EXISTE EN EL CARRITO, LE ASIGNO 0 IMPLICITAMENTE PQ SI TIRO NO TIRA UNDEFINED Y LA OPERACION SE HACE NaN
+      if (parseInt(cantidad) > StockProducto.Stock) {
+        //SI LA CANTIDAD A COMPRAR SUPERA EL STOCK LA OPERACIÓN NO SE RELIZA
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      if (
+        parseInt(cantidad) + StockProductoCart.CantidadProducto >
+        StockProducto.Stock
+        //SI LA CANTIDAD A COMPRAR SUPERA EL STOCK LA OPERACIÓN NO SE RELIZA
+      ) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  };
+
   const ExistProduct = (CodigoProducto) => {
+    //SI EXISTE EL PRODUCTO EN EL CARRITO
     if (cart.some((product) => CodigoProducto == product.CodigoProducto)) {
       return true;
     } else {
@@ -330,6 +366,7 @@ export const AllContext = ({ children }) => {
   };
 
   const removeProduct = (productCode) => {
+    //ELIMINO EL PRODUCTO FILTRANDO TODOS MENOS ESE
     const newCart = cart.filter(
       (product) => product.CodigoProducto != productCode
     );
@@ -370,6 +407,7 @@ export const AllContext = ({ children }) => {
         flagApertura,
         Cart,
         cart,
+        verifyStock,
         removeProduct,
       }}
     >
