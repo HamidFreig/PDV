@@ -81,7 +81,7 @@ export const SeccionVenta = () => {
         <div style={{ marginLeft: "15px" }}>
           <TextField
             id="filled-number"
-            label="Number"
+            label="CANTIDAD"
             type="number"
             value={cantidad}
             InputLabelProps={{

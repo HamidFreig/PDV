@@ -9,6 +9,7 @@ import { SeccionVenta } from "../SeccionVenta/SeccionVenta";
 
 import Button from "@mui/material/Button";
 import { ModalEgresoDinero } from "../ModalEgresoDinero/ModalEgresoDinero";
+import { SeccionPago } from "../SeccionPago/SeccionPago";
 
 export const PosView = () => {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ export const PosView = () => {
             variant="contained"
             onClick={() => setModalStock(!modalStock)}
           >
-          VER  PRODUCTOS
+            VER PRODUCTOS
           </Button>
           <div>{modalStock ? <ModalStockView /> : null}</div>
         </div>
@@ -74,7 +75,11 @@ export const PosView = () => {
         <div className="POS1">
           <SeccionVenta />
         </div>
-        <div className="POS2">POS</div>
+        <div className="POS2">
+          <div>
+            <SeccionPago />
+          </div>
+        </div>
       </div>
     </div>
   );

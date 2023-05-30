@@ -1,0 +1,31 @@
+.SeccionPago {
+  width: 100%;
+  height: 100%;
+}
+.MetodoPago {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.IconoPago {
+  width: 60px;
+  height: auto;
+  margin-top: 5px;
+}
+
+b {
+  margin-top: 10px;
+}
+
+.MontoPago {
+  margin-left: 30px;
+  width: 55%;
+}
+
+.ButonCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
