@@ -42,7 +42,7 @@ export const PosView = () => {
       <div className="NavBarMenu">
         <div className="ButtonStock">
           <Button
-            color="primary"
+            sx={{ backgroundColor: "black" }}
             variant="contained"
             onClick={() => setModalStock(!modalStock)}
           >
@@ -52,7 +52,7 @@ export const PosView = () => {
         </div>
         <div className="IngresoEgreso">
           <Button
-            color="primary"
+            sx={{ backgroundColor: "black" }}
             variant="contained"
             onClick={() => viewModalIngreso()}
           >
@@ -62,7 +62,7 @@ export const PosView = () => {
         </div>
         <div className="IngresoEgreso">
           <Button
-            color="primary"
+            sx={{ backgroundColor: "black" }}
             variant="contained"
             onClick={() => viewModalEgreso()}
           >

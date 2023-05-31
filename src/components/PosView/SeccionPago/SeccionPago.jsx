@@ -1,13 +1,137 @@
 import "./SeccionPago.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { BDContext } from "../../../context/BDContext";
+import Swal from "sweetalert2";
 
 //MATERIAL MUI
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
 
 export const SeccionPago = () => {
   const { cart } = useContext(BDContext);
+  const [montoEfectivo, setMontoEfectivo] = useState(0);
+  const [montoDebito, setMontoDebito] = useState(0);
+  const [montoCredito, setMontoCredito] = useState(0);
+  const [montoCarrito, setMontoCarrito] = useState(0);
+
+  setTimeout(() => {
+    //ACTUALIZO EL VALOR DEL CARRITO CONSTANTEMENTE
+    setMontoCarrito(
+      cart.reduce(
+        (acc, curr) => acc + curr.CantidadProducto * curr.PrecioProducto,
+        0
+      )
+    );
+  }, 1000);
+
+  const HandleInputChangeMontoEfectivo = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATEs
+
+    setMontoEfectivo(event.target.value);
+  };
+  const HandleInputChangeMontoDebito = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setMontoDebito(event.target.value);
+  };
+  const HandleInputChangeMontoCredito = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setMontoCredito(event.target.value);
+  };
+
+  const generarVenta = () => {
+    if (
+      //SI EL CARRITO TA VACIO
+      cart.reduce(
+        (acc, curr) => acc + curr.CantidadProducto * curr.PrecioProducto,
+        0
+      ) == 0
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "CARRITO VACIO",
+        timer: 2000,
+      });
+    } else if (
+      //SI EN EL CARRO HAY PRODUCTOS
+      cart.reduce(
+        (acc, curr) => acc + curr.CantidadProducto * curr.PrecioProducto,
+        0
+      ) > 0
+    ) {
+      if (
+        parseInt(montoEfectivo) == 0 &&
+        parseInt(montoDebito) == 0 &&
+        parseInt(montoCredito) == 0
+      ) {
+        //SI LAS 3 CASILLAS SON 0
+        Swal.fire({
+          icon: "error",
+          title: "METODO DE PAGO INVÁLIDO",
+          timer: 2000,
+        });
+      } else if (
+        parseInt(montoEfectivo) +
+          parseInt(montoDebito) +
+          parseInt(montoCredito) <
+        parseInt(montoCarrito)
+      ) {
+        //SI EL MONTO ES MENOR
+        Swal.fire({
+          icon: "error",
+          title: "FALTA DINERO",
+          timer: 2000,
+        });
+      } else if (
+        parseInt(montoEfectivo) +
+          parseInt(montoDebito) +
+          parseInt(montoCredito) >
+          parseInt(montoCarrito) &&
+        parseInt(montoEfectivo) <= parseInt(montoCarrito)
+      ) {
+        //SI EL MONTO ES MAYOR Y  SUPONIENDO QUE EFECTIVO NO ES MAYOR AL MONTO
+        Swal.fire({
+          icon: "error",
+          title: "TRANSACCIÓN INVÁLIDA",
+          timer: 2000,
+        });
+      } else if (
+        parseInt(montoEfectivo) +
+          parseInt(montoDebito) +
+          parseInt(montoCredito) ==
+        parseInt(montoCarrito)
+      ) {
+        //SI EL MONTO ES IGUAL
+        Swal.fire({
+          icon: "success",
+          title: "VENTA REALIZADA",
+          confirmButtonText: "Aceptar",
+        });
+      } else if (
+        parseInt(montoEfectivo) > parseInt(montoCarrito) &&
+        parseInt(montoDebito) == 0 &&
+        parseInt(montoCredito) == 0
+      ) {
+        //SI SOLO SE PAGA EN EFECTIVO Y EL MONTO ES MAYOR, REQUIERE VUELTO
+        Swal.fire({
+          icon: "success",
+          title: "VENTA REALIZADA",
+          text: `EL VUELTO ES DE $${
+            parseInt(montoEfectivo) - parseInt(montoCarrito)
+          }`,
+          confirmButtonText: "Aceptar",
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "TRANSACCIÓN INVÁLIDA",
+          timer: 2000,
+        });
+      }
+    }
+  };
   return (
     <div className="SeccionPago">
       <div className="Total">
@@ -27,16 +151,26 @@ export const SeccionPago = () => {
             src="https://cdn-icons-png.flaticon.com/512/2489/2489756.png"
             alt="Icono"
           />
-          <TextField
-            className="MontoPago"
-            id="standard-number"
-            label="MONTO"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
+          <FormControl
+            fullWidth
+            sx={{
+              width: "60%",
+              marginLeft: "20px",
+              marginTop: "10px",
             }}
-            variant="standard"
-          />
+          >
+            <InputLabel htmlFor="outlined-adornment-amount">MONTO</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-amount"
+              type="number"
+              value={montoEfectivo}
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
+              }
+              onChange={HandleInputChangeMontoEfectivo}
+              label="MONTO"
+            />
+          </FormControl>
         </div>
         <b>DÉBTIO</b>
         <div>
@@ -45,16 +179,26 @@ export const SeccionPago = () => {
             src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRPwA1fZwjxWY0O0zRC_p4pmZubaeSDIC9rZK5lbl4lG_oWMnFi"
             alt="Icono"
           />
-          <TextField
-            className="MontoPago"
-            id="standard-number"
-            label="MONTO"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
+          <FormControl
+            fullWidth
+            sx={{
+              width: "60%",
+              marginLeft: "20px",
+              marginTop: "10px",
             }}
-            variant="standard"
-          />
+          >
+            <InputLabel htmlFor="outlined-adornment-amount">MONTO</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-amount"
+              type="number"
+              value={montoDebito}
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
+              }
+              onChange={HandleInputChangeMontoDebito}
+              label="MONTO"
+            />
+          </FormControl>
         </div>
         <b>CRÉDITO</b>
         <div>
@@ -63,20 +207,34 @@ export const SeccionPago = () => {
             src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRPwA1fZwjxWY0O0zRC_p4pmZubaeSDIC9rZK5lbl4lG_oWMnFi"
             alt="Icono"
           />
-          <TextField
-            className="MontoPago"
-            id="standard-number"
-            label="MONTO"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
+          <FormControl
+            fullWidth
+            sx={{
+              width: "60%",
+              marginLeft: "20px",
+              marginTop: "10px",
             }}
-            variant="standard"
-          />
+          >
+            <InputLabel htmlFor="outlined-adornment-amount">MONTO</InputLabel>
+            <OutlinedInput
+              id="outlined-adornment-amount"
+              type="number"
+              value={montoCredito}
+              startAdornment={
+                <InputAdornment position="start">$</InputAdornment>
+              }
+              onChange={HandleInputChangeMontoCredito}
+              label="MONTO"
+            />
+          </FormControl>
         </div>
       </div>
       <div className="ButonCheck">
-        <Button variant="contained" color="success">
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => generarVenta()}
+        >
           GENERAR VENTA
         </Button>
       </div>
