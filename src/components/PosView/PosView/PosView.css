@@ -9,7 +9,8 @@
 
 .POS {
   margin: auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: 70% 30%;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
@@ -19,14 +20,27 @@
 }
 
 .POS1 {
-  width: 80%;
+  border-color: black;
+  border-radius: 20px;
+  border: solid;
   height: 100%;
   background-color: white;
 }
 
 .POS2 {
+  border-color: black;
+  border: solid;
   margin-left: 10px;
-  width: 20%;
   height: 100%;
   background-color: white;
+}
+
+@media only screen and (max-width: 1290px) {
+  .POS {
+    grid-template-columns: 100%;
+  }
+  .POS1 {
+    height: 60vh;
+    margin-bottom: 20px;
+  }
 }

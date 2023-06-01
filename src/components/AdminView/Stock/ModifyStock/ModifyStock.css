@@ -21,7 +21,7 @@
 
 .divGeneral {
   background-image: url("https://img.freepik.com/vector-premium/patron-isometrico-costuras-cubos-linea-delgada_659980-2.jpg");
-  height: 100vh;
+  min-height: 100vh;
 }
 
 img {
@@ -43,7 +43,7 @@ img {
 }
 
 @media only screen and (max-width: 1290px) {
-  .container {
+  .containerG {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
   .divGeneral {

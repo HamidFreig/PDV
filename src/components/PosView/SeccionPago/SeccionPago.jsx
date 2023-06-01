@@ -11,7 +11,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 
 export const SeccionPago = () => {
-  const { cart } = useContext(BDContext);
+  const { cart, addSale } = useContext(BDContext);
   const [montoEfectivo, setMontoEfectivo] = useState(0);
   const [montoDebito, setMontoDebito] = useState(0);
   const [montoCredito, setMontoCredito] = useState(0);
@@ -19,6 +19,7 @@ export const SeccionPago = () => {
 
   setTimeout(() => {
     //ACTUALIZO EL VALOR DEL CARRITO CONSTANTEMENTE
+    setMontoCarrito(0);
     setMontoCarrito(
       cart.reduce(
         (acc, curr) => acc + curr.CantidadProducto * curr.PrecioProducto,
@@ -109,6 +110,8 @@ export const SeccionPago = () => {
           title: "VENTA REALIZADA",
           confirmButtonText: "Aceptar",
         });
+
+        addSale();
       } else if (
         parseInt(montoEfectivo) > parseInt(montoCarrito) &&
         parseInt(montoDebito) == 0 &&
@@ -135,13 +138,7 @@ export const SeccionPago = () => {
   return (
     <div className="SeccionPago">
       <div className="Total">
-        <p>
-          TOTAL: $
-          {cart.reduce(
-            (acc, curr) => acc + curr.CantidadProducto * curr.PrecioProducto,
-            0
-          )}
-        </p>
+        <p>TOTAL: ${montoCarrito}</p>
       </div>
       <div className="MetodoPago">
         <b>EFECTIVO</b>

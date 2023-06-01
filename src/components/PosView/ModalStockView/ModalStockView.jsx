@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { BDContext } from "../../../context/BDContext";
 import "./ModalStockView.css";
 
@@ -24,6 +24,23 @@ export const ModalStockView = () => {
   const handleClose = () => setOpen(false);
   const [searchInput, setSearchInput] = useState("");
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobileQuery = window.matchMedia("(max-width: 768px)");
+      setIsMobile(isMobileQuery.matches);
+    };
+
+    handleResize(); // Llamada inicial para establecer el estado inicial
+
+    window.addEventListener("resize", handleResize); // Escucha los cambios de tamaño de la ventana
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Limpia el evento al desmontar el componente
+    };
+  }, []);
+
   const { productsList } = useContext(BDContext);
 
   //DISEÑO MODAL
@@ -33,6 +50,18 @@ export const ModalStockView = () => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 700,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const styleModalResponsive = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 300,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -58,7 +87,7 @@ export const ModalStockView = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={styleModal}>
+        <Box sx={isMobile ? styleModalResponsive : styleModal}>
           <div className="divSearch">
             <TextField
               className="inputSearch"
@@ -70,7 +99,11 @@ export const ModalStockView = () => {
           </div>
           <div
             className="TableStock"
-            style={{ width: "700px", height: "250px" }}
+            style={
+              isMobile
+                ? { width: "300px" }
+                : { width: "700px", height: "250px" }
+            }
           >
             <TableContainer component={Paper}>
               <Table

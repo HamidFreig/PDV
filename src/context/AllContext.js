@@ -21,7 +21,6 @@ export const AllContext = ({ children }) => {
   const [modificateUser, setModificateUser] = useState([]);
   const [aperturas, setAperturas] = useState([]);
   const [cart, setCart] = useState([]);
-  const [stockActual, setStockActual] = useState(0);
 
   const navigate = useNavigate();
   const db = getFirestore();
@@ -298,22 +297,32 @@ export const AllContext = ({ children }) => {
     });
   };
 
+  const montoCart = () => {
+    const montocarro = cart.reduce(
+      (acc, curr) => acc + curr.CantidadProducto * curr.PrecioProducto,
+      0
+    );
+
+    return montocarro;
+  };
+
   const Cart = (producto, cantidad) => {
+    console.log(cart);
     if (ExistProduct(producto.Codigo)) {
       //SI EXISTE SOLO LE MODIFICO LA CANTIDAD
       cart.map((productoExist) => {
         if (producto.Codigo == productoExist.CodigoProducto) {
           productoExist.CantidadProducto =
             productoExist.CantidadProducto + parseInt(cantidad);
-          productoExist.PrecioProducto =
-            productoExist.PrecioProducto + parseInt(producto.Precio) * cantidad;
         }
       });
     } else {
       //SI NO EXISTE, LO AGREGO
+
       setCart([
         ...cart,
         {
+          idProducto: producto.id,
           CodigoProducto: parseInt(producto.Codigo),
           NombreProducto: producto.Nombre,
           SaborProducto: producto.Sabor,
@@ -373,6 +382,10 @@ export const AllContext = ({ children }) => {
     setCart(newCart);
   };
 
+  const addSale = () => {
+    console.log(cart);
+  };
+
   return (
     <BDContext.Provider
       value={{
@@ -409,6 +422,7 @@ export const AllContext = ({ children }) => {
         cart,
         verifyStock,
         removeProduct,
+        addSale,
       }}
     >
       {children}

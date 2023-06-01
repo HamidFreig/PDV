@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import "./ModalIngresoDinero.css";
 import Swal from "sweetalert2";
 import { BDContext } from "../../../context/BDContext";
@@ -20,6 +20,22 @@ export const ModalIngresoDinero = () => {
   const [commentarioIngreso, setComentarioIngreso] = useState("");
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [horaActual, setHoraActual] = useState(new Date().toLocaleTimeString());
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobileQuery = window.matchMedia("(max-width: 768px)");
+      setIsMobile(isMobileQuery.matches);
+    };
+
+    handleResize(); // Llamada inicial para establecer el estado inicial
+
+    window.addEventListener("resize", handleResize); // Escucha los cambios de tamaño de la ventana
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Limpia el evento al desmontar el componente
+    };
+  }, []);
 
   const { AddIncome } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
 
@@ -40,6 +56,18 @@ export const ModalIngresoDinero = () => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: 700,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const styleModalResponsive = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 300,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -82,7 +110,7 @@ export const ModalIngresoDinero = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={styleModal}>
+        <Box sx={isMobile ? styleModalResponsive : styleModal}>
           <div className="FormIngreso">
             <label>INGRESE LA CANTIDAD DE DINERO</label>
             <FormControl fullWidth sx={{ m: 1 }}>
