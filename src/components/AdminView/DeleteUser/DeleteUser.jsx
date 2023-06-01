@@ -44,6 +44,9 @@ export const DeleteUser = () => {
             <StyledTableCell component="th" scope="row">
               {row.Rut}
             </StyledTableCell>
+            <StyledTableCell align="left">
+              {row.Nombre.toUpperCase()}
+            </StyledTableCell>
             <StyledTableCell align="left">{row.Contraseña}</StyledTableCell>
             <StyledTableCell align="left">
               <Button
@@ -91,6 +94,7 @@ export const DeleteUser = () => {
             <TableHead>
               <TableRow>
                 <StyledTableCell>RUT VENDEDOR</StyledTableCell>
+                <StyledTableCell align="left">NOMBRE</StyledTableCell>
                 <StyledTableCell align="left">CONTRASEÑA</StyledTableCell>
                 <StyledTableCell align="left">OPCIONES</StyledTableCell>
               </TableRow>

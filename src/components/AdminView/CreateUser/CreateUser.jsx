@@ -9,6 +9,7 @@ export const CreateUser = () => {
   const navigate = useNavigate();
   const { usersList } = useContext(BDContext);
   const [datosInput, setDatosInput] = useState({
+    nombre: "",
     rut: "",
     passw: "",
   });
@@ -57,6 +58,7 @@ export const CreateUser = () => {
       const db = getFirestore();
       const querySnapshot = collection(db, "Usuarios");
       addDoc(querySnapshot, {
+        Nombre: datosInput.nombre,
         Rut: datosInput.rut,
         Contraseña: datosInput.passw,
         TipoUsuario: "Vendedor",
@@ -85,6 +87,15 @@ export const CreateUser = () => {
       </label>
       <div className="container">
         <form>
+          <div className="form-row">
+            <label type="text">Nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              onChange={HandleInputChange}
+            />
+          </div>
           <div className="form-row">
             <label type="number">Rut</label>
             <input

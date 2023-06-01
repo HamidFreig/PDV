@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 export const AllContext = ({ children }) => {
   const [usersList, setUserList] = useState([]);
   const [productsList, setProductsList] = useState([]);
+  const [vendedorActivo, setVendedorActivo] = useState("");
   const [ingresos, setIngresos] = useState([]);
   const [egresos, setEgresos] = useState([]);
   const [modificateProduct, setModificateProduct] = useState([]);
@@ -307,7 +308,6 @@ export const AllContext = ({ children }) => {
   };
 
   const Cart = (producto, cantidad) => {
-    console.log(cart);
     if (ExistProduct(producto.Codigo)) {
       //SI EXISTE SOLO LE MODIFICO LA CANTIDAD
       cart.map((productoExist) => {
@@ -382,13 +382,53 @@ export const AllContext = ({ children }) => {
     setCart(newCart);
   };
 
-  const addSale = () => {
-    console.log(cart);
+  const cleanCart = () => {
+    setCart([]);
+  };
+  const addSale = (
+    hora,
+    fecha,
+    montoCarrito,
+    montoEfecivo,
+    montoDebito,
+    montoCredito
+  ) => {
+    const Separador = "/";
+    const FechaSplit = fecha.split(Separador);
+    const DiaSplit = parseInt(FechaSplit[0]);
+    const MesSplit = parseInt(FechaSplit[1]);
+    const AñoSplit = parseInt(FechaSplit[2]);
+
+    //AGREGO TODA LA INFO A LA BASE DE DATOS
+    const db = getFirestore();
+    const querySnapshot = collection(db, "Ventas");
+    addDoc(querySnapshot, {
+      Fecha: {
+        Dia: DiaSplit,
+        Mes: MesSplit,
+        Año: AñoSplit,
+      },
+      Hora: hora,
+      MontoTotal: parseInt(montoCarrito),
+      MontoEfectivo: parseInt(montoEfecivo),
+      MontoDebito: parseInt(montoDebito),
+      MontoCredito: parseInt(montoCredito),
+      Productos: cart.map((product) => {
+        return {
+          CantidadProducto: product.CantidadProducto,
+          IdProducto: product.idProducto,
+          NombreProducto: product.NombreProducto,
+          PrecioProducto: product.PrecioProducto,
+        };
+      }),
+      Venededor: vendedorActivo,
+    });
   };
 
   return (
     <BDContext.Provider
       value={{
+        setVendedorActivo,
         usersList,
         getUsuarios,
         deleteUser,
@@ -423,6 +463,7 @@ export const AllContext = ({ children }) => {
         verifyStock,
         removeProduct,
         addSale,
+        cleanCart,
       }}
     >
       {children}

@@ -11,11 +11,13 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 
 export const SeccionPago = () => {
-  const { cart, addSale } = useContext(BDContext);
+  const { cart, addSale, cleanCart } = useContext(BDContext);
   const [montoEfectivo, setMontoEfectivo] = useState(0);
   const [montoDebito, setMontoDebito] = useState(0);
   const [montoCredito, setMontoCredito] = useState(0);
   const [montoCarrito, setMontoCarrito] = useState(0);
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  const [horaActual, setHoraActual] = useState(new Date().toLocaleTimeString());
 
   setTimeout(() => {
     //ACTUALIZO EL VALOR DEL CARRITO CONSTANTEMENTE
@@ -111,7 +113,22 @@ export const SeccionPago = () => {
           confirmButtonText: "Aceptar",
         });
 
-        addSale();
+        //AGREGO LA VENTA A LA BD
+        addSale(
+          horaActual,
+          currentDateTime.toLocaleDateString(),
+          montoCarrito,
+          montoEfectivo,
+          montoDebito,
+          montoCredito
+        );
+        //LIMPIO EL CARRITO
+        cleanCart();
+
+        //HAGO REFRESH A LA PAGINA PARA RESTABLECER LOS INPUTS
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       } else if (
         parseInt(montoEfectivo) > parseInt(montoCarrito) &&
         parseInt(montoDebito) == 0 &&
@@ -126,6 +143,24 @@ export const SeccionPago = () => {
           }`,
           confirmButtonText: "Aceptar",
         });
+
+        //AGREGO LA VENTA A LA BD
+        addSale(
+          horaActual,
+          currentDateTime.toLocaleDateString(),
+          montoCarrito,
+          montoEfectivo,
+          montoDebito,
+          montoCredito
+        );
+
+        //LIMPIO EL CARRITO
+        cleanCart();
+
+        //HAGO REFRESH A LA PAGINA PARA RESTABLECER LOS INPUTS
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       } else {
         Swal.fire({
           icon: "error",
