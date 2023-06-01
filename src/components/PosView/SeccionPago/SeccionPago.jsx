@@ -124,11 +124,6 @@ export const SeccionPago = () => {
         );
         //LIMPIO EL CARRITO
         cleanCart();
-
-        //HAGO REFRESH A LA PAGINA PARA RESTABLECER LOS INPUTS
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
       } else if (
         parseInt(montoEfectivo) > parseInt(montoCarrito) &&
         parseInt(montoDebito) == 0 &&
@@ -156,11 +151,6 @@ export const SeccionPago = () => {
 
         //LIMPIO EL CARRITO
         cleanCart();
-
-        //HAGO REFRESH A LA PAGINA PARA RESTABLECER LOS INPUTS
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
       } else {
         Swal.fire({
           icon: "error",

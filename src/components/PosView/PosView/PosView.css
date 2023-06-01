@@ -7,6 +7,23 @@
   justify-content: space-around;
 }
 
+.navBarPrincipal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Usuario {
+  display: flex;
+  width: 300px;
+  height: 35px;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+}
+
 .POS {
   margin: auto;
   display: grid;

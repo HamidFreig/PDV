@@ -1,6 +1,7 @@
 import "./PosView.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { BDContext } from "../../../context/BDContext";
 import { ModalStockView } from "../ModalStockView/ModalStockView";
 import { ModalIngresoDinero } from "../ModalIngresoDinero/ModalIngresoDinero";
 import { SeccionVenta } from "../SeccionVenta/SeccionVenta";
@@ -13,6 +14,7 @@ import { SeccionPago } from "../SeccionPago/SeccionPago";
 
 export const PosView = () => {
   const navigate = useNavigate();
+  const { vendedorActivo } = useContext(BDContext);
   const [modalStock, setModalStock] = useState(false);
   const [modalIngreso, setModalIngreso] = useState(false);
   const [modalEgreso, setModalEgreso] = useState(false);
@@ -33,9 +35,13 @@ export const PosView = () => {
         height: "97vh",
       }}
     >
-      <button className="Button-Out" onClick={() => navigate("/")}>
-        SALIR
-      </button>
+      <div className="navBarPrincipal">
+        <button className="Button-Out" onClick={() => navigate("/")}>
+          SALIR
+        </button>
+        <h1 className="Usuario">BIENVENIDO USUARIO: {vendedorActivo}</h1>
+      </div>
+
       <label style={{ backgroundColor: "white", marginBottom: "40PX" }}>
         PUNTO DE VENTA
       </label>

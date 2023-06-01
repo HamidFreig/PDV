@@ -21,16 +21,7 @@ export const AdminView = () => {
   };
 
   const viewModalOpen = () => {
-    if (flagApertura(fechaActual)[0]) {
-      //CORROBORA SI SE REALIZÓ EL APERTURA, EL [0] ES PQ SE TRAE EN UN ARRAY
-      Swal.fire({
-        icon: "error",
-        title: "APERTURA YA REALIZADA",
-        timer: 2000,
-      });
-    } else {
-      setmodalOpenDay(!modalOpenDay);
-    }
+    setmodalOpenDay(!modalOpenDay);
   };
 
   return (

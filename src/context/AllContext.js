@@ -283,19 +283,28 @@ export const AllContext = ({ children }) => {
   };
 
   const addApertura = (MontoApertura, FechaApertura, HoraApertura) => {
-    const db = getFirestore();
-    const querySnapshot = collection(db, "Aperturas");
-    addDoc(querySnapshot, {
-      MontoApertura: MontoApertura,
-      Fecha: FechaApertura,
-      Hora: HoraApertura,
-    });
-    navigate("/admin");
-    Swal.fire({
-      icon: "success",
-      title: "APERTURA REALIZADA CON EXITO",
-      timer: 2000,
-    });
+    if (flagApertura(FechaApertura)) {
+      navigate("/");
+      Swal.fire({
+        icon: "error",
+        title: "APERTURA YA REALIZADA",
+        timer: 2000,
+      });
+    } else {
+      const db = getFirestore();
+      const querySnapshot = collection(db, "Aperturas");
+      addDoc(querySnapshot, {
+        MontoApertura: MontoApertura,
+        Fecha: FechaApertura,
+        Hora: HoraApertura,
+      });
+      navigate("/admin");
+      Swal.fire({
+        icon: "success",
+        title: "APERTURA REALIZADA CON EXITO",
+        timer: 2000,
+      });
+    }
   };
 
   const montoCart = () => {
@@ -383,7 +392,23 @@ export const AllContext = ({ children }) => {
   };
 
   const cleanCart = () => {
+    //LIMPIAR CARRITO
     setCart([]);
+  };
+
+  const refreshStockProductos = () => {
+    const g = productsList.map((products) => {
+      cart.map((dato) => {
+        if (dato.idProducto == products.id) {
+          //BUSCO COINCIDENCI ENTRE LOS PRODUCTOS DE LA TIENDA CON EL CARRITO
+          const id = dato.idProducto;
+          updateDoc(doc(db, "Productos", id), {
+            //PARA ACTUALIZAR EL STOCK RESTANDOLE LOS PRODUCTOS QUE SE REGISTRARON EN LA VENTA
+            Stock: parseInt(products.Stock) - parseInt(dato.CantidadProducto),
+          });
+        }
+      });
+    });
   };
   const addSale = (
     hora,
@@ -393,6 +418,9 @@ export const AllContext = ({ children }) => {
     montoDebito,
     montoCredito
   ) => {
+    //REFRESCO EL STOCK EN LA BD ANTES DE GENERAR LA VENTA
+    refreshStockProductos();
+
     const Separador = "/";
     const FechaSplit = fecha.split(Separador);
     const DiaSplit = parseInt(FechaSplit[0]);
@@ -421,13 +449,18 @@ export const AllContext = ({ children }) => {
           PrecioProducto: product.PrecioProducto,
         };
       }),
-      Venededor: vendedorActivo,
+      Vendedor: vendedorActivo,
     });
+
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
   };
 
   return (
     <BDContext.Provider
       value={{
+        vendedorActivo,
         setVendedorActivo,
         usersList,
         getUsuarios,

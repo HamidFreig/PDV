@@ -59,12 +59,6 @@ export const ModalOpenDay = () => {
       //SOLO ENVIA LOS DATOS SI SON NUMEROS ENTEROS Y QUE NO HAYAN CARACTERES EN LA CADENA
       const MontoApertura = parseInt(montoCajaInicial.trimStart(), 10);
       addApertura(MontoApertura, fechaActual, horaActual);
-      navigate("/");
-      Swal.fire({
-        icon: "success",
-        title: "APERTURA REALIZADA CON ÉXITO",
-        timer: 1500,
-      });
     }
   };
   return (
