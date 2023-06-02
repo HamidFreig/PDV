@@ -2,16 +2,15 @@
 
 .PanelDiv {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
   gap: 10px;
   font-family: "Ubuntu Condensed", sans-serif;
   text-align: center;
   font-size: 25px;
-  height: 100%;
+  width: 80%;
 }
 
-@media (max-width: 1110px) {
-  .PanelDiv {
-    grid-template-columns: 1fr;
-  }
+.DivIngresos,
+.DivEgresos {
+  height: 50%;
 }
