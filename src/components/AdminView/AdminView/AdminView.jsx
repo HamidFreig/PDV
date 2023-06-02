@@ -7,7 +7,7 @@ import "./AdminView.css";
 
 export const AdminView = () => {
   const navigate = useNavigate();
-  const { getUsuarios, getProductos, getIngresos, getEgresos, flagApertura } =
+  const { getUsuarios, getProductos, getIngresos, getEgresos, getAperturas } =
     useContext(BDContext);
 
   const [modalOpenDay, setmodalOpenDay] = useState(false);
@@ -21,6 +21,7 @@ export const AdminView = () => {
   };
 
   const viewModalOpen = () => {
+    getAperturas();
     setmodalOpenDay(!modalOpenDay);
   };
 

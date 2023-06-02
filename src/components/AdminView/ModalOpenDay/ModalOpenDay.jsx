@@ -50,7 +50,6 @@ export const ModalOpenDay = () => {
 
   const HandleInputChangeMontoCajaIncial = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
-
     setmontoCajaInicial(event.target.value);
   };
 

@@ -272,13 +272,9 @@ export const AllContext = ({ children }) => {
 
   const flagApertura = (fechaActual) => {
     //BANDERA PARA SABER SI SE REALIZÓ EL APERTURA DE CAJA EN EL DIA DE HOY
-    const flag = aperturas.map((dato) => {
-      if (dato.Fecha == fechaActual) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    console.log(aperturas);
+    const flag = aperturas.some((dato) => dato.Fecha == fechaActual);
+    console.log(flag);
     return flag;
   };
 
@@ -298,7 +294,7 @@ export const AllContext = ({ children }) => {
         Fecha: FechaApertura,
         Hora: HoraApertura,
       });
-      navigate("/admin");
+      navigate("/");
       Swal.fire({
         icon: "success",
         title: "APERTURA REALIZADA CON EXITO",
