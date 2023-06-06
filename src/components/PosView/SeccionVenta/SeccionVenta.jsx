@@ -73,7 +73,7 @@ export const SeccionVenta = () => {
           label="CODIGO PRODUCTO"
           className="buscador"
           value={buscador}
-          type="search"
+          type="number"
           variant="filled"
           onChange={HandleInputChangeBuscador}
         />
