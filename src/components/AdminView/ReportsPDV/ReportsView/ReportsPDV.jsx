@@ -3,8 +3,6 @@ import { useContext } from "react";
 import { BDContext } from "../../../../context/BDContext";
 import { useNavigate } from "react-router-dom";
 
-//DISEÑO MUI
-import Button from "@mui/material/Button";
 import { IngresoEgreso } from "../IngresoEgresoReport/IngresoEgreso";
 
 export const ReportsPDV = () => {
@@ -15,7 +13,7 @@ export const ReportsPDV = () => {
       style={{
         backgroundImage: `url("https://img.freepik.com/vector-premium/patron-isometrico-costuras-cubos-linea-delgada_659980-2.jpg")`,
         minHeight: "100vh",
-        minWidth: "420px",
+        minWidth: "90vw",
       }}
     >
       <button className="Button-Out" onClick={() => navigate("/admin")}>

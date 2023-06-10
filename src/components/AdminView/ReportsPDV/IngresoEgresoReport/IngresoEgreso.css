@@ -14,3 +14,15 @@
 .DivEgresos {
   height: 50%;
 }
+
+@media (max-width: 950px) {
+  .DivIngresos,
+  .DivEgresos,
+  .Seleccion {
+    width: 75%;
+  }
+
+  .PanelDiv {
+    margin-left: 200%;
+  }
+}

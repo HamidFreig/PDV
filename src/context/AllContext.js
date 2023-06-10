@@ -416,6 +416,9 @@ export const AllContext = ({ children }) => {
   ) => {
     //REFRESCO EL STOCK EN LA BD ANTES DE GENERAR LA VENTA
     refreshStockProductos();
+    if (montoEfecivo > montoCarrito) {
+      montoEfecivo = montoCarrito;
+    }
 
     const Separador = "/";
     const FechaSplit = fecha.split(Separador);
