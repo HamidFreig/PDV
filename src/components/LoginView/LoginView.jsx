@@ -1,5 +1,5 @@
 import "./LoginView.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BDContext } from "../../context/BDContext";
 import TextField from "@mui/material/TextField";
@@ -7,13 +7,22 @@ import Swal from "sweetalert2";
 
 export const LoginView = () => {
   const navigate = useNavigate();
-  const { usersList, getProductos, getAperturas, setVendedorActivo } =
-    useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
+  const {
+    usersList,
+    getProductos,
+    getAperturas,
+    setVendedorActivo,
+    flagApertura,
+  } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
 
   const [datosInput, setDatosInput] = useState({
     rut: "",
     passw: "",
   });
+
+  const [fechaActual, setfechaActual] = useState(
+    new Date().toLocaleDateString()
+  );
 
   const HandleInputChange = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
@@ -51,6 +60,8 @@ export const LoginView = () => {
           timer: 2000,
         });
       } else {
+        getAperturas();
+
         redirectPage(findUser);
       }
     }
@@ -61,9 +72,17 @@ export const LoginView = () => {
       getAperturas();
       navigate("/admin");
     } else if (userLogin.TipoUsuario === "Vendedor") {
-      getProductos();
-      setVendedorActivo(datosInput.rut);
-      navigate("/pos");
+      if (flagApertura(fechaActual)) {
+        getProductos();
+        setVendedorActivo(datosInput.rut);
+        navigate("/pos");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "DEBE REALIZAR APERTURA ANTES DE REALIZAR VENTAS",
+          timer: 2000,
+        });
+      }
     }
   };
 

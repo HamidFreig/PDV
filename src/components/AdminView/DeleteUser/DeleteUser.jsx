@@ -84,11 +84,10 @@ export const DeleteUser = () => {
         <button className="Button-Back">ATRAS</button>
       </Link>
       <label style={{ marginBottom: "70px", backgroundColor: "white" }}>
-        {" "}
         EDITAR VENDEDOR
       </label>
 
-      <div className="table" style={{ width: "50%", margin: "0 auto" }}>
+      <div className="table" style={{ width: "70%", margin: "0 auto" }}>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>

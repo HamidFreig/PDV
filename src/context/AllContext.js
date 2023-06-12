@@ -243,6 +243,7 @@ export const AllContext = ({ children }) => {
         const ingresos = response.docs.map((doc) => {
           return { id: doc.id, ...doc.data() };
         });
+
         setIngresos(ingresos);
       })
       .catch((error) => console.log(error));
@@ -272,9 +273,7 @@ export const AllContext = ({ children }) => {
 
   const flagApertura = (fechaActual) => {
     //BANDERA PARA SABER SI SE REALIZÓ EL APERTURA DE CAJA EN EL DIA DE HOY
-    console.log(aperturas);
     const flag = aperturas.some((dato) => dato.Fecha == fechaActual);
-    console.log(flag);
     return flag;
   };
 
@@ -298,7 +297,7 @@ export const AllContext = ({ children }) => {
       Swal.fire({
         icon: "success",
         title: "APERTURA REALIZADA CON EXITO",
-        timer: 2000,
+        timer: 3000,
       });
     }
   };
