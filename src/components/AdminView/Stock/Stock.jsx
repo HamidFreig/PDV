@@ -144,7 +144,9 @@ export const Stock = () => {
                       <Button
                         variant="outlined"
                         color="error"
-                        onClick={() => setModificateProduct(row)}
+                        onClick={() => {
+                          setModificateProduct(row);
+                        }}
                       >
                         MODIFICAR PRODUCTO
                       </Button>

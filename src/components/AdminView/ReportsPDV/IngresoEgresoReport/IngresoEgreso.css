@@ -18,7 +18,8 @@
 
 @media (max-width: 950px) {
   .DivIngresos,
-  .DivEgresos {
+  .DivEgresos,
+  .Seleccion {
     width: 75%;
   }
 

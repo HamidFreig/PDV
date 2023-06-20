@@ -14,9 +14,11 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { BDContext } from "../../../../context/BDContext";
 
 export const VentasReport = () => {
+  const navigate = useNavigate();
   const { listVentas } = useContext(BDContext);
   const [seleccion, setSeleccion] = useState(1);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -259,6 +261,10 @@ export const VentasReport = () => {
       return filter;
     }
   };
+
+  const ventasDetail = (dato) => {
+    navigate(`/reportDetail/${dato.id}`);
+  };
   return (
     <div className="PanelVentasReport">
       {useEffect(() => {
@@ -301,25 +307,25 @@ export const VentasReport = () => {
             <TableBody>
               {filterVentas().map((dato) => (
                 <StyledTableRow key={dato.id}>
-                  <StyledTableCell component="th" scope="row">
+                  <StyledTableCell component="th" scope="row" align="center">
                     {dato.Fecha.Dia +
                       "/" +
                       dato.Fecha.Mes +
                       "/" +
                       dato.Fecha.Año}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{dato.Hora}</StyledTableCell>
-                  <StyledTableCell align="right">
+                  <StyledTableCell align="center">{dato.Hora}</StyledTableCell>
+                  <StyledTableCell align="center">
                     {dato.MontoTotal.toLocaleString("es-CL", {
                       style: "currency",
                       currency: "CLP",
                     })}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {" "}
+                  <StyledTableCell align="center">
                     <Button
                       variant="contained"
                       sx={{ backgroundColor: "yellow", color: "black" }}
+                      onClick={() => ventasDetail(dato)}
                     >
                       VER DETALLE
                     </Button>

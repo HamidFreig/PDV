@@ -400,7 +400,7 @@ export const IngresoEgreso = () => {
 
         {filterIngresos().reduce((acc, curr) => acc + curr.MontoIngreso, 0) >
         0 ? (
-          <div>
+          <div className="TableVentas">
             <TableContainer
               className="TableDatos"
               style={{ marginTop: "20px" }}
@@ -460,7 +460,7 @@ export const IngresoEgreso = () => {
         </p>
         {filterEgresos().reduce((acc, curr) => acc + curr.MontoEgreso, 0) >
         0 ? (
-          <div>
+          <div className="TableVentas">
             <TableContainer
               className="TableDatos"
               style={{ marginTop: "20px" }}

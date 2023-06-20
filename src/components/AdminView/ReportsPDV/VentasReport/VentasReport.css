@@ -5,7 +5,12 @@
 }
 
 @media (max-width: 950px) {
-  .TableDatos {
-    width: 75%;
+  .TableDatos,
+  .TableVentas {
+    width: 95%;
+  }
+
+  .Seleccion1 {
+    width: 95%;
   }
 }

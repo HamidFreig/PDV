@@ -11,6 +11,7 @@ import { AddProduct } from "./components/AdminView/Stock/AddProduct/AddProduct";
 import { ModificateUser } from "./components/AdminView/ModificateUser/ModificateUser";
 import { PosView } from "./components/PosView/PosView/PosView";
 import { ReportsPDV } from "./components/AdminView/ReportsPDV/ReportsView/ReportsPDV";
+import { VentasDetail } from "./components/AdminView/ReportsPDV/VentasDetail/VentasDetail";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/reception" element={<ReceptionStock />}></Route>
           <Route path="/addProduct" element={<AddProduct />}></Route>
           <Route path="/report" element={<ReportsPDV />}></Route>
+          <Route path="/reportDetail/:id" element={<VentasDetail />}></Route>
           <Route path="/pos" element={<PosView />}></Route>
         </Routes>
       </AllContext>
