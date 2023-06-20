@@ -7,8 +7,14 @@ import "./AdminView.css";
 
 export const AdminView = () => {
   const navigate = useNavigate();
-  const { getUsuarios, getProductos, getIngresos, getEgresos, getAperturas } =
-    useContext(BDContext);
+  const {
+    getUsuarios,
+    getProductos,
+    getIngresos,
+    getEgresos,
+    getAperturas,
+    getVentas,
+  } = useContext(BDContext);
 
   const [modalOpenDay, setmodalOpenDay] = useState(false);
   const [fechaActual, setfechaActual] = useState(
@@ -99,6 +105,7 @@ export const AdminView = () => {
               onClick={() => {
                 getIngresos();
                 getEgresos();
+                getVentas();
               }}
             >
               REPORTES

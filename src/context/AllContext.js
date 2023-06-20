@@ -22,6 +22,7 @@ export const AllContext = ({ children }) => {
   const [modificateUser, setModificateUser] = useState([]);
   const [aperturas, setAperturas] = useState([]);
   const [cart, setCart] = useState([]);
+  const [listVentas, setListVentas] = useState([]);
 
   const navigate = useNavigate();
   const db = getFirestore();
@@ -30,6 +31,7 @@ export const AllContext = ({ children }) => {
   const querySnapshotIngresos = collection(db, "Ingresos");
   const querySnapshotEgresos = collection(db, "Egresos");
   const querySnapshotAperturas = collection(db, "Aperturas");
+  const querySnapshotVentas = collection(db, "Ventas");
 
   const getUsuarios = () => {
     //ACCEDER A LOS USER DE LA DB DE FIRESTORE
@@ -55,6 +57,17 @@ export const AllContext = ({ children }) => {
       .catch((error) => console.log(error));
   };
 
+  const getVentas = () => {
+    getDocs(querySnapshotVentas)
+      .then((response) => {
+        const listVentas = response.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        setListVentas(listVentas);
+      })
+      .catch((error) => console.log(error));
+  };
+
   useEffect(() => {
     setTimeout(() => {
       getUsuarios(); //HAGO UN TIMER PARA ALMACENAR LOS DATOS EN EL ARRAY LOCAL
@@ -62,6 +75,7 @@ export const AllContext = ({ children }) => {
       getIngresos();
       getEgresos();
       getAperturas();
+      getVentas();
     }, "1000");
   }, []);
 
@@ -495,6 +509,8 @@ export const AllContext = ({ children }) => {
         removeProduct,
         addSale,
         cleanCart,
+        getVentas,
+        listVentas,
       }}
     >
       {children}

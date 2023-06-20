@@ -1,0 +1,11 @@
+.PanelVentasReport {
+  width: 80%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 950px) {
+  .TableDatos {
+    width: 75%;
+  }
+}
