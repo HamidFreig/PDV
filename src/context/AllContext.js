@@ -287,6 +287,7 @@ export const AllContext = ({ children }) => {
 
   const flagApertura = (fechaActual) => {
     //BANDERA PARA SABER SI SE REALIZÓ EL APERTURA DE CAJA EN EL DIA DE HOY
+    getAperturas();
     const flag = aperturas.some((dato) => dato.Fecha == fechaActual);
     return flag;
   };

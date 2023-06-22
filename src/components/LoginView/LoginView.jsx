@@ -72,6 +72,7 @@ export const LoginView = () => {
       getAperturas();
       navigate("/admin");
     } else if (userLogin.TipoUsuario === "Vendedor") {
+      getAperturas();
       if (flagApertura(fechaActual)) {
         getProductos();
         setVendedorActivo(datosInput.rut);
