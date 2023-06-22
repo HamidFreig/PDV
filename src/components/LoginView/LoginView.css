@@ -1,21 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
 
-.login-container {
+body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 98vh;
+}
+
+.login-container {
+  width: 350px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 form {
-  width: 90%;
-  max-width: 400px;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 20px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   padding: 20px;
   text-align: center;
+  justify-content: center;
 }
 
 h1 {
@@ -27,6 +33,7 @@ h1 {
 .form-group {
   margin-bottom: 20px;
   text-align: left;
+  text-align: center;
 }
 
 label {
@@ -39,10 +46,7 @@ label {
 }
 
 .Input {
-  width: 95%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  width: 85%;
 }
 
 .ButtonLogin {

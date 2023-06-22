@@ -89,13 +89,13 @@ export const LoginView = () => {
   return (
     <div
       style={{
-        backgroundImage: `url("https://img.freepik.com/vector-premium/patron-isometrico-costuras-cubos-linea-delgada_659980-2.jpg")`,
-        height: "auto",
+        backgroundImage: `url("https://img.freepik.com/vector-gratis/fondo-monocromatico-blanco-estilo-papel_52683-66443.jpg?w=2000")`,
       }}
     >
       <div className="login-container">
         <form>
           <h1>INICIAR SESIÓN</h1>
+
           <div className="form-group">
             <TextField
               className="Input"
