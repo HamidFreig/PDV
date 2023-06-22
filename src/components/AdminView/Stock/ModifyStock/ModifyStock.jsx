@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useContext, useState } from "react";
 import { BDContext } from "../../../../context/BDContext";
 import "./ModifyStock.css";

@@ -4,6 +4,7 @@ import { BDContext } from "../../../../context/BDContext";
 import { useNavigate } from "react-router-dom";
 
 import { IngresoEgreso } from "../IngresoEgresoReport/IngresoEgreso";
+import { VentasReport } from "../VentasReport/VentasReport";
 
 export const ReportsPDV = () => {
   const navigate = useNavigate();
@@ -22,11 +23,13 @@ export const ReportsPDV = () => {
       <label style={{ backgroundColor: "white", marginBottom: "40PX" }}>
         REPORTES
       </label>
-      <div className="DivReportes">
-        <div className="IngresoEgreso">
-          <IngresoEgreso />
-        </div>
-        <div className="ReportesVentas">div2</div>
+
+      <div className="IngresoEgreso">
+        <IngresoEgreso />
+      </div>
+
+      <div className="ReportesVentas">
+        <VentasReport />
       </div>
     </div>
   );
