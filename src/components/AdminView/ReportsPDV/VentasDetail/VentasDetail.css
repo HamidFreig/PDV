@@ -1,0 +1,15 @@
+.Detalle {
+  background-color: white;
+  display: flex;
+  justify-content: space-around;
+}
+
+.detalle {
+  font-size: 35px;
+}
+
+.TablaDetalle {
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 30px;
+}

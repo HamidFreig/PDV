@@ -298,6 +298,7 @@ export const VentasReport = () => {
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
+                <StyledTableCell align="center">VENDEDOR</StyledTableCell>
                 <StyledTableCell align="center">FECHA</StyledTableCell>
                 <StyledTableCell align="center">HORA</StyledTableCell>
                 <StyledTableCell align="center">MONTO TOTAL</StyledTableCell>
@@ -307,6 +308,9 @@ export const VentasReport = () => {
             <TableBody>
               {filterVentas().map((dato) => (
                 <StyledTableRow key={dato.id}>
+                  <StyledTableCell align="center">
+                    {dato.Vendedor}
+                  </StyledTableCell>
                   <StyledTableCell component="th" scope="row" align="center">
                     {dato.Fecha.Dia +
                       "/" +
@@ -324,7 +328,7 @@ export const VentasReport = () => {
                   <StyledTableCell align="center">
                     <Button
                       variant="contained"
-                      sx={{ backgroundColor: "yellow", color: "black" }}
+                      sx={{ backgroundColor: "green", color: "white" }}
                       onClick={() => ventasDetail(dato)}
                     >
                       VER DETALLE

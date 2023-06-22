@@ -1,26 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
 
 .PanelDiv {
-  display: grid;
-  grid-template-rows: auto auto;
-  gap: 10px;
-  font-family: "Ubuntu Condensed", sans-serif;
-  text-align: center;
-  font-size: 25px;
   width: 80%;
-  margin-bottom: 40px;
+  text-align: center;
 }
-
-.DivIngresos,
-.DivEgresos {
-  height: 50%;
+.Transacciones {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 950px) {
-  .DivIngresos,
-  .DivEgresos,
-  .Seleccion {
-    width: 75%;
+  .Transacciones {
+    grid-template-columns: auto;
   }
 
   .PanelDiv {

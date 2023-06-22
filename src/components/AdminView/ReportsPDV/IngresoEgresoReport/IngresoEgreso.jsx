@@ -386,130 +386,136 @@ export const IngresoEgreso = () => {
         </FormControl>
       </div>
 
-      <div className="DivIngresos">
-        <p
-          style={{
-            backgroundColor: "white",
-            fontSize: "25px",
-            fontWeight: "1000",
-          }}
-        >
-          INGRESOS: $
-          {filterIngresos().reduce((acc, curr) => acc + curr.MontoIngreso, 0)}
-        </p>
+      <div className="Transacciones">
+        <div className="DivIngresos">
+          <p
+            style={{
+              backgroundColor: "white",
+              fontSize: "25px",
+              fontWeight: "1000",
+            }}
+          >
+            INGRESOS: $
+            {filterIngresos().reduce((acc, curr) => acc + curr.MontoIngreso, 0)}
+          </p>
 
-        {filterIngresos().reduce((acc, curr) => acc + curr.MontoIngreso, 0) >
-        0 ? (
-          <div className="TableVentas">
-            <TableContainer
-              className="TableDatos"
-              style={{ marginTop: "20px" }}
-              component={Paper}
-            >
-              <Table aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>FECHA</StyledTableCell>
-                    <StyledTableCell align="right">HORA</StyledTableCell>
-                    <StyledTableCell align="right">
-                      MONTO INGRESO
-                    </StyledTableCell>
-                    <StyledTableCell align="right">COMENTARIO</StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filterIngresos().map((dato) => (
-                    <StyledTableRow key={dato.id}>
-                      <StyledTableCell component="th" scope="row">
-                        {dato.Dia + "/" + dato.Mes + "/" + dato.Año}
+          {filterIngresos().reduce((acc, curr) => acc + curr.MontoIngreso, 0) >
+          0 ? (
+            <div className="TableVentasIE">
+              <TableContainer
+                className="TableDatosIE"
+                style={{ marginTop: "20px" }}
+                component={Paper}
+              >
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>FECHA</StyledTableCell>
+                      <StyledTableCell align="right">HORA</StyledTableCell>
+                      <StyledTableCell align="right">
+                        MONTO INGRESO
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        {dato.Hora}
+                        COMENTARIO
                       </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {dato.MontoIngreso.toLocaleString("es-CL", {
-                          style: "currency",
-                          currency: "CLP",
-                        })}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {dato.Comentario.toUpperCase()}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        ) : (
-          <p style={{ backgroundColor: "black", color: "white" }}>
-            NO HAY DATOS
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {filterIngresos().map((dato) => (
+                      <StyledTableRow key={dato.id}>
+                        <StyledTableCell component="th" scope="row">
+                          {dato.Dia + "/" + dato.Mes + "/" + dato.Año}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {dato.Hora}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {dato.MontoIngreso.toLocaleString("es-CL", {
+                            style: "currency",
+                            currency: "CLP",
+                          })}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {dato.Comentario.toUpperCase()}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          ) : (
+            <p style={{ backgroundColor: "black", color: "white" }}>
+              NO HAY DATOS
+            </p>
+          )}
+        </div>
+        <div className="DivEgresos">
+          <p
+            style={{
+              backgroundColor: "white",
+              fontSize: "25px",
+              fontWeight: "1000",
+            }}
+          >
+            EGRESOS: $
+            {filterEgresos().reduce((acc, curr) => acc + curr.MontoEgreso, 0)}
           </p>
-        )}
-      </div>
-      <div className="DivEgresos">
-        <p
-          style={{
-            backgroundColor: "white",
-            fontSize: "25px",
-            fontWeight: "1000",
-          }}
-        >
-          EGRESOS: $
-          {filterEgresos().reduce((acc, curr) => acc + curr.MontoEgreso, 0)}
-        </p>
-        {filterEgresos().reduce((acc, curr) => acc + curr.MontoEgreso, 0) >
-        0 ? (
-          <div className="TableVentas">
-            <TableContainer
-              className="TableDatos"
-              style={{ marginTop: "20px" }}
-              component={Paper}
-            >
-              <Table aria-label="customized table">
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell>FECHA</StyledTableCell>
-                    <StyledTableCell align="right">HORA</StyledTableCell>
-                    <StyledTableCell align="right">
-                      MONTO EGRESO
-                    </StyledTableCell>
-                    <StyledTableCell align="right">COMENTARIO</StyledTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filterEgresos().map((datoEgreso) => (
-                    <StyledTableRow key={datoEgreso.id}>
-                      <StyledTableCell component="th" scope="row">
-                        {datoEgreso.Dia +
-                          "/" +
-                          datoEgreso.Mes +
-                          "/" +
-                          datoEgreso.Año}
+          {filterEgresos().reduce((acc, curr) => acc + curr.MontoEgreso, 0) >
+          0 ? (
+            <div className="TableVentasIE">
+              <TableContainer
+                className="TableDatosIE"
+                style={{ marginTop: "20px" }}
+                component={Paper}
+              >
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>FECHA</StyledTableCell>
+                      <StyledTableCell align="right">HORA</StyledTableCell>
+                      <StyledTableCell align="right">
+                        MONTO EGRESO
                       </StyledTableCell>
                       <StyledTableCell align="right">
-                        {datoEgreso.Hora}
+                        COMENTARIO
                       </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {datoEgreso.MontoEgreso.toLocaleString("es-CL", {
-                          style: "currency",
-                          currency: "CLP",
-                        })}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {datoEgreso.Comentario.toUpperCase()}
-                      </StyledTableCell>
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-        ) : (
-          <p style={{ backgroundColor: "black", color: "white" }}>
-            NO HAY DATOS
-          </p>
-        )}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {filterEgresos().map((datoEgreso) => (
+                      <StyledTableRow key={datoEgreso.id}>
+                        <StyledTableCell component="th" scope="row">
+                          {datoEgreso.Dia +
+                            "/" +
+                            datoEgreso.Mes +
+                            "/" +
+                            datoEgreso.Año}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {datoEgreso.Hora}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {datoEgreso.MontoEgreso.toLocaleString("es-CL", {
+                            style: "currency",
+                            currency: "CLP",
+                          })}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {datoEgreso.Comentario.toUpperCase()}
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          ) : (
+            <p style={{ backgroundColor: "black", color: "white" }}>
+              NO HAY DATOS
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

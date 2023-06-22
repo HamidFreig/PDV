@@ -1,8 +1,3 @@
-.DivReportes {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
 .IngresoEgreso,
 .ReportesVentas {
   display: flex;

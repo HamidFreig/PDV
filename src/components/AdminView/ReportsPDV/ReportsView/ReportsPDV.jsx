@@ -23,13 +23,13 @@ export const ReportsPDV = () => {
       <label style={{ backgroundColor: "white", marginBottom: "40PX" }}>
         REPORTES
       </label>
-      <div className="DivReportes">
-        <div className="IngresoEgreso">
-          <IngresoEgreso />
-        </div>
-        <div className="ReportesVentas">
-          <VentasReport />
-        </div>
+
+      <div className="IngresoEgreso">
+        <IngresoEgreso />
+      </div>
+
+      <div className="ReportesVentas">
+        <VentasReport />
       </div>
     </div>
   );
