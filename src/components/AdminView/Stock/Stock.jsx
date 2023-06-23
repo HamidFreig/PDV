@@ -58,7 +58,8 @@ export const Stock = () => {
       //AUTH SI ES QUE EL PRODUCTO EXISTE EN LA BD Y REDIRECCIONOS
       if (product.Codigo == datoInput) {
         setModificateProduct(product);
-        navigate("/modifyStock");
+        console.log(product);
+        navigate(`/modifyStock/${product.id}`);
         return true;
       }
     });
@@ -140,7 +141,7 @@ export const Stock = () => {
                   <StyledTableCell align="left">${row.Precio}</StyledTableCell>
                   <StyledTableCell align="left">{row.Stock}</StyledTableCell>
                   <StyledTableCell align="left">
-                    <Link to={"/modifyStock"}>
+                    <Link to={`/modifyStock/${row.id}`}>
                       <Button
                         variant="outlined"
                         color="error"
@@ -165,7 +166,12 @@ export const Stock = () => {
           variant="outlined"
           onChange={HandleInputChange}
         />
-        <Button variant="contained" color="success" onClick={sendId}>
+        <Button
+          sx={{ marginBottom: "30px" }}
+          variant="contained"
+          color="success"
+          onClick={sendId}
+        >
           MODIFICAR MANUAL
         </Button>
       </div>

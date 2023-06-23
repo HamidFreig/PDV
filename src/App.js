@@ -23,8 +23,11 @@ function App() {
           <Route path="/createUser" element={<CreateUser />}></Route>
           <Route path="/deleteUser" element={<DeleteUser />}></Route>
           <Route path="/stock" element={<Stock />}></Route>
-          <Route path="/modifyStock" element={<ModifyStock />}></Route>
-          <Route path="/modificateUser" element={<ModificateUser />}></Route>
+          <Route path="/modifyStock/:id" element={<ModifyStock />}></Route>
+          <Route
+            path="/modificateUser/:id"
+            element={<ModificateUser />}
+          ></Route>
           <Route path="/reception" element={<ReceptionStock />}></Route>
           <Route path="/addProduct" element={<AddProduct />}></Route>
           <Route path="/report" element={<ReportsPDV />}></Route>

@@ -56,7 +56,7 @@ export const DeleteUser = () => {
               >
                 ELIMINAR
               </Button>
-              <Link to={"/modificateUser"}>
+              <Link to={`/modificateUser/${row.id}`}>
                 <Button
                   variant="outlined"
                   color="primary"
