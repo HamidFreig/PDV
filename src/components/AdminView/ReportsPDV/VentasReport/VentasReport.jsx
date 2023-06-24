@@ -14,7 +14,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BDContext } from "../../../../context/BDContext";
 
 export const VentasReport = () => {
@@ -263,7 +263,7 @@ export const VentasReport = () => {
   };
 
   const ventasDetail = (dato) => {
-    navigate(`/reportDetail/${dato.id}`);
+    navigate(`/ventasDetail/${dato.id}`);
   };
   return (
     <div className="PanelVentasReport">
@@ -289,6 +289,14 @@ export const VentasReport = () => {
           </Select>
         </FormControl>
       </div>
+      <Link to={"/reportDetail"} value={seleccion}>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "black", color: "white", marginTop: "10px" }}
+        >
+          VER REPORTE DETALLADO
+        </Button>
+      </Link>
       <p className="TotalVentas">
         TOTAL VENTAS: $
         {filterVentas().reduce((acc, curr) => acc + curr.MontoTotal, 0)}
