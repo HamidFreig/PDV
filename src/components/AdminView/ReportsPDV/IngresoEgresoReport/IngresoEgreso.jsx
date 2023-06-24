@@ -368,22 +368,24 @@ export const IngresoEgreso = () => {
         //CADA VEZ QUE SE MODIFIQUE EL CAMBIO DE REPORTE SE CAMBIA EL FILTERDAY
         filterDay();
       }, [handleChange])}
-      <div className="Seleccion" style={{ backgroundColor: "white" }}>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Seleccionar</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={seleccion}
-            label="Selecciona"
-            onChange={handleChange}
-          >
-            <MenuItem value={1}>Hoy</MenuItem>
-            <MenuItem value={7}>Semana</MenuItem>
-            <MenuItem value={30}>Mes</MenuItem>
-            <MenuItem value={2}>Todas</MenuItem>
-          </Select>
-        </FormControl>
+      <div className="Seleccion1">
+        <div className="dd">
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Seleccionar</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={seleccion}
+              label="Selecciona"
+              onChange={handleChange}
+            >
+              <MenuItem value={1}>Hoy</MenuItem>
+              <MenuItem value={7}>Semana</MenuItem>
+              <MenuItem value={30}>Mes</MenuItem>
+              <MenuItem value={2}>Todas</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
       </div>
 
       <div className="Transacciones">
@@ -411,11 +413,11 @@ export const IngresoEgreso = () => {
                   <TableHead>
                     <TableRow>
                       <StyledTableCell>FECHA</StyledTableCell>
-                      <StyledTableCell align="right">HORA</StyledTableCell>
-                      <StyledTableCell align="right">
+                      <StyledTableCell align="center">HORA</StyledTableCell>
+                      <StyledTableCell align="center">
                         MONTO INGRESO
                       </StyledTableCell>
-                      <StyledTableCell align="right">
+                      <StyledTableCell align="center">
                         COMENTARIO
                       </StyledTableCell>
                     </TableRow>
@@ -426,16 +428,16 @@ export const IngresoEgreso = () => {
                         <StyledTableCell component="th" scope="row">
                           {dato.Dia + "/" + dato.Mes + "/" + dato.Año}
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell align="center">
                           {dato.Hora}
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell align="center">
                           {dato.MontoIngreso.toLocaleString("es-CL", {
                             style: "currency",
                             currency: "CLP",
                           })}
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        <StyledTableCell align="center">
                           {dato.Comentario.toUpperCase()}
                         </StyledTableCell>
                       </StyledTableRow>

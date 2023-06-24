@@ -1,5 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
+
 .PanelVentasReport {
   width: 80%;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.TotalVentas {
+  background-color: white;
+  font-size: 25px;
+  font-family: "Ubuntu Condensed", sans-serif;
+  font-weight: 1000;
 }

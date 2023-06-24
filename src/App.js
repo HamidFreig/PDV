@@ -12,6 +12,7 @@ import { ModificateUser } from "./components/AdminView/ModificateUser/Modificate
 import { PosView } from "./components/PosView/PosView/PosView";
 import { ReportsPDV } from "./components/AdminView/ReportsPDV/ReportsView/ReportsPDV";
 import { VentasDetail } from "./components/AdminView/ReportsPDV/VentasDetail/VentasDetail";
+import { CloseDay } from "./components/AdminView/CloseDay/CloseDay";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/report" element={<ReportsPDV />}></Route>
           <Route path="/reportDetail/:id" element={<VentasDetail />}></Route>
           <Route path="/pos" element={<PosView />}></Route>
+          <Route path="/closeDay" element={<CloseDay />}></Route>
         </Routes>
       </AllContext>
     </BrowserRouter>

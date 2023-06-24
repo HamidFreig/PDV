@@ -54,7 +54,12 @@ export const AdminView = () => {
             ABRIR DÍA
           </button>
           {modalOpenDay ? <ModalOpenDay /> : null}
-          <button className="Button-Close">CERRAR DIA</button>
+          <button
+            onClick={() => navigate("/closeDay")}
+            className="Button-Close"
+          >
+            CERRAR DIA
+          </button>
         </div>
 
         <div className="Grid-Buttons">

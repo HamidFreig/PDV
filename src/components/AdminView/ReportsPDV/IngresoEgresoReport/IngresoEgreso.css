@@ -11,12 +11,18 @@
   margin-bottom: 20px;
 }
 
+.Seleccion1 {
+  background-color: white;
+}
+
 @media (max-width: 950px) {
   .Transacciones {
     grid-template-columns: auto;
   }
-
-  .PanelDiv {
-    margin-left: 200%;
+  .DivIngresos,
+  .DivEgresos {
+    width: 80%;
+    justify-content: center;
+    text-align: center;
   }
 }

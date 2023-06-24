@@ -8,10 +8,6 @@
   .DivReportes {
     grid-template-columns: 1fr;
   }
-  .IngresoEgreso {
-    height: auto;
-    width: 10%;
-  }
 }
 
 body {

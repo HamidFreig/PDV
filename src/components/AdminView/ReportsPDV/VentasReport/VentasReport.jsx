@@ -289,57 +289,68 @@ export const VentasReport = () => {
           </Select>
         </FormControl>
       </div>
-      <div className="TableVentas">
-        <TableContainer
-          className="TableDatos"
-          style={{ marginTop: "20px" }}
-          component={Paper}
-        >
-          <Table aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell align="center">VENDEDOR</StyledTableCell>
-                <StyledTableCell align="center">FECHA</StyledTableCell>
-                <StyledTableCell align="center">HORA</StyledTableCell>
-                <StyledTableCell align="center">MONTO TOTAL</StyledTableCell>
-                <StyledTableCell align="center">OPCION</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filterVentas().map((dato) => (
-                <StyledTableRow key={dato.id}>
-                  <StyledTableCell align="center">
-                    {dato.Vendedor}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row" align="center">
-                    {dato.Fecha.Dia +
-                      "/" +
-                      dato.Fecha.Mes +
-                      "/" +
-                      dato.Fecha.Año}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">{dato.Hora}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    {dato.MontoTotal.toLocaleString("es-CL", {
-                      style: "currency",
-                      currency: "CLP",
-                    })}
-                  </StyledTableCell>
-                  <StyledTableCell align="center">
-                    <Button
-                      variant="contained"
-                      sx={{ backgroundColor: "green", color: "white" }}
-                      onClick={() => ventasDetail(dato)}
-                    >
-                      VER DETALLE
-                    </Button>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
+      <p className="TotalVentas">
+        TOTAL VENTAS: $
+        {filterVentas().reduce((acc, curr) => acc + curr.MontoTotal, 0)}
+      </p>
+
+      {filterVentas().reduce((acc, curr) => acc + curr.MontoTotal, 0) > 0 ? (
+        <div className="TableVentas">
+          <TableContainer
+            className="TableDatos"
+            style={{ marginTop: "20px" }}
+            component={Paper}
+          >
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="center">VENDEDOR</StyledTableCell>
+                  <StyledTableCell align="center">FECHA</StyledTableCell>
+                  <StyledTableCell align="center">HORA</StyledTableCell>
+                  <StyledTableCell align="center">MONTO TOTAL</StyledTableCell>
+                  <StyledTableCell align="center">OPCION</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filterVentas().map((dato) => (
+                  <StyledTableRow key={dato.id}>
+                    <StyledTableCell align="center">
+                      {dato.Vendedor}
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row" align="center">
+                      {dato.Fecha.Dia +
+                        "/" +
+                        dato.Fecha.Mes +
+                        "/" +
+                        dato.Fecha.Año}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {dato.Hora}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {dato.MontoTotal.toLocaleString("es-CL", {
+                        style: "currency",
+                        currency: "CLP",
+                      })}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      <Button
+                        variant="contained"
+                        sx={{ backgroundColor: "green", color: "white" }}
+                        onClick={() => ventasDetail(dato)}
+                      >
+                        VER DETALLE
+                      </Button>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      ) : (
+        <p style={{ backgroundColor: "black", color: "white" }}>NO HAY DATOS</p>
+      )}
     </div>
   );
 };

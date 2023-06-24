@@ -109,3 +109,7 @@ label {
   font-family: "Ubuntu Condensed", sans-serif;
   font-size: 40px;
 }
+
+button {
+  cursor: pointer;
+}
