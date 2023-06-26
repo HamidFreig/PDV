@@ -14,6 +14,7 @@ export const AdminView = () => {
     getEgresos,
     getAperturas,
     getVentas,
+    flagApertura,
   } = useContext(BDContext);
 
   const [modalOpenDay, setmodalOpenDay] = useState(false);
@@ -55,7 +56,20 @@ export const AdminView = () => {
           </button>
           {modalOpenDay ? <ModalOpenDay /> : null}
           <button
-            onClick={() => navigate("/closeDay")}
+            onClick={() => {
+              if (flagApertura(fechaActual)) {
+                getEgresos();
+                getIngresos();
+                getVentas();
+                navigate(`/closeDay`);
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "DEBE REALIZAR APERTURA ANTES DE CERRAR CAJA",
+                  timer: 2000,
+                });
+              }
+            }}
             className="Button-Close"
           >
             CERRAR DIA

@@ -1,0 +1,5 @@
+.Graficos {
+  display: grid;
+  margin-top: 60px;
+  grid-template-columns: 1fr 1fr;
+}
