@@ -12,3 +12,34 @@
   font-family: "Ubuntu Condensed", sans-serif;
   font-weight: 1000;
 }
+
+.TableVentas {
+  display: block;
+  margin: 0 auto;
+  width: 700px;
+  justify-content: center;
+}
+
+@media (max-width: 1030px) {
+  .TableVentas {
+    width: 700px;
+  }
+}
+
+@media (max-width: 720px) {
+  .TableVentas {
+    width: 600px;
+  }
+}
+
+@media (max-width: 420px) {
+  .TableVentas {
+    width: 320px;
+  }
+}
+
+@media (max-width: 390px) {
+  .TableVentas {
+    width: 300px;
+  }
+}

@@ -1,11 +1,11 @@
 .Detalle {
   background-color: white;
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .detalle {
-  font-size: 35px;
+  font-size: 25px;
 }
 
 .TablaDetalle {

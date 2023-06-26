@@ -34,9 +34,20 @@ function App() {
           <Route path="/addProduct" element={<AddProduct />}></Route>
           <Route path="/report" element={<ReportsPDV />}></Route>
           <Route path="/ventasDetail/:id" element={<VentasDetail />}></Route>
-          <Route path="/reportDetail" element={<ReportDetail />}></Route>
+          <Route
+            path="/reportDetail/:seleccion"
+            element={<ReportDetail />}
+          ></Route>
           <Route path="/pos" element={<PosView />}></Route>
           <Route path="/closeDay" element={<CloseDay />}></Route>
+          <Route
+            path="*"
+            element={
+              <div>
+                <h1>ERROR 404</h1>
+              </div>
+            }
+          ></Route>
         </Routes>
       </AllContext>
     </BrowserRouter>

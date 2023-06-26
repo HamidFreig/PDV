@@ -1,0 +1,75 @@
+.TablaTransacciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+  grid-gap: 10px; /* Espacio entre las columnas */
+  place-items: center;
+}
+
+.TablaVentasDetail {
+  display: block;
+  margin: 0 auto;
+}
+.TablaIngresos,
+.TablaEgresos,
+.TablaVentasDetail {
+  width: 700px;
+}
+
+@media (max-width: 1430px) {
+  .TablaIngresos,
+  .TablaEgresos,
+  .TablaVentasDetail {
+    width: 700px;
+  }
+
+  .TablaTransacciones {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 730px) {
+  .TablaIngresos,
+  .TablaEgresos,
+  .TablaVentasDetail {
+    width: 500px;
+  }
+
+  .TablaTransacciones {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 430px) {
+  .TablaIngresos,
+  .TablaEgresos,
+  .TablaVentasDetail {
+    width: 350px;
+  }
+
+  .TablaTransacciones {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 410px) {
+  .TablaIngresos,
+  .TablaEgresos,
+  .TablaVentasDetail {
+    width: 300px;
+  }
+
+  .TablaTransacciones {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 330px) {
+  .TablaIngresos,
+  .TablaEgresos,
+  .TablaVentasDetail {
+    width: 250px;
+  }
+
+  .TablaTransacciones {
+    grid-template-columns: 1fr;
+  }
+}
