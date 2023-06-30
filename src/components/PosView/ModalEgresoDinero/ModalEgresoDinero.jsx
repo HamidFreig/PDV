@@ -38,7 +38,16 @@ export const ModalEgresoDinero = () => {
     };
   }, []);
 
-  const { AddDischarge } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
+  const {
+    AddDischarge,
+    getEgresos,
+    egresos,
+    listVentas,
+    getIngresos,
+    ingresos,
+    aperturas,
+    getVentas,
+  } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
 
   const HandleInputChangeMontoEgreso = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
@@ -75,7 +84,77 @@ export const ModalEgresoDinero = () => {
     p: 4,
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      getIngresos();
+      getEgresos();
+      getVentas();
+    }, 1000);
+  }, [open]);
+
+  const Separador = "/";
+  const FechaSplit = currentDateTime.toLocaleDateString().split(Separador);
+  const DiaSplit = parseInt(FechaSplit[0]);
+  const MesSplit = parseInt(FechaSplit[1]);
+  const AñoSplit = parseInt(FechaSplit[2]);
+  //FILTRADO DE VENTAS
+  const filterVentas = () => {
+    const Ventas = listVentas.filter((dato) => {
+      return (
+        dato.Fecha.Dia == DiaSplit &&
+        dato.Fecha.Mes == MesSplit &&
+        dato.Fecha.Año == AñoSplit
+      );
+    });
+    return Ventas;
+  };
+
+  //FILTRADO DE INGRESOS
+  const filterIngresos = () => {
+    const Ingresos = ingresos.filter((dato) => {
+      return (
+        dato.Dia == DiaSplit && dato.Mes == MesSplit && dato.Año == AñoSplit
+      );
+    });
+    return Ingresos;
+  };
+
+  //FILTRADO DE EGRESOS
+  const filterEgresos = () => {
+    const Egresos = egresos.filter((dato) => {
+      return (
+        dato.Dia == DiaSplit && dato.Mes == MesSplit && dato.Año == AñoSplit
+      );
+    });
+    return Egresos;
+  };
+
+  //FILTRADO DE APERTURA
+  const filterApertura = () => {
+    const Apertura = aperturas.filter((dato) => {
+      return dato.Fecha == `${DiaSplit}/${MesSplit}/${AñoSplit}`;
+    });
+    return Apertura;
+  };
+
   const sendEgreso = () => {
+    const MontoAperturaExistente = filterApertura().reduce(
+      (acc, curr) => acc + curr.MontoApertura,
+      0
+    );
+    const MontoVentaEfectivoExistente = filterVentas().reduce(
+      (acc, curr) => acc + curr.MontoEfectivo,
+      0
+    );
+    const MontoIngresoExistente = filterIngresos().reduce(
+      (acc, curr) => acc + curr.MontoIngreso,
+      0
+    );
+    const MontoEgresoExistente = filterEgresos().reduce(
+      (acc, curr) => acc + curr.MontoEgreso,
+      0
+    );
+
     if (MontoEgreso < 0) {
       setOpen(!open);
       Swal.fire({
@@ -87,6 +166,18 @@ export const ModalEgresoDinero = () => {
       Swal.fire({
         icon: "error",
         title: "INGRESE UN COMENTARIO",
+      });
+    } else if (
+      MontoAperturaExistente +
+        MontoIngresoExistente +
+        MontoVentaEfectivoExistente -
+        MontoEgresoExistente <
+      MontoEgreso
+    ) {
+      setOpen(!open);
+      Swal.fire({
+        icon: "error",
+        title: "EFECTIVO NO DISPONIBLE",
       });
     } else {
       AddDischarge(
@@ -154,7 +245,9 @@ export const ModalEgresoDinero = () => {
               <Button
                 variant="contained"
                 color="success"
-                onClick={() => sendEgreso()}
+                onClick={() => {
+                  sendEgreso();
+                }}
               >
                 ENVIAR EGRESO
               </Button>
