@@ -503,6 +503,7 @@ export const AllContext = ({ children }) => {
         getEgresos,
         addApertura,
         getAperturas,
+        aperturas,
         flagApertura,
         Cart,
         cart,

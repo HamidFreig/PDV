@@ -4,12 +4,11 @@ import { BDContext } from "../../../context/BDContext";
 import { useContext, useState } from "react";
 import GraficoCircularMontos from "./GraficoCircularMontos";
 import GraficoCircularIE from "./GraficoCircularIE";
+import { TablaCuadratura } from "./TablaCuadratura";
+import { ClosingDay } from "./ClosingDay";
 export const CloseDay = () => {
-  const { listVentas, ingresos, egresos } = useContext(BDContext);
+  const { listVentas, ingresos, egresos, aperturas } = useContext(BDContext);
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
-  const [diaFiltrado, setDiaFiltrado] = useState(1);
-  const [MesFiltrado, setMesFiltrado] = useState(1);
-  const [AñoFiltrado, setAñoFiltrado] = useState(1);
 
   const Separador = "/";
   const FechaSplit = currentDateTime.toLocaleDateString().split(Separador);
@@ -49,18 +48,59 @@ export const CloseDay = () => {
     return Egresos;
   };
 
+  //FILTRADO DE APERTURA
+  const filterApertura = () => {
+    const Apertura = aperturas.filter((dato) => {
+      return dato.Fecha == `${DiaSplit}/${MesSplit}/${AñoSplit}`;
+    });
+    return Apertura;
+  };
+
   return (
     <div>
       <Link to={"/admin"}>
         <button className="Button-Back">ATRAS</button>
       </Link>
-      <label>RESUMEN Y CIERRE DE CAJA</label>
+      <label style={{ marginTop: "20px" }}>RESUMEN Y CIERRE DE CAJA</label>
+      {""}
+
       <div className="Graficos">
-        <div className="Graficos1">
-          <GraficoCircularMontos list={filterVentas()} />
+        {filterVentas().reduce((acc, curr) => acc + curr.MontoTotal, 0) > 0 ? (
+          <div className="Graficos1">
+            <GraficoCircularMontos list={filterVentas()} />
+          </div>
+        ) : (
+          <p style={{ fontWeight: "1000" }}>NO HAY DATOS DE VENTAS</p>
+        )}
+        {filterIngresos().reduce((acc, curr) => acc + curr.MontoIngreso, 0) +
+          filterEgresos().reduce((acc, curr) => acc + curr.MontoEgreso, 0) >
+        0 ? (
+          <div className="Graficos1">
+            <GraficoCircularIE
+              listI={filterIngresos()}
+              listE={filterEgresos()}
+            />
+          </div>
+        ) : (
+          <p style={{ fontWeight: "1000" }}>NO HAY DATOS DE TRANSACCIONES</p>
+        )}
+      </div>
+      <div className="Cuadratura">
+        <div className="Table">
+          <TablaCuadratura
+            listVentas={filterVentas()}
+            listI={filterIngresos()}
+            listE={filterEgresos()}
+            apertura={filterApertura()}
+          />
         </div>
-        <div className="Graficos2">
-          <GraficoCircularIE listI={filterIngresos()} listE={filterEgresos()} />
+        <div className="Close">
+          <ClosingDay
+            listVentas={filterVentas()}
+            listI={filterIngresos()}
+            listE={filterEgresos()}
+            apertura={filterApertura()}
+          />
         </div>
       </div>
     </div>

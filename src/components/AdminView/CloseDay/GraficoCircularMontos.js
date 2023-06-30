@@ -1,6 +1,6 @@
 import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -11,7 +11,7 @@ var options = {
 
 export default function GraficoCircularMontos({ list }) {
   var data = {
-    labels: ["EFECTIVO", "DEBIDO", "CREDITO"],
+    labels: ["EFECTIVO", "DEBITO", "CREDITO"],
     datasets: [
       {
         label: "MONTO",
@@ -27,5 +27,5 @@ export default function GraficoCircularMontos({ list }) {
     ],
   };
 
-  return <Pie style={{ height: "300px" }} data={data} options={options} />;
+  return <Doughnut style={{ height: "300px" }} data={data} options={options} />;
 }
