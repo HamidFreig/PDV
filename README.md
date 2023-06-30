@@ -4,16 +4,21 @@ Un punto de venta, también conocido como POS (por sus siglas en inglés, Point 
 
 ## Funcionalidades del proyecto
 
-Separacion de funcionalidades segun tipo de usuario. \
--Administrador 2. Creacion y modificacion de usuarios. \
-3. Visualización del stock existente. \
-4. Recepción de productos existentes.\ 5. Ingreso de nuevos productos. \
-6. Modificación de productos existentes. \
-7. Reportes diarios, mensuales, anuales o de fecha específica. \
-8. Apertura y cierre de día. \
+Separacion de funcionalidades segun tipo de usuario. \\
+
+-Administrador
+
+1. Creacion y modificacion de usuarios. \\
+2. Visualización del stock existente. \\
+3. Recepción de productos existentes.\\
+4. Ingreso de nuevos productos. \\
+5. Modificación de productos existentes. \\
+6. Reportes diarios, mensuales, anuales o de fecha específica. \\
+7. Apertura y cierre de día. \\
+
 -Vendedor
 
-1. Visualización del stock existente. \
-2. Ingreso de dineros. \
-3. Egresos de dinero. \
-4. Ingreso de ventas de productos. \
+1. Visualización del stock existente. \\
+2. Ingreso de dineros. \\
+3. Egresos de dinero. \\
+4. Ingreso de ventas de productos. \\
