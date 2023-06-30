@@ -13,6 +13,11 @@ export const LoginView = () => {
     getAperturas,
     setVendedorActivo,
     flagApertura,
+    getVentas,
+    getIngresos,
+    getEgresos,
+    getCierres,
+    flagCierres,
   } = useContext(BDContext); //ACCEDO A LA BD MEDIANTE CONTEXT
 
   const [datosInput, setDatosInput] = useState({
@@ -61,7 +66,7 @@ export const LoginView = () => {
         });
       } else {
         getAperturas();
-
+        getCierres();
         redirectPage(findUser);
       }
     }
@@ -69,11 +74,13 @@ export const LoginView = () => {
 
   const redirectPage = (userLogin) => {
     if (userLogin.TipoUsuario === "Admin") {
-      getAperturas();
       navigate("/admin");
     } else if (userLogin.TipoUsuario === "Vendedor") {
-      if (flagApertura(fechaActual)) {
+      if (flagApertura(fechaActual) && !flagCierres(fechaActual)) {
         getProductos();
+        getEgresos();
+        getIngresos();
+        getVentas();
         setVendedorActivo(datosInput.rut);
         navigate("/pos");
       } else {

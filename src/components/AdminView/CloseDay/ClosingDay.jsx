@@ -1,9 +1,14 @@
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { BDContext } from "../../../context/BDContext";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 export const ClosingDay = ({ listVentas, listI, listE, apertura }) => {
-  const [cerrarCaja, setCerrarCaja] = useState(0);
+  const [MontoCerrarCaja, setMontoCerrarCaja] = useState(0);
+  const { addCloseDay } = useContext(BDContext);
+  const navigate = useNavigate();
 
   const MontoApertura = apertura.reduce(
     (acc, curr) => acc + curr.MontoApertura,
@@ -19,9 +24,48 @@ export const ClosingDay = ({ listVentas, listI, listE, apertura }) => {
 
   const HandleInputChangeMontoCerrarCaja = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
-    setCerrarCaja(event.target.value);
+    setMontoCerrarCaja(event.target.value);
   };
 
+  const CerrarCaja = () => {
+    if (MontoCerrarCaja < 0) {
+      Swal.fire({
+        icon: "error",
+        title: "MONTO INVÁLIDO",
+        timer: 1000,
+      });
+    } else if (
+      MontoCerrarCaja <
+      MontoApertura + MontoVentaEfectivo + MontoIngreso - MontoEgreso
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "MONTO INSUFICIENTE",
+        timer: 1000,
+      });
+    } else if (
+      MontoCerrarCaja ==
+      MontoApertura + MontoVentaEfectivo + MontoIngreso - MontoEgreso
+    ) {
+      // Obtener la fecha y hora actual
+      const fechaHoraActual = new Date();
+
+      // Obtener la fecha actual
+      const fechaActual = fechaHoraActual.toLocaleDateString();
+
+      // Obtener la hora actual
+      const horaActual = fechaHoraActual.toLocaleTimeString();
+
+      addCloseDay(MontoCerrarCaja, fechaActual, horaActual);
+      Swal.fire({
+        icon: "success",
+        title: "CIERRE REALIZADO CON EXITO",
+        timer: 1000,
+      });
+
+      navigate("/");
+    }
+  };
   return (
     <div>
       <p>
@@ -45,6 +89,7 @@ export const ClosingDay = ({ listVentas, listI, listE, apertura }) => {
           marginTop: "10px",
           marginLeft: "10px",
         }}
+        onClick={CerrarCaja}
       >
         CERRAR CAJA
       </Button>

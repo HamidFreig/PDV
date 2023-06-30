@@ -23,6 +23,7 @@ export const AllContext = ({ children }) => {
   const [aperturas, setAperturas] = useState([]);
   const [cart, setCart] = useState([]);
   const [listVentas, setListVentas] = useState([]);
+  const [cierres, setCierres] = useState([]);
 
   const navigate = useNavigate();
   const db = getFirestore();
@@ -31,6 +32,7 @@ export const AllContext = ({ children }) => {
   const querySnapshotIngresos = collection(db, "Ingresos");
   const querySnapshotEgresos = collection(db, "Egresos");
   const querySnapshotAperturas = collection(db, "Aperturas");
+  const querySnapshotCierres = collection(db, "Cierres");
   const querySnapshotVentas = collection(db, "Ventas");
 
   const getUsuarios = () => {
@@ -287,7 +289,7 @@ export const AllContext = ({ children }) => {
 
   const flagApertura = (fechaActual) => {
     //BANDERA PARA SABER SI SE REALIZÓ EL APERTURA DE CAJA EN EL DIA DE HOY
-    getAperturas();
+
     const flag = aperturas.some((dato) => dato.Fecha == fechaActual);
     return flag;
   };
@@ -470,6 +472,33 @@ export const AllContext = ({ children }) => {
     }, 2000);
   };
 
+  const addCloseDay = (montoCierre, fechaCierre, horaCierre) => {
+    const db = getFirestore();
+    const querySnapshot = collection(db, "Cierres");
+    addDoc(querySnapshot, {
+      MontoCierre: parseInt(montoCierre),
+      Fecha: fechaCierre,
+      Hora: horaCierre,
+    });
+  };
+
+  const getCierres = () => {
+    getDocs(querySnapshotCierres)
+      .then((response) => {
+        const cierres = response.docs.map((doc) => {
+          return { id: doc.id, ...doc.data() };
+        });
+        setCierres(cierres);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const flagCierres = (fechaActual) => {
+    //BANDERA PARA SABER SI SE REALIZÓ EL APERTURA DE CAJA EN EL DIA DE HOY
+    const flag = cierres.some((dato) => dato.Fecha == fechaActual);
+    return flag;
+  };
+
   return (
     <BDContext.Provider
       value={{
@@ -513,6 +542,10 @@ export const AllContext = ({ children }) => {
         cleanCart,
         getVentas,
         listVentas,
+        addCloseDay,
+        getCierres,
+        cierres,
+        flagCierres,
       }}
     >
       {children}

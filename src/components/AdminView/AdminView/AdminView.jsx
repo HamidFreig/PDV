@@ -15,6 +15,7 @@ export const AdminView = () => {
     getAperturas,
     getVentas,
     flagApertura,
+    flagCierres,
   } = useContext(BDContext);
 
   const [modalOpenDay, setmodalOpenDay] = useState(false);
@@ -45,6 +46,14 @@ export const AdminView = () => {
       <label style={{ backgroundColor: "white" }}>
         PANEL DEL ADMINISTRADOR
       </label>
+
+      {!flagApertura(fechaActual) ? (
+        <label style={{ backgroundColor: "yellow" }}>NO ABIERTO</label>
+      ) : flagApertura(fechaActual) && !flagCierres(fechaActual) ? (
+        <label style={{ backgroundColor: "green" }}>ABIERTO</label>
+      ) : (
+        <label style={{ backgroundColor: "red" }}>DIA CERRADO</label>
+      )}
       <div className="Container">
         <div className="Grid-OpenClose">
           <button
@@ -57,7 +66,7 @@ export const AdminView = () => {
           {modalOpenDay ? <ModalOpenDay /> : null}
           <button
             onClick={() => {
-              if (flagApertura(fechaActual)) {
+              if (flagApertura(fechaActual) && !flagCierres(fechaActual)) {
                 getEgresos();
                 getIngresos();
                 getVentas();

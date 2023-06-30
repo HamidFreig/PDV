@@ -11,11 +11,12 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useNavigate } from "react-router";
 
 export const ModalEgresoDinero = () => {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
-
+  const navigate = useNavigate();
   const [MontoEgreso, setMontoEgreso] = useState(0);
   const [commentarioEgreso, setComentarioEgreso] = useState("");
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -83,14 +84,6 @@ export const ModalEgresoDinero = () => {
     boxShadow: 24,
     p: 4,
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      getIngresos();
-      getEgresos();
-      getVentas();
-    }, 1000);
-  }, [open]);
 
   const Separador = "/";
   const FechaSplit = currentDateTime.toLocaleDateString().split(Separador);
@@ -178,6 +171,7 @@ export const ModalEgresoDinero = () => {
       Swal.fire({
         icon: "error",
         title: "EFECTIVO NO DISPONIBLE",
+        timer: 1000,
       });
     } else {
       AddDischarge(
@@ -186,12 +180,12 @@ export const ModalEgresoDinero = () => {
         horaActual,
         commentarioEgreso
       );
-      setOpen(!open);
       Swal.fire({
         icon: "success",
         title: "EGRESO INGRESADO CON EXITO",
-        timer: 2000,
+        timer: 1000,
       });
+      navigate("/");
     }
   };
 

@@ -11,11 +11,12 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useNavigate } from "react-router";
 
 export const ModalIngresoDinero = () => {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
-
+  const navigate = useNavigate();
   const [MontoIngreso, setMontoIngreso] = useState(0);
   const [commentarioIngreso, setComentarioIngreso] = useState("");
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -98,8 +99,9 @@ export const ModalIngresoDinero = () => {
       Swal.fire({
         icon: "success",
         title: "INGRESO INGRESADO CON EXITO",
-        timer: 2000,
+        timer: 1000,
       });
+      navigate("/");
     }
   };
 
