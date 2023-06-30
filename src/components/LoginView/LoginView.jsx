@@ -129,6 +129,9 @@ export const LoginView = () => {
           </button>
         </form>
       </div>
+      <footer>
+        <label className="footercontainer">Copyright © 2023 HAMID FREIG</label>
+      </footer>
     </div>
   );
 };

@@ -58,3 +58,18 @@ label {
 .ButtonLogin:hover {
   background-color: #0062cc;
 }
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.footercontainer {
+  font-size: 20px;
+
+  max-width: 960px;
+  margin: 0 auto;
+}
