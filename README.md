@@ -2,6 +2,20 @@
 
 https://pdv-hamidfreig.vercel.app/
 
+## CREDENCIALES
+
+Administrador
+rut: 205339477
+contraseña: admin
+
+Vendedor:
+rut: 111111111
+contraseña: 123
+
+## PASO INICIAL
+
+-Para poder realizar ventas y realizar funciones del vendedor primero que todo el admin tiene que abrir el dia en el panel del administrador por el contrario no se podrá realizar ventas
+
 ## ¿Qué es un punto de venta?
 
 Un punto de venta, también conocido como POS (por sus siglas en inglés, Point of Sale), es un sistema utilizado en negocios minoristas y establecimientos comerciales para llevar a cabo transacciones de ventas. Su objetivo principal es facilitar y agilizar el proceso de venta, así como proporcionar una administración eficiente de las operaciones comerciales. A continuación, te detallo ejemplos de lo mencionado \
