@@ -1,3 +1,7 @@
+## LINK DEL PROYECTO
+
+https://pdv-hamidfreig.vercel.app/
+
 ## ¿Qué es un punto de venta?
 
 Un punto de venta, también conocido como POS (por sus siglas en inglés, Point of Sale), es un sistema utilizado en negocios minoristas y establecimientos comerciales para llevar a cabo transacciones de ventas. Su objetivo principal es facilitar y agilizar el proceso de venta, así como proporcionar una administración eficiente de las operaciones comerciales. A continuación, te detallo ejemplos de lo mencionado \
@@ -20,7 +24,7 @@ Separacion de funcionalidades segun tipo de usuario.
 
 1. Visualización del stock existente.
 2. Ingreso de dineros.
-3. Egresos de dinero.
+3. Egresos de dineros.
 4. Ingreso de ventas de productos.
 
 ## ¿Con qué tecnologías se realizó el proyecto
