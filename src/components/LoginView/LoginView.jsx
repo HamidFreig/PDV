@@ -73,24 +73,26 @@ export const LoginView = () => {
   };
 
   const redirectPage = (userLogin) => {
-    if (userLogin.TipoUsuario === "Admin") {
-      navigate("/admin");
-    } else if (userLogin.TipoUsuario === "Vendedor") {
-      if (flagApertura(fechaActual) && !flagCierres(fechaActual)) {
-        getProductos();
-        getEgresos();
-        getIngresos();
-        getVentas();
-        setVendedorActivo(datosInput.rut);
-        navigate("/pos");
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "DEBE REALIZAR APERTURA ANTES DE REALIZAR VENTAS",
-          timer: 2000,
-        });
+    setTimeout(() => {
+      if (userLogin.TipoUsuario === "Admin") {
+        navigate("/admin");
+      } else if (userLogin.TipoUsuario === "Vendedor") {
+        if (flagApertura(fechaActual) && !flagCierres(fechaActual)) {
+          getProductos();
+          getEgresos();
+          getIngresos();
+          getVentas();
+          setVendedorActivo(datosInput.rut);
+          navigate("/pos");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "DEBE REALIZAR APERTURA ANTES DE REALIZAR VENTAS",
+            timer: 2000,
+          });
+        }
       }
-    }
+    }, 1000);
   };
 
   return (

@@ -10,9 +10,24 @@
   }
 }
 
+@media (max-width: 420px) {
+}
+
 body {
   max-width: 100vw;
   margin: 0 auto;
+}
+
+.ModalContainer {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 400px;
+  place-content: center;
+}
+
+.ReporteDetallado {
+  justify-content: center;
+  text-align: center;
 }
 
 .Modal {

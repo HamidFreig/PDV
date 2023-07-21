@@ -4,6 +4,7 @@ import { BDContext } from "../../../../context/BDContext";
 import { Button } from "@mui/material";
 import Swal from "sweetalert2";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
+import "./AddProduct.css";
 
 export const AddProduct = () => {
   const { productsList, getProductos } = useContext(BDContext);
@@ -81,7 +82,7 @@ export const AddProduct = () => {
     <div
       style={{
         backgroundImage: `url("https://img.freepik.com/vector-premium/patron-isometrico-costuras-cubos-linea-delgada_659980-2.jpg")`,
-        height: "120vh",
+        minHeight: "100vh",
       }}
     >
       <Link to={"/stock"}>
@@ -90,9 +91,9 @@ export const AddProduct = () => {
       <label style={{ marginBottom: "40px", backgroundColor: "white" }}>
         AGREGAR PRODUCTO
       </label>
-      <div className="login-container">
-        <form>
-          <div className="form-group">
+      <div className="containerAddProduct">
+        <div className="ContainerForm">
+          <div className="group">
             <label className="Tittle">CODIGO DEL PRODUCTO</label>
             <input
               id="codigo"
@@ -101,7 +102,7 @@ export const AddProduct = () => {
               onChange={HandleInputChange}
             />
           </div>
-          <div className="form-group">
+          <div className="group">
             <label className="Tittle">NOMBRE DEL PRODUCTO</label>
             <input
               id="nombre"
@@ -110,7 +111,7 @@ export const AddProduct = () => {
               onChange={HandleInputChange}
             />
           </div>
-          <div className="form-group">
+          <div className="group">
             <label className="Tittle">SABOR DEL PRODUCTO</label>
             <input
               id="sabor"
@@ -120,7 +121,7 @@ export const AddProduct = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="group">
             <label className="Tittle">FABRICANTE DEL PRODUCTO</label>
             <input
               id="fabricante"
@@ -129,7 +130,7 @@ export const AddProduct = () => {
               onChange={HandleInputChange}
             />
           </div>
-          <div className="form-group">
+          <div className="group">
             <label className="Tittle">PRECIO DEL PRODUCTO</label>
             <input
               id="precio"
@@ -138,7 +139,7 @@ export const AddProduct = () => {
               onChange={HandleInputChange}
             />
           </div>
-          <div className="form-group">
+          <div className="group">
             <label className="Tittle">STOCK DEL PRODUCTO</label>
             <input
               id="stock"
@@ -147,7 +148,7 @@ export const AddProduct = () => {
               onChange={HandleInputChange}
             />
           </div>
-          <div className="form-group">
+          <div className="group">
             <label className="Tittle">IMAGEN DEL PRODUCTO</label>
             <input
               id="img"
@@ -161,7 +162,7 @@ export const AddProduct = () => {
           <Button variant="contained" color="success" onClick={addProduct}>
             AÑADIR PRODUDCTO
           </Button>
-        </form>
+        </div>
       </div>
     </div>
   );

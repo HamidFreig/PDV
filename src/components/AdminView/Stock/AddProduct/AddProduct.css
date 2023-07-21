@@ -1,0 +1,23 @@
+.containerAddProduct {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.ContainerForm {
+  background-color: white;
+  width: 500px;
+  margin-bottom: 20px;
+}
+
+.group {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 420px) {
+  .ContainerForm {
+    width: 300px;
+  }
+}

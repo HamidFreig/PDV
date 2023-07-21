@@ -15,7 +15,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 export const ModalOpenDay = () => {
   const navigate = useNavigate();
-  const { addApertura, flagApertura } = useContext(BDContext);
+  const { addApertura, getAperturas } = useContext(BDContext);
   const [montoCajaInicial, setmontoCajaInicial] = useState(0);
   const [horaActual, setHoraActual] = useState(new Date().toLocaleTimeString());
   const [fechaActual, setfechaActual] = useState(
@@ -58,6 +58,7 @@ export const ModalOpenDay = () => {
       //SOLO ENVIA LOS DATOS SI SON NUMEROS ENTEROS Y QUE NO HAYAN CARACTERES EN LA CADENA
       const MontoApertura = parseInt(montoCajaInicial.trimStart(), 10);
       addApertura(MontoApertura, fechaActual, horaActual);
+      getAperturas();
     }
   };
   return (

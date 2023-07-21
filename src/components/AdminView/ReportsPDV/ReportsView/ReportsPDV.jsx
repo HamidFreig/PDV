@@ -1,7 +1,7 @@
 import "./ReportsPDV.css";
 
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IngresoEgreso } from "../IngresoEgresoReport/IngresoEgreso";
 import { VentasReport } from "../VentasReport/VentasReport";
 
@@ -30,8 +30,24 @@ export const ReportsPDV = () => {
 
   //MODAL
   const [open, setOpen] = React.useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobileQuery = window.matchMedia("(max-width: 768px)");
+      setIsMobile(isMobileQuery.matches);
+    };
+
+    handleResize(); // Llamada inicial para establecer el estado inicial
+
+    window.addEventListener("resize", handleResize); // Escucha los cambios de tamaño de la ventana
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Limpia el evento al desmontar el componente
+    };
+  }, []);
 
   //DISEÑO MODAL
 
@@ -40,7 +56,23 @@ export const ReportsPDV = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 350,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    borderRadius: "30px",
+    boxShadow: 24,
+    p: 4,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  };
+
+  const styleResponsive = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 250,
     bgcolor: "background.paper",
     border: "2px solid #000",
     borderRadius: "30px",
@@ -83,39 +115,42 @@ export const ReportsPDV = () => {
           VER REPORTE DIA ESPECÍFICO
         </Button>
         <Modal
+          className="ModalCalender"
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            <div className="Calendar">
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateCalendar", "DateCalendar"]}>
-                  <DemoItem>
-                    <DateCalendar
-                      value={value}
-                      onChange={(newValue) => setValue(newValue)}
-                    />
-                  </DemoItem>
-                </DemoContainer>
-              </LocalizationProvider>
-            </div>
-            <div className="ReporteDetallado">
-              <Link
-                to={`/reportDetail/${value.$D}-${value.$M + 1}-${value.$y}}`}
-              >
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "black",
-                    color: "white",
-                    marginTop: "10px",
-                  }}
+          <Box sx={isMobile ? styleResponsive : style}>
+            <div className="ModalContainer">
+              <div className="Calendar">
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DemoContainer components={["DateCalendar", "DateCalendar"]}>
+                    <DemoItem>
+                      <DateCalendar
+                        value={value}
+                        onChange={(newValue) => setValue(newValue)}
+                      />
+                    </DemoItem>
+                  </DemoContainer>
+                </LocalizationProvider>
+              </div>
+              <div className="ReporteDetallado">
+                <Link
+                  to={`/reportDetail/${value.$D}-${value.$M + 1}-${value.$y}}`}
                 >
-                  VER REPORTE DETALLADO
-                </Button>
-              </Link>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "black",
+                      color: "white",
+                      marginTop: "10px",
+                    }}
+                  >
+                    VER REPORTE DETALLADO
+                  </Button>
+                </Link>
+              </div>
             </div>
           </Box>
         </Modal>
