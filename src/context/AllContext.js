@@ -428,7 +428,8 @@ export const AllContext = ({ children }) => {
     montoCarrito,
     montoEfecivo,
     montoDebito,
-    montoCredito
+    montoCredito,
+    necesitaVuelto
   ) => {
     //REFRESCO EL STOCK EN LA BD ANTES DE GENERAR LA VENTA
     refreshStockProductos();
@@ -465,6 +466,24 @@ export const AllContext = ({ children }) => {
         };
       }),
       Vendedor: vendedorActivo,
+    }).then((docRef) => {
+      if (necesitaVuelto) {
+        Swal.fire({
+          icon: "success",
+          title: `VENTA REALIZADA - ID: ${docRef.id} `,
+          text: `EL VUELTO ES DE $${
+            parseInt(montoEfecivo) - parseInt(montoCarrito)
+          }`,
+          confirmButtonText: "Aceptar",
+        });
+      } else {
+        //SI ES QUE NO NECESITA VUELTO
+        Swal.fire({
+          icon: "success",
+          title: `VENTA REALIZADA - ID: ${docRef.id} `,
+          confirmButtonText: "Aceptar",
+        });
+      }
     });
 
     setTimeout(() => {

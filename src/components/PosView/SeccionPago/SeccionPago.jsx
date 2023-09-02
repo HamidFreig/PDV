@@ -107,11 +107,6 @@ export const SeccionPago = () => {
         parseInt(montoCarrito)
       ) {
         //SI EL MONTO ES IGUAL
-        Swal.fire({
-          icon: "success",
-          title: "VENTA REALIZADA",
-          confirmButtonText: "Aceptar",
-        });
 
         //AGREGO LA VENTA A LA BD
         addSale(
@@ -120,7 +115,8 @@ export const SeccionPago = () => {
           montoCarrito,
           montoEfectivo,
           montoDebito,
-          montoCredito
+          montoCredito,
+          false //FALSE =  NO NECESITA VUELTO
         );
         //LIMPIO EL CARRITO
         cleanCart();
@@ -130,14 +126,6 @@ export const SeccionPago = () => {
         parseInt(montoCredito) == 0
       ) {
         //SI SOLO SE PAGA EN EFECTIVO Y EL MONTO ES MAYOR, REQUIERE VUELTO
-        Swal.fire({
-          icon: "success",
-          title: "VENTA REALIZADA",
-          text: `EL VUELTO ES DE $${
-            parseInt(montoEfectivo) - parseInt(montoCarrito)
-          }`,
-          confirmButtonText: "Aceptar",
-        });
 
         //AGREGO LA VENTA A LA BD
         addSale(
@@ -146,7 +134,8 @@ export const SeccionPago = () => {
           montoCarrito,
           montoEfectivo,
           montoDebito,
-          montoCredito
+          montoCredito,
+          true
         );
 
         //LIMPIO EL CARRITO
