@@ -10,11 +10,14 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
 export const ModificateUser = () => {
-  const { modificateUser, modifyUser, modifyContraseñaUser, usersList } =
+  const { modificateUser, modifyUser, modifyContraseñaUser, modifyNombre, usersList } =
     useContext(BDContext);
   const [modifyRut, setModifyRut] = useState(modificateUser.Rut);
   const [modifyContraseña, setModifyContraseña] = useState(
     modificateUser.Contraseña
+  );
+  const [modifyName, setModifyName] = useState(
+    modificateUser.Nombre
   );
 
   const HandleInputChangeRut = (event) => {
@@ -26,6 +29,12 @@ export const ModificateUser = () => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
     setModifyContraseña(event.target.value);
   };
+
+  const HandleInputChangeName = (event) => {
+    //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
+    setModifyName(event.target.value);
+  };
+
 
   const functionModifyRut = (modifyRut) => {
     if (
@@ -72,6 +81,23 @@ export const ModificateUser = () => {
     }
   };
 
+  const functionModifyName = (modifyName) => {
+    if (
+      modifyName == modificateUser.Nombre ||
+      modificateUser.length == 0
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "NOMBRE INVÁLIDO",
+        timer: 2000,
+      });
+    } else {
+      modifyNombre(modifyName);
+    }
+  };
+
+  
+
   return (
     <div
       style={{
@@ -90,6 +116,7 @@ export const ModificateUser = () => {
         <div className="izq">
           <div className="CardUser">
             <label>RUT: {modificateUser.Rut} </label>
+            <label>RUT: {modificateUser.Nombre} </label>
             <label>CONTRASEÑA: {modificateUser.Contraseña} </label>
           </div>
         </div>
@@ -109,6 +136,21 @@ export const ModificateUser = () => {
             >
               MODIFICAR RUT
             </Button>
+            <TextField
+              className="InputOption"
+              id="ModifyName"
+              label="Nuevo Nombre"
+              type="text"
+              onChange={HandleInputChangeName}
+            />
+            <Button
+              variant="contained"
+              color="success"
+              onClick={() => functionModifyName(modifyName)}
+            >
+              MODIFICAR NOMBRE
+            </Button>
+
             <TextField
               className="InputOption"
               id="ModifyContraseña"

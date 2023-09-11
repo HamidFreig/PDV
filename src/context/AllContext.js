@@ -114,6 +114,19 @@ export const AllContext = ({ children }) => {
     });
     navigate("/admin");
   };
+
+  const modifyNombre = (newNombre) => {
+    updateDoc(doc(db, "Usuarios", modificateUser.id), {
+      Nombre: newNombre,
+    });
+    Swal.fire({
+      icon: "success",
+      title: "NOMBRE MODIFICADO CON EXITO",
+      timer: 2000,
+    });
+    navigate("/admin");
+  };
+
   const refreshPrice = (idProduct, newPrice) => {
     updateDoc(doc(db, "Productos", idProduct), {
       Precio: parseInt(newPrice),
@@ -528,6 +541,7 @@ export const AllContext = ({ children }) => {
         deleteUser,
         modifyUser,
         modifyContraseñaUser,
+        modifyNombre,
         modificateUser,
         setModificateUser,
         productsList,
