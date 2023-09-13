@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 
 export const ClosingDay = ({ listVentas, listI, listE, apertura }) => {
   const [MontoCerrarCaja, setMontoCerrarCaja] = useState(0);
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const { addCloseDay } = useContext(BDContext);
   const navigate = useNavigate();
 
@@ -51,7 +52,7 @@ export const ClosingDay = ({ listVentas, listI, listE, apertura }) => {
       const fechaHoraActual = new Date();
 
       // Obtener la fecha actual
-      const fechaActual = fechaHoraActual.toLocaleDateString();
+      const fechaActual = currentDateTime.toLocaleDateString();
 
       // Obtener la hora actual
       const horaActual = fechaHoraActual.toLocaleTimeString();

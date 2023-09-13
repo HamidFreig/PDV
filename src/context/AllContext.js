@@ -13,6 +13,9 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export const AllContext = ({ children }) => {
+  const [fechaActual, setfechaActual] = useState(
+    new Date().toLocaleDateString()
+  );
   const [usersList, setUserList] = useState([]);
   const [productsList, setProductsList] = useState([]);
   const [vendedorActivo, setVendedorActivo] = useState("");
@@ -514,6 +517,118 @@ export const AllContext = ({ children }) => {
     });
   };
 
+  //FUNCION PARA EL CIERRE AUTOMATICO
+
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      const fechaHoraActual = new Date();
+      const partes = fechaHoraActual.toLocaleTimeString().split(":");
+      const horas = parseInt(partes[0], 10);
+      const minutos = parseInt(partes[1], 10);
+      const segundos = parseInt(partes[2], 10);
+
+      if (horas == 23 && minutos == 59 && segundos >= 50) {
+        const Separador = "/";
+        const FechaSplit = currentDateTime
+          .toLocaleDateString()
+          .split(Separador);
+        const DiaSplit = parseInt(FechaSplit[0]);
+        const MesSplit = parseInt(FechaSplit[1]);
+        const AñoSplit = parseInt(FechaSplit[2]);
+
+        //FILTRADO DE VENTAS
+        const filterVentas = () => {
+          const Ventas = listVentas.filter((dato) => {
+            return (
+              dato.Fecha.Dia == DiaSplit &&
+              dato.Fecha.Mes == MesSplit &&
+              dato.Fecha.Año == AñoSplit
+            );
+          });
+          return Ventas;
+        };
+
+        //FILTRADO DE INGRESOS
+        const filterIngresos = () => {
+          const Ingresos = ingresos.filter((dato) => {
+            return (
+              dato.Dia == DiaSplit &&
+              dato.Mes == MesSplit &&
+              dato.Año == AñoSplit
+            );
+          });
+          return Ingresos;
+        };
+
+        //FILTRADO DE EGRESOS
+        const filterEgresos = () => {
+          const Egresos = egresos.filter((dato) => {
+            return (
+              dato.Dia == DiaSplit &&
+              dato.Mes == MesSplit &&
+              dato.Año == AñoSplit
+            );
+          });
+          return Egresos;
+        };
+
+        //FILTRADO DE APERTURA
+        const filterApertura = () => {
+          const Apertura = aperturas.filter((dato) => {
+            return dato.Fecha == `${DiaSplit}/${MesSplit}/${AñoSplit}`;
+          });
+          return Apertura;
+        };
+
+        const MontoApertura = filterApertura().reduce(
+          (acc, curr) => acc + curr.MontoApertura,
+          0
+        );
+        const MontoVentaEfectivo = filterVentas().reduce(
+          (acc, curr) => acc + curr.MontoEfectivo,
+          0
+        );
+        const MontoIngreso = filterIngresos().reduce(
+          (acc, curr) => acc + curr.MontoIngreso,
+          0
+        );
+        const MontoEgreso = filterEgresos().reduce(
+          (acc, curr) => acc + curr.MontoEgreso,
+          0
+        );
+
+        if (flagApertura(fechaActual) && !flagCierres(fechaActual)) {
+          const MontoCierreAutomatico =
+            MontoApertura + MontoVentaEfectivo + MontoIngreso - MontoEgreso;
+          addCloseDayAutomatic(
+            MontoCierreAutomatico,
+            currentDateTime.toLocaleDateString(),
+            fechaHoraActual.toLocaleTimeString()
+          );
+        }
+      }
+    }, 10000);
+
+    return () => clearInterval(intervalo);
+  }, []);
+
+  //FUNCION PARA EL CIERRE AUTOMATICO
+
+  const addCloseDayAutomatic = (MontoCierre, Fecha, Hora) => {
+    const db = getFirestore();
+    const querySnapshot = collection(db, "Cierres");
+    addDoc(querySnapshot, {
+      MontoCierre: parseInt(MontoCierre),
+      Fecha: Fecha,
+      Hora: Hora,
+    });
+    setTimeout(() => {
+      navigate("/");
+    }, 1000);
+  };
+
   const getCierres = () => {
     getDocs(querySnapshotCierres)
       .then((response) => {
@@ -579,6 +694,7 @@ export const AllContext = ({ children }) => {
         getCierres,
         cierres,
         flagCierres,
+        addCloseDayAutomatic,
       }}
     >
       {children}
