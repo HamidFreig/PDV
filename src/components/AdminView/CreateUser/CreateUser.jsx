@@ -102,6 +102,7 @@ export const CreateUser = () => {
               type="number"
               id="rut"
               name="rut"
+              placeholder="SI EL DIGITO VERIFICADOR ES K, REEMPLAZAR POR 1"
               onChange={HandleInputChange}
             />
           </div>

@@ -10,19 +10,27 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
 export const ModificateUser = () => {
-  const { modificateUser, modifyUser, modifyContraseñaUser, modifyNombre, usersList } =
-    useContext(BDContext);
+  const {
+    modificateUser,
+    modifyUser,
+    modifyContraseñaUser,
+    modifyNombre,
+    usersList,
+  } = useContext(BDContext);
   const [modifyRut, setModifyRut] = useState(modificateUser.Rut);
   const [modifyContraseña, setModifyContraseña] = useState(
     modificateUser.Contraseña
   );
-  const [modifyName, setModifyName] = useState(
-    modificateUser.Nombre
-  );
+  const [modifyName, setModifyName] = useState(modificateUser.Nombre);
 
   const HandleInputChangeRut = (event) => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
     setModifyRut(event.target.value);
+    const maxLength = 8;
+
+    if (modifyRut.length > maxLength) {
+      event.target.value = modifyRut.slice(0, maxLength + 1); // Trunca el texto si es demasiado largo
+    }
   };
 
   const HandleInputChangeContraseña = (event) => {
@@ -34,7 +42,6 @@ export const ModificateUser = () => {
     //GUARDAR LOS DATOS TECLEADOS DE LOS INPUTS EN EL STATE
     setModifyName(event.target.value);
   };
-
 
   const functionModifyRut = (modifyRut) => {
     if (
@@ -82,10 +89,7 @@ export const ModificateUser = () => {
   };
 
   const functionModifyName = (modifyName) => {
-    if (
-      modifyName == modificateUser.Nombre ||
-      modificateUser.length == 0
-    ) {
+    if (modifyName == modificateUser.Nombre || modificateUser.length == 0) {
       Swal.fire({
         icon: "error",
         title: "NOMBRE INVÁLIDO",
@@ -95,8 +99,6 @@ export const ModificateUser = () => {
       modifyNombre(modifyName);
     }
   };
-
-  
 
   return (
     <div
@@ -127,6 +129,9 @@ export const ModificateUser = () => {
               id="ModifyRut"
               label="Nuevo Rut"
               type="number"
+              inputProps={{
+                maxLength: 8, // Establece el número máximo de caracteres permitidos
+              }}
               onChange={HandleInputChangeRut}
             />
             <Button

@@ -52,3 +52,8 @@ input {
   font-size: 20px;
   cursor: pointer;
 }
+
+#rut::placeholder {
+  font-size: 10px;
+  text-align: center;
+}

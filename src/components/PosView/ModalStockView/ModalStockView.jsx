@@ -61,7 +61,7 @@ export const ModalStockView = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 300,
+    width: 280,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -99,15 +99,11 @@ export const ModalStockView = () => {
           </div>
           <div
             className="TableStock"
-            style={
-              isMobile
-                ? { width: "300px" }
-                : { width: "700px", height: "250px" }
-            }
+            style={isMobile ? { width: "300px" } : { width: "700px" }}
           >
             <TableContainer component={Paper}>
               <Table
-                sx={{ minWidth: 600 }}
+                sx={{ minWidth: 600, height: 100 }}
                 size="small"
                 aria-label="a dense table"
               >
