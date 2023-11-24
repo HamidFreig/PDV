@@ -36,10 +36,18 @@ export const PosView = () => {
       }}
     >
       <div className="navBarPrincipal">
-        <button className="Button-Out" onClick={() => navigate("/")}>
+        <button
+          className="Button-Out"
+          onClick={() => {
+            navigate("/");
+            localStorage.clear();
+          }}
+        >
           SALIR
         </button>
-        <h1 className="Usuario">BIENVENIDO USUARIO: {vendedorActivo}</h1>
+        <h1 className="Usuario">
+          BIENVENIDO USUARIO: {localStorage.getItem("userRut")}
+        </h1>
       </div>
 
       <label style={{ backgroundColor: "white", marginBottom: "40PX" }}>

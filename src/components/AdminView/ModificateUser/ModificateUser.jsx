@@ -118,7 +118,7 @@ export const ModificateUser = () => {
         <div className="izq">
           <div className="CardUser">
             <label>RUT: {modificateUser.Rut} </label>
-            <label>RUT: {modificateUser.Nombre} </label>
+            <label>NOMBRE: {modificateUser.Nombre} </label>
             <label>CONTRASEÑA: {modificateUser.Contraseña} </label>
           </div>
         </div>

@@ -481,7 +481,7 @@ export const AllContext = ({ children }) => {
           PrecioProducto: product.PrecioProducto,
         };
       }),
-      Vendedor: vendedorActivo,
+      Vendedor: localStorage.getItem("userRut"),
     }).then((docRef) => {
       if (necesitaVuelto) {
         Swal.fire({

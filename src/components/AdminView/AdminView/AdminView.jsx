@@ -40,7 +40,13 @@ export const AdminView = () => {
         height: "auto",
       }}
     >
-      <button className="Button-Out" onClick={ButtonOut}>
+      <button
+        className="Button-Out"
+        onClick={() => {
+          navigate("/");
+          localStorage.clear();
+        }}
+      >
         SALIR
       </button>
       <label style={{ backgroundColor: "white" }}>

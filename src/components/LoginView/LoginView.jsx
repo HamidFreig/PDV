@@ -76,15 +76,16 @@ export const LoginView = () => {
     setTimeout(() => {
       if (userLogin.TipoUsuario === "Admin") {
         localStorage.setItem("userActive", "Admin");
+        localStorage.setItem("userRut", datosInput.rut);
         navigate("/admin");
       } else if (userLogin.TipoUsuario === "Vendedor") {
         if (flagApertura(fechaActual) && !flagCierres(fechaActual)) {
           localStorage.setItem("userActive", "Vendedor");
+          localStorage.setItem("userRut", datosInput.rut);
           getProductos();
           getEgresos();
           getIngresos();
           getVentas();
-          setVendedorActivo(datosInput.rut);
           navigate("/pos");
         } else {
           Swal.fire({
