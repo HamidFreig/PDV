@@ -1,6 +1,6 @@
 ## LINK DEL PROYECTO
 
-https://pdv-hamidfreig.vercel.app/
+https://pdv-unab.vercel.app/
 
 ## CREDENCIALES
 
