@@ -75,9 +75,11 @@ export const LoginView = () => {
   const redirectPage = (userLogin) => {
     setTimeout(() => {
       if (userLogin.TipoUsuario === "Admin") {
+        localStorage.setItem("userActive", "Admin");
         navigate("/admin");
       } else if (userLogin.TipoUsuario === "Vendedor") {
         if (flagApertura(fechaActual) && !flagCierres(fechaActual)) {
+          localStorage.setItem("userActive", "Vendedor");
           getProductos();
           getEgresos();
           getIngresos();
