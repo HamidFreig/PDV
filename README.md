@@ -1,6 +1,5 @@
 ## LINK DEL PROYECTO
 
-(ABRIR EN MODO INCOGNITO)
 https://pdv-unab.vercel.app/
 
 ## CREDENCIALES
