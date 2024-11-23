@@ -45,3 +45,7 @@ Separacion de funcionalidades segun tipo de usuario.
 
 Front-end: Html, Css, Javascript, ReactJs
 Base de datos: Firebase Cloud
+
+![image](https://github.com/user-attachments/assets/a9bec4a2-c408-4824-9185-2225e3a8a798)
+
+
