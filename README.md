@@ -41,11 +41,18 @@ Separacion de funcionalidades segun tipo de usuario.
 3. Egresos de dineros.
 4. Ingreso de ventas de productos.
 
-## ¿Con qué tecnologías se realizó el proyecto
+## ¿Con qué tecnologías se realizó el proyecto?
 
 Front-end: Html, Css, Javascript, ReactJs
 Base de datos: Firebase Cloud
 
+## Capturas
+
+1. Login
+![image](https://github.com/user-attachments/assets/aed36f38-087b-4232-bdb2-ec1fa95e5550)
+2. Admin Panel
+![image](https://github.com/user-attachments/assets/44b56e21-7508-4e94-ba47-da6b4dcfaf79)
+3. Vendedor Panel
 ![image](https://github.com/user-attachments/assets/a9bec4a2-c408-4824-9185-2225e3a8a798)
 
 
